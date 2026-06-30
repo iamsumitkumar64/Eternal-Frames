@@ -128,15 +128,18 @@ export default function UserRegisterPage() {
                     )}
                 </Box>
 
-                <Button
-                    type="submit"
-                    className={styles.button}
-                >
-                    Create Customer Account
-                </Button>
+                <Box className={styles.buttonTopBox}>
+                    <Button
+                        type="submit"
+                        className={styles.button}
+                    >
+                        Create Customer Account
+                    </Button>
+                </Box>
 
-                <Box>
-                    <Typography>Already have an Account?</Typography>
+                <Box className={styles.buttonBottomBox}>
+                    <Typography className={styles.alreadyAccountTitle}>Already have an Account?</Typography>
+
                     <Button
                         className={styles.loginBtn}
                         onClick={() => router.push("/auth/user/login")}
