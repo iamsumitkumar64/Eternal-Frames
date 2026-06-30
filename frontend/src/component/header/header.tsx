@@ -25,6 +25,10 @@ export default function HomeHeaderComp() {
         }
     }
 
+    const handleSwitchPages = async (path: string) => {
+        router.push(path)
+    }
+
     return (
         <Box className={styles.container}>
             <Box className={styles.leftContainer}>
@@ -34,6 +38,13 @@ export default function HomeHeaderComp() {
             <Box className={styles.rightContainer}>
                 {user ? (
                     <Box className={styles.rightBox}>
+                        <Button
+                            className={styles.logoutbtn}
+                            onClick={async () => { await handleSwitchPages('/gallery') }}
+                        >
+                            Gallery
+                        </Button>
+
                         <Button
                             className={styles.logoutbtn}
                             onClick={async () => { await handleLogOut() }}
