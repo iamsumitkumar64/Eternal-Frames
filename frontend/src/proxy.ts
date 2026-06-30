@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 const publicRoutes = ['/public', '/auth/user/login', '/auth/user/register', '/auth/studio/register', '/'];
-const authBlockRoutes = ['/auth/user/login', '/auth/user/register', '/auth/studio/register', '/'];
+const authBlockRoutes = ['/auth/user/login', '/auth/user/register', '/auth/studio/register'];
 
 export default function proxy(req: NextRequest) {
     const credentials = req.cookies.get("token")?.value;

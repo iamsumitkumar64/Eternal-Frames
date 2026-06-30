@@ -3,7 +3,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { AuthState } from "./auth-type"
 import {
-    signupUser,
+    registerUser,
     loginUser,
     logoutUser,
     getUserProfile,
@@ -37,16 +37,20 @@ const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(signupUser.pending, (state) => {
+            .addCase(registerUser.pending, (state) => {
                 state.loading = true;
                 state.status = "pending"
             })
-            .addCase(signupUser.fulfilled, (state, action) => {
+            .addCase(registerUser.fulfilled, (state, action) => {
                 state.loading = false;
-                state.error = null;
+                state.token = action.payload.access_token
+                state.user = action.payload.user;
                 state.status = "succeed";
+                state.error = null;
+                Cookies.set("token", action.payload.access_token)
+                Cookies.set("role", action.payload.user.role)
             })
-            .addCase(signupUser.rejected, (state, action) => {
+            .addCase(registerUser.rejected, (state, action) => {
                 state.loading = false;
                 state.status = "rejected";
                 state.user = null;

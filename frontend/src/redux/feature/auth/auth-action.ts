@@ -1,16 +1,16 @@
 "use client"
 
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import { SignupSchemaType } from "@/schemas/signup"
+import { RegisterSchemaType } from "@/schemas/register"
 import { persistor } from "@/redux/store"
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8090";
 
-export const signupUser = createAsyncThunk(
-    "auth/signup",
-    async (data: SignupSchemaType, { rejectWithValue }) => {
+export const registerUser = createAsyncThunk(
+    "auth/register",
+    async (data: RegisterSchemaType, { rejectWithValue }) => {
         try {
-            const { confirmPassword, ...payload } = data
+            const { ...payload } = data
 
             const res = await fetch(`${BACKEND_URL}/api/v1/user/register`, {
                 method: "POST",
@@ -25,7 +25,7 @@ export const signupUser = createAsyncThunk(
 
             if (!res.ok) throw new Error(result.message)
 
-            return result
+            return result;
         } catch (error: any) {
             return rejectWithValue(error.message)
         }
