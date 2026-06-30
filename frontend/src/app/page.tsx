@@ -50,6 +50,10 @@ export default function HomePage() {
                     </Box>
                 </Box>
             </Box>
+
+            <Box className={styles.coreCapabilites}>
+
+            </Box>
         </Box>
     )
 }

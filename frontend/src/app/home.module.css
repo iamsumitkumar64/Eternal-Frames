@@ -22,8 +22,10 @@
 
 .leftbusinessInfoBox {
     width: 60%;
+    height: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 10px;
     padding: 0% 10%;
 }
@@ -66,7 +68,7 @@
 
 .businessInfoGetStartedButton,
 .businessInfoExploreFeatureButton {
-    border: 1px solid rgb(101, 101, 101);
+    border: 1px solid #6c4600;
     border-radius: 5px;
     padding: 1% 2%;
 }
@@ -82,16 +84,23 @@
 
 .rightbusinessInfoBox {
     width: 35%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .buisnessInfoImageBox {
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .buisnessInfoImage {
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 90%;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -108,7 +117,7 @@
     padding: 1%;
     gap: 3%;
     position: absolute;
-    top: 63%;
+    top: 65%;
     right: 23%;
 }
 
