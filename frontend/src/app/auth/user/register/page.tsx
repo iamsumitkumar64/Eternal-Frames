@@ -6,13 +6,13 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { registerSchema, RegisterSchemaType } from "@/schemas/register"
 import { registerUser } from "@/redux/feature/auth/auth-action"
 import { useRouter } from "next/navigation"
-import { Box, Button, Card, IconButton, InputAdornment, TextField, Typography } from "@mui/material"
+import { Box, Button, Card, IconButton, InputAdornment, InputLabel, TextField, Typography } from "@mui/material"
 import { enqueueSnackbar } from "notistack"
 import { useAppDispatch } from "@/redux/hooks.ts"
 import { UserRoleEnum } from "@/redux/feature/auth/user.enum"
 import { useState } from "react"
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 export default function UserRegisterPage() {
     const dispatch = useAppDispatch();
@@ -48,26 +48,26 @@ export default function UserRegisterPage() {
 
     return (
         <Box className={styles.container}>
-            <Typography variant="h5" className={styles.title}>
-                Join Us! It's free
-            </Typography>
+            <Box className={styles.header}>
+                <Typography className={styles.title}>
+                    Create Customer Account
+                </Typography>
+
+                <Typography className={styles.description}>
+                    Enter your details to join the celebration.
+                </Typography>
+            </Box>
 
             <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
                 <Box className={styles.field}>
+                    <InputLabel htmlFor={`${1}-input`}>Full Name</InputLabel>
+
                     <TextField
-                        label="Name"
+                        id={`${1}-input`}
                         type="text"
                         fullWidth
                         {...register("name")}
                         variant="standard"
-                        slotProps={{
-                            input: {
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                    </InputAdornment>
-                                ),
-                            },
-                        }}
                     />
                     {errors.name && (
                         <span className={styles.error}>
@@ -77,20 +77,14 @@ export default function UserRegisterPage() {
                 </Box>
 
                 <Box className={styles.field}>
+                    <InputLabel htmlFor={`${2}-input`}>Email Address</InputLabel>
+
                     <TextField
-                        label="Email"
+                        id={`${2}-input`}
                         type="email"
                         fullWidth
                         {...register("email")}
                         variant="standard"
-                        slotProps={{
-                            input: {
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                    </InputAdornment>
-                                ),
-                            },
-                        }}
                     />
                     {errors.email && (
                         <span className={styles.error}>
@@ -100,8 +94,10 @@ export default function UserRegisterPage() {
                 </Box>
 
                 <Box className={styles.field}>
+                    <InputLabel htmlFor={`${3}-input`}>Password</InputLabel>
+
                     <TextField
-                        label="Password"
+                        id={`${3}-input`}
                         type={showPassword ? 'text' : 'password'}
                         fullWidth
                         {...register("password")}
@@ -118,7 +114,7 @@ export default function UserRegisterPage() {
                                             onMouseDown={handleMouseDownPassword}
                                             onMouseUp={handleMouseUpPassword}
                                         >
-                                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                                            {showPassword ? <LockOutlinedIcon /> : <LockOpenIcon />}
                                         </IconButton>
                                     </InputAdornment>
                                 ),
