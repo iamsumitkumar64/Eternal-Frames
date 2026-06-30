@@ -9,10 +9,17 @@ export class RegisterUserController {
 
     @Post()
     async registerUser(@Req() req: Request, @Body() body: RegisterUserDto) {
-        await this.registerUserService.handle(req, body);
+        const { token, RegisteredUser } = await this.registerUserService.handle(req, body);
 
         return {
-            message: "Registered User Suceess"
+            message: "Registered User Suceess",
+            access_token: token,
+            user: {
+                name: RegisteredUser.name,
+                email: RegisteredUser.email,
+                uuid: RegisteredUser.uuid,
+                role: RegisteredUser.role,
+            }
         }
     }
 }

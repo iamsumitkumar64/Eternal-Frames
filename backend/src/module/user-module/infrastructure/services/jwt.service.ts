@@ -11,6 +11,7 @@ export class JwtHelperService {
             uuid: userObj.uuid,
             email: userObj.email,
             name: userObj.name,
+            role: userObj.role,
         };
 
         return await this.jwtService.signAsync(payload);

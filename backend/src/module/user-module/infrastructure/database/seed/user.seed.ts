@@ -2,6 +2,7 @@ import { faker } from '@faker-js/faker';
 import { userDataSource, options } from '../data-source';
 import { BcryptService } from '../../../../../common/infrastruture/services/bcrypt.service';
 import { UserEntity } from '../../../domain/user/user.entity';
+import { UserRoleEnum } from 'src/module/user-module/domain/user/user.role';
 
 // hardcoded users for all microservices
 const users = [
@@ -9,6 +10,7 @@ const users = [
         uuid: 'c0a80101-7b1d-4a9f-8c1a-123456789001',
         email: 'user1@gmail.com',
         name: 'user 1',
+        role: UserRoleEnum.STUDIO,
         created_at: new Date('2025-01-01T00:00:00.000Z'),
     },
     {
@@ -16,6 +18,7 @@ const users = [
         email: 'user2@gmail.com',
         name: 'user 2',
         created_at: new Date('2025-01-02T00:00:00.000Z'),
+        role: UserRoleEnum.CUSTOMER,
     },
 ];
 
@@ -43,6 +46,7 @@ async function create() {
                 email: user.email,// faker.internet.email(),
                 password: hashedPassword,
                 name: user.name,// faker.person.fullName(),
+                role: user.role,
             });
 
             console.log(created_user);

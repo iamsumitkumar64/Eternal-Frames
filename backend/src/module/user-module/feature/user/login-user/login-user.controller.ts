@@ -14,9 +14,10 @@ export class LoginUserController {
             message: "Logged In User",
             access_token: token,
             user: {
-                name: isUserExists[0].name,
-                email: isUserExists[0].email,
-                uuid: isUserExists[0].uuid,
+                name: isUserExists.name,
+                email: isUserExists.email,
+                uuid: isUserExists.uuid,
+                role: isUserExists.role,
             }
         }
     }

@@ -53,6 +53,7 @@ export class RegisterUserService {
             message_payload: RegisteredUser,
         });
 
-        return;
+
+        return { token, RegisteredUser };
     }
 }
