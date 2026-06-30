@@ -6,6 +6,8 @@ import CheckIcon from '@mui/icons-material/Check';
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 import HighQualityIcon from '@mui/icons-material/HighQuality';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import CollectionsIcon from '@mui/icons-material/Collections';
+import CameraEnhanceIcon from '@mui/icons-material/CameraEnhance';
 
 export default function HomePage() {
     return (
@@ -85,6 +87,34 @@ export default function HomePage() {
                 <Box className={styles.chooseExperienceTitleBox}>
                     <Typography className={styles.chooseExperienceTitle} >Choose Your Experience</Typography>
                     <Typography className={styles.chooseExperienceDescription}>Select the path that best fits your needs today. Whether preserving a single moment or managing a legacy.</Typography>
+                </Box>
+
+                <Box className={styles.chooseExperienceContainer}>
+                    <Box className={styles.chooseExperienceBox}>
+                        <CollectionsIcon className={styles.chooseExperienceBoxIconButton} />
+
+                        <Box>
+                            <Typography className={styles.chooseExperienceBoxTitle} >Simple User</Typography>
+                            <Typography className={styles.chooseExperienceBoxDescription} >Register to watch and download beautifully captured moments. Get your exclusive event link directly from the studio.</Typography>
+                        </Box>
+
+                        <Button className={styles.chooseExperienceBoxRegisterCustomerButton}>
+                            Register As Customer
+                        </Button>
+                    </Box>
+
+                    <Box className={styles.chooseExperienceBox}>
+                        <CameraEnhanceIcon className={styles.chooseExperienceBoxIconButton} />
+
+                        <Box>
+                            <Typography className={styles.chooseExperienceBoxTitle} >Professional Studio</Typography>
+                            <Typography className={styles.chooseExperienceBoxDescription} >Register your studio to start creating high-end event galleries, managing your portfolio, and delivering premium digital experiences.</Typography>
+                        </Box>
+
+                        <Button className={styles.chooseExperienceBoxRegisterStudioButton}>
+                           Create Studio Account
+                        </Button>
+                    </Box>
                 </Box>
             </Box>
         </Box>

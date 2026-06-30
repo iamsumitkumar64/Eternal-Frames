@@ -215,8 +215,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #fffbee;
-    padding-bottom: 5%;
+    background-color: #efefef;
+    padding-bottom: 10%;
+    gap: 10%;
 }
 
 .chooseExperienceTitleBox {
@@ -239,4 +240,60 @@
     width: 30%;
     font-size: .98rem;
     color: #696969;
+}
+
+.chooseExperienceContainer {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+}
+
+.chooseExperienceBox {
+    width: 25%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    padding: 3% 2%;
+    aspect-ratio: 1/.3;
+    border-radius: 16px;
+    gap: 100%;
+}
+
+.chooseExperienceBoxIconButton {
+    font-size: 3rem;
+}
+
+.chooseExperienceBoxTitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: rgb(0, 0, 0);
+}
+
+.chooseExperienceBoxDescription {
+    font-size: 1rem;
+    color: #696969;
+}
+
+.chooseExperienceBoxRegisterCustomerButton,
+.chooseExperienceBoxRegisterStudioButton {
+    width: 100%;
+    border-radius: 4px;
+    padding: 2% 0;
+}
+
+.chooseExperienceBoxRegisterCustomerButton {
+    color: #6e4700;
+    border: 2px solid #CBA65E;
+}
+
+.chooseExperienceBoxRegisterStudioButton {
+    color: white;
+    background-color: #6e4700;
+    border: 2px solid #6e4700;
 }
