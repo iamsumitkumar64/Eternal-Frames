@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 import { userDataSource, options } from '../data-source';
 import { BcryptService } from '../../../../../common/infrastruture/services/bcrypt.service';
 import { UserEntity } from '../../../domain/user/user.entity';
-import { UserRoleEnum } from 'src/module/user-module/domain/user/user.role';
+import { UserRoleEnum } from 'src/module/user-module/domain/user/user.enum';
 
 // hardcoded users for all microservices
 const users = [

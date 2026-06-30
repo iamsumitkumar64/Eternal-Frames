@@ -1,0 +1,78 @@
+.container {
+    width: 100%;
+    height: 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1%;
+    background-color: #151515;
+    color: #A0A3FF;
+    border-bottom: 1px solid #222222;
+}
+
+.leftContainer {
+    width: 50%;
+    gap: 20px;
+}
+
+.title {
+    font-size: 1.5rem;
+    padding: 1%;
+    color: #8f93ff;
+    border-radius: 50px;
+    font-weight: 800;
+}
+
+.viewerCountBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(67, 67, 67);
+    background-color: #1d1d1d;
+    border-radius: 20px;
+    padding: 0 1.5%;
+    gap: 10px;
+}
+
+.viewerCountIcon {
+    color: rgb(255, 81, 81);
+}
+
+.viewerCount {
+    color: #d8daff;
+    font-size: 1rem;
+}
+
+.rightContainer {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 1%;
+}
+
+.logoutbtn {
+    color: rgb(255, 87, 87);
+    font-weight: 700;
+}
+
+.logoutbtn:hover {
+    color: rgb(255, 47, 47);
+}
+
+.loginButton {
+    font-weight: 700;
+    color: #bbbdff;
+}
+
+.createRoomButton {
+    font-weight: 700;
+    color: #2F2EBE;
+    background-color: #bbbdff;
+    border-radius: 20px;
+}
+
+.iconButton {
+    font-weight: 700;
+    color: #d6d8ff;
+}
