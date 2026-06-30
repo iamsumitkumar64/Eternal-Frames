@@ -46,7 +46,9 @@ export default function HomePage() {
                     </Box>
 
                     <Box className={styles.buisnessInfoImageTagBox}>
-                        <VerifiedOutlinedIcon className={styles.verifyIconButton} />
+                        <Box className={styles.buisnessInfoIconInfo}>
+                            <VerifiedOutlinedIcon className={styles.verifyIconButton} />
+                        </Box>
 
                         <Box className={styles.buisnessInfoImageTagInfo}>
                             <Typography className={styles.buisnessInfoImageTagInfop1}>Trusted by Professionals</Typography>
