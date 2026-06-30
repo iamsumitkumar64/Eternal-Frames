@@ -2,7 +2,7 @@ import { Box, Button, Typography } from '@mui/material';
 import styles from './home.module.css';
 import HomeHeaderComp from '@/component/common/header/header';
 import Image from 'next/image';
-import CheckIcon from '@mui/icons-material/Check';
+import VerifiedOutlinedIcon from '@mui/icons-material/VerifiedOutlined';
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 import HighQualityIcon from '@mui/icons-material/HighQuality';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
@@ -46,7 +46,7 @@ export default function HomePage() {
                     </Box>
 
                     <Box className={styles.buisnessInfoImageTagBox}>
-                        <CheckIcon className={styles.iconButton} />
+                        <VerifiedOutlinedIcon className={styles.verifyIconButton} />
 
                         <Box className={styles.buisnessInfoImageTagInfo}>
                             <Typography className={styles.buisnessInfoImageTagInfop1}>Trusted by Professionals</Typography>
