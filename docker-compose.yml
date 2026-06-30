@@ -44,19 +44,19 @@ services:
     networks:
       - eternal_frame_network
 
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: dockerfile
-  #   ports:
-  #     - "3000:3000"
-  #   command: sh -c "npm run build && npm run dev"
-  #   env_file: ./frontend/.env
-  #   volumes:
-  #     - ./frontend:/app
-  #     - /app/node_modules 
-  #   networks:
-  #     - eternal_frame_network
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: dockerfile
+    ports:
+      - "3000:3000"
+    command: sh -c "npm run build && npm run dev"
+    env_file: ./frontend/.env
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules 
+    networks:
+      - eternal_frame_network
 
   backend:
     build:
