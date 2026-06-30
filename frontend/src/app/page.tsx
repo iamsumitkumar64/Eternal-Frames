@@ -1,6 +1,6 @@
 import { Box, Button, Typography } from '@mui/material';
 import styles from './home.module.css';
-import HomeHeaderComp from '@/component/home-page/header/header';
+import HomeHeaderComp from '@/component/header/header';
 import Image from 'next/image';
 import CheckIcon from '@mui/icons-material/Check';
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
