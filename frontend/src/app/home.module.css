@@ -2,6 +2,7 @@
     width: 100%;
     height: 100%;
     display: flex;
+    position: relative;
     flex-direction: column;
 }
 
@@ -12,8 +13,119 @@
 
 .businessInfo {
     width: 100%;
-    height: 20%;
+    height: 70%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
+}
+
+.leftbusinessInfoBox {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0% 10%;
+}
+
+.businessEstablished {
+    width: fit-content;
+    color: #6e4700;
+    padding: .5% 1%;
+    border: 1px solid #C5A059;
+    border-radius: 8px;
+}
+
+.businessInfoDetails {
+    display: flex;
+    flex-direction: column;
+}
+
+.businessInfoTitle,
+.businessInfoTitleSpan {
+    width: 80%;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: rgb(0, 0, 0);
+}
+
+.businessInfoTitleSpan {
+    color: #9c6500;
+}
+
+.businessInfoDescription {
+    color: rgb(0, 0, 0);
+}
+
+.businessInfoButtons {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 2%;
+}
+
+.businessInfoGetStartedButton,
+.businessInfoExploreFeatureButton {
+    border: 1px solid rgb(101, 101, 101);
+    border-radius: 5px;
+    padding: 1% 2%;
+}
+
+.businessInfoGetStartedButton {
+    color: white;
+    background-color: #9c6500;
+}
+
+.businessInfoExploreFeatureButton {
+    color: black;
+}
+
+.rightbusinessInfoBox {
+    width: 35%;
+}
+
+.buisnessInfoImageBox {
+    width: 100%;
+    height: 100%;
+}
+
+.buisnessInfoImage {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 16px;
+}
+
+.buisnessInfoImageTagBox {
+    width: 15%;
+    display: flex;
+    background-color: white;
+    border: 1px solid rgb(234, 234, 234);
+    box-shadow: 0 0 12px 0 black;
+    border-radius: 8px;
+    padding: 1%;
+    gap: 3%;
+    position: absolute;
+    top: 63%;
+    right: 23%;
+}
+
+.iconButton {
+    color: #000000;
+    background-color: #C5A059;
+}
+
+.buisnessInfoImageTagInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.buisnessInfoImageTagInfop1 {
+    color: rgb(0, 0, 0);
+}
+
+.buisnessInfoImageTagInfop2 {
+    color: rgb(117, 117, 117);
 }
