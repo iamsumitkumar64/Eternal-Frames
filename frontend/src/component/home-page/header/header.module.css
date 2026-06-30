@@ -1,0 +1,54 @@
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 3.5%;
+    border-bottom: 1px solid #f4f4f4;
+}
+
+.leftContainer {
+    width: 50%;
+    gap: 20px;
+}
+
+.title {
+    font-size: 1.5rem;
+    padding: 1%;
+    border-radius: 50px;
+    font-weight: 800;
+}
+
+.rightContainer {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 1%;
+}
+
+.rightBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.logoutbtn {
+    font-weight: 700;
+    gap: 10px;
+}
+
+.logoutbtn:hover {
+    color: rgb(255, 87, 87);
+}
+
+.loginButton {
+    color: #000000;
+    gap: 10px;
+}
+
+.iconButton {
+    color: #000000;
+}

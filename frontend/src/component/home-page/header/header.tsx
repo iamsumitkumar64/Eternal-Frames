@@ -3,13 +3,14 @@
 import { usePathname, useRouter } from "next/navigation"
 import { Box, Button, IconButton, Typography } from "@mui/material"
 import { RootState } from "@/redux/store"
-import styles from "./header-comp.module.css"
+import styles from "./header.module.css"
 import { logoutUser } from "@/redux/feature/auth/auth-action"
 import { enqueueSnackbar } from "notistack"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks.ts"
-import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
 
-export default function HeaderComp() {
+export default function HomeHeaderComp() {
     const router = useRouter()
     const dispatch = useAppDispatch();
     const { user } = useAppSelector((state: RootState) => state.authReducer);
@@ -27,30 +28,32 @@ export default function HeaderComp() {
     return (
         <Box className={styles.container}>
             <Box className={styles.leftContainer}>
-                <Typography onClick={() => { router.push("/") }} className={styles.title}>Deca Chat</Typography>
+                <Typography onClick={() => { router.push("/") }} className={styles.title}>Eternal Frames</Typography>
             </Box>
 
             <Box className={styles.rightContainer}>
-                <IconButton className={styles.iconButton}><NotificationsNoneOutlinedIcon /></IconButton>
-
                 {user ? (
-                    <>
+                    <Box className={styles.rightBox}>
                         <Button
                             className={styles.logoutbtn}
                             onClick={async () => { await handleLogOut() }}
                         >
+                            <LogoutIcon className={styles.iconButton} />
                             Log Out
                         </Button>
-                    </>
+                    </Box>
                 ) : (
-                    <Button
-                        className={styles.loginButton}
-                        onClick={() => {
-                            router.push("/login")
-                        }}
-                    >
-                        Sign In
-                    </Button>
+                    <Box className={styles.rightBox}>
+                        <Button
+                            className={styles.loginButton}
+                            onClick={() => {
+                                router.push("/login")
+                            }}
+                        >
+                            <LoginIcon className={styles.iconButton} />
+                            Sign In
+                        </Button>
+                    </Box>
                 )}
             </Box>
         </Box >
