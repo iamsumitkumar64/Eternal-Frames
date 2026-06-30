@@ -1,6 +1,6 @@
 import { Box, Button, Typography } from '@mui/material';
 import styles from './home.module.css';
-import HomeHeaderComp from '@/component/header/header';
+import HomeHeaderComp from '@/component/common/header/header';
 import Image from 'next/image';
 import CheckIcon from '@mui/icons-material/Check';
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
@@ -8,6 +8,7 @@ import HighQualityIcon from '@mui/icons-material/HighQuality';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import CollectionsIcon from '@mui/icons-material/Collections';
 import CameraEnhanceIcon from '@mui/icons-material/CameraEnhance';
+import NavButton from '@/component/common/nav-button/nav-button';
 
 export default function HomePage() {
     return (
@@ -98,9 +99,21 @@ export default function HomePage() {
                             <Typography className={styles.chooseExperienceBoxDescription} >Register to watch and download beautifully captured moments. Get your exclusive event link directly from the studio.</Typography>
                         </Box>
 
-                        <Button className={styles.chooseExperienceBoxRegisterCustomerButton}>
-                            Register As Customer
-                        </Button>
+                        <NavButton
+                            title="Register As Customer"
+                            redirectTo="/register/customer"
+                            sx={{
+                                width: '100%',
+                                borderRadius: '4px',
+                                padding: '2% 0',
+                                color: '#6e4700',
+                                border: '2px solid #CBA65E',
+                                '&:hover': {
+                                    border: '2px solid #CBA65E',
+                                    backgroundColor: 'rgba(203, 166, 94, 0.08)',
+                                },
+                            }}
+                        />
                     </Box>
 
                     <Box className={styles.chooseExperienceBox}>
@@ -111,9 +124,22 @@ export default function HomePage() {
                             <Typography className={styles.chooseExperienceBoxDescription} >Register your studio to start creating high-end event galleries, managing your portfolio, and delivering premium digital experiences.</Typography>
                         </Box>
 
-                        <Button className={styles.chooseExperienceBoxRegisterStudioButton}>
-                           Create Studio Account
-                        </Button>
+                        <NavButton
+                            title="Create Studio Account"
+                            redirectTo="/register/studio"
+                            sx={{
+                                width: '100%',
+                                borderRadius: '4px',
+                                padding: '2% 0',
+                                color: 'white',
+                                backgroundColor: '#6e4700',
+                                border: '2px solid #6e4700',
+                                '&:hover': {
+                                    backgroundColor: '#543500',
+                                    borderColor: '#543500',
+                                },
+                            }}
+                        />
                     </Box>
                 </Box>
             </Box>

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-const publicRoutes = ['/public', '/login', '/signup', '/'];
-const authBlockRoutes = ['/login', '/signup'];
+const publicRoutes = ['/public', '/login', '/register/customer', '/register/studio', '/'];
+const authBlockRoutes = ['/login', '/register/customer', '/register/studio', '/'];
 
 export default function proxy(req: NextRequest) {
     const credentials = req.cookies.get("token")?.value;
@@ -18,7 +18,7 @@ export default function proxy(req: NextRequest) {
         return NextResponse.next();
     }
     if (!isAuthenticated && !isPublic) {
-        return NextResponse.redirect(new URL("/signup", req.url));
+        return NextResponse.redirect(new URL("/login", req.url));
     }
 
     return NextResponse.next();

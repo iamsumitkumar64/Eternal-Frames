@@ -279,21 +279,3 @@
     font-size: 1rem;
     color: #696969;
 }
-
-.chooseExperienceBoxRegisterCustomerButton,
-.chooseExperienceBoxRegisterStudioButton {
-    width: 100%;
-    border-radius: 4px;
-    padding: 2% 0;
-}
-
-.chooseExperienceBoxRegisterCustomerButton {
-    color: #6e4700;
-    border: 2px solid #CBA65E;
-}
-
-.chooseExperienceBoxRegisterStudioButton {
-    color: white;
-    background-color: #6e4700;
-    border: 2px solid #6e4700;
-}
