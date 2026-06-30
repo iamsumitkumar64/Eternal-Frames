@@ -4,5 +4,5 @@
     display: flex;
     flex-direction: column;
     overflow: auto;
-    background: red;
+    background: rgb(255, 211, 211);
 }
