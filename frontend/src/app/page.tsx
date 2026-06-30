@@ -101,7 +101,7 @@ export default function HomePage() {
 
                         <NavButton
                             title="Register As Customer"
-                            redirectTo="/register/customer"
+                            redirectTo="/auth/user/register"
                             sx={{
                                 width: '100%',
                                 borderRadius: '4px',
@@ -126,7 +126,7 @@ export default function HomePage() {
 
                         <NavButton
                             title="Create Studio Account"
-                            redirectTo="/register/studio"
+                            redirectTo="/auth/studio/register"
                             sx={{
                                 width: '100%',
                                 borderRadius: '4px',
