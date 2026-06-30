@@ -43,6 +43,10 @@
     flex-direction: column;
 }
 
+.label {
+    color: rgb(66, 66, 66);
+}
+
 .error {
     color: red;
     font-size: 12px;

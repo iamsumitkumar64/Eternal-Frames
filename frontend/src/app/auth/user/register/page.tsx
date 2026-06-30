@@ -60,10 +60,11 @@ export default function UserRegisterPage() {
 
             <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
                 <Box className={styles.field}>
-                    <InputLabel htmlFor={`${1}-input`}>Full Name</InputLabel>
+                    <InputLabel htmlFor={`${1}-input`} className={styles.label}>Full Name</InputLabel>
 
                     <TextField
                         id={`${1}-input`}
+                        placeholder="E.g., Juilanne Vought"
                         type="text"
                         fullWidth
                         {...register("name")}
@@ -77,10 +78,11 @@ export default function UserRegisterPage() {
                 </Box>
 
                 <Box className={styles.field}>
-                    <InputLabel htmlFor={`${2}-input`}>Email Address</InputLabel>
+                    <InputLabel htmlFor={`${2}-input`} className={styles.label}>Email Address</InputLabel>
 
                     <TextField
                         id={`${2}-input`}
+                        placeholder="juilanne@example.com"
                         type="email"
                         fullWidth
                         {...register("email")}
@@ -94,10 +96,11 @@ export default function UserRegisterPage() {
                 </Box>
 
                 <Box className={styles.field}>
-                    <InputLabel htmlFor={`${3}-input`}>Password</InputLabel>
+                    <InputLabel htmlFor={`${3}-input`} className={styles.label}>Password</InputLabel>
 
                     <TextField
                         id={`${3}-input`}
+                        placeholder="XXX-XXX-XXX"
                         type={showPassword ? 'text' : 'password'}
                         fullWidth
                         {...register("password")}

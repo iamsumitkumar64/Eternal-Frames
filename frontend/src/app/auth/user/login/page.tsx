@@ -58,11 +58,12 @@ export default function UserLoginPage() {
 
             <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
                 <Box className={styles.field}>
-                    <InputLabel htmlFor={`${2}-input`}>Email Address</InputLabel>
+                    <InputLabel htmlFor={`${2}-input`} className={styles.label}>Email Address</InputLabel>
 
                     <TextField
                         id={`${2}-input`}
                         type="email"
+                        placeholder="juilanne@example.com"
                         fullWidth
                         {...register("email")}
                         variant="standard"
@@ -75,10 +76,11 @@ export default function UserLoginPage() {
                 </Box>
 
                 <Box className={styles.field}>
-                    <InputLabel htmlFor={`${3}-input`}>Password</InputLabel>
+                    <InputLabel htmlFor={`${3}-input`} className={styles.label}>Password</InputLabel>
 
                     <TextField
                         id={`${3}-input`}
+                        placeholder="XXX-XXX-XXX"
                         type={showPassword ? 'text' : 'password'}
                         fullWidth
                         {...register("password")}
