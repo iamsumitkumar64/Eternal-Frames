@@ -54,7 +54,10 @@ export default function HomePage() {
             </Box>
 
             <Box className={styles.coreCapabilites}>
-                <Typography className={styles.coreCapabilitesTitle} >Core Capabilities</Typography>
+                <Box className={styles.coreCapabilitesTitleBox}>
+                    <Typography className={styles.coreCapabilitesTitle} >Core Capabilities</Typography>
+                    <Typography className={styles.coreCapabilitesdivider} ></Typography>
+                </Box>
 
                 <Box className={styles.capabilityContainer}>
                     <Box className={styles.capabilityBox}>
@@ -74,6 +77,14 @@ export default function HomePage() {
                         <Typography className={styles.capabilityTitle} >Crowdsourced Magic</Typography>
                         <Typography className={styles.capabilityDescription} >Effortlessly collect and curate moments from every attendee into a single, cohesive masterpiece.</Typography>
                     </Box>
+                </Box>
+            </Box>
+
+
+            <Box className={styles.chooseExperience}>
+                <Box className={styles.chooseExperienceTitleBox}>
+                    <Typography className={styles.chooseExperienceTitle} >Choose Your Experience</Typography>
+                    <Typography className={styles.chooseExperienceDescription}>Select the path that best fits your needs today. Whether preserving a single moment or managing a legacy.</Typography>
                 </Box>
             </Box>
         </Box>
