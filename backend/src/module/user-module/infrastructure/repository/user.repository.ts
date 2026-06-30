@@ -26,6 +26,7 @@ export class UserRepository extends Repository<UserEntity> {
                 email: true,
                 name: true,
                 uuid: true,
+                role: true,
             }
         });
         return user;
@@ -41,6 +42,7 @@ export class UserRepository extends Repository<UserEntity> {
                 name: true,
                 uuid: true,
                 password: true,
+                role: true,
             }
         });
         return user;
