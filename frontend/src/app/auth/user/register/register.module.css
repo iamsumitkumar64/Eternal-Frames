@@ -68,10 +68,11 @@
     width: 100%;
     margin-top: 4%;
     border-radius: 5px;
-    background: #000;
+    background: #151515;
     color: white;
     text-transform: uppercase;
-    padding: 1.5%;
+    padding: 3.5%;
+    border: 2px solid rgb(98, 98, 98);
 }
 
 .alreadyAccountTitle {
