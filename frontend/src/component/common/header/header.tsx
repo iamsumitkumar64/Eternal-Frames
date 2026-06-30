@@ -39,7 +39,7 @@ export default function HomeHeaderComp() {
                 {user ? (
                     <Box className={styles.rightBox}>
                         <Button
-                            className={styles.logoutbtn}
+                            className={styles.button}
                             onClick={async () => { await handleSwitchPages('/gallery') }}
                         >
                             Gallery
