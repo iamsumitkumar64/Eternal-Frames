@@ -26,6 +26,12 @@ import * as BillingCronModule from './module/billing-module/infrastructure/cron/
 import { SubscriptionModule } from './module/billing-module/feature/subscription/subscription.module';
 import { RazorModule } from './module/billing-module/feature/razorpay/razor.module';
 
+// Event Module
+import UploadModule from './module/event-module/feature/upload/upload.module';
+import { eventDataSource } from './module/event-module/infrastructure/database/data-source';
+import { EventRabbitMQModule } from './module/event-module/infrastructure/rabbit-mq/rabbit-mq.module';
+import * as EventCronModule from './module/event-module/infrastructure/cron/cron.module';
+
 @Module({
   imports: [
     // common
@@ -76,6 +82,24 @@ import { RazorModule } from './module/billing-module/feature/razorpay/razor.modu
     BillingCronModule.CronModule,
     SubscriptionModule,
     RazorModule,
+
+    // Event Module
+    TypeOrmModule.forRootAsync({
+      name: process.env.DB_POSTGRES_EVENT_SCHEMA || 'event_schema',
+      useFactory: () => ({
+        ...eventDataSource.options,
+        retryAttempts: Number(process.env.DB_RETRY_ATTEMPTS) || 10,
+        retryDelay: Number(process.env.DB_RETRY_DELAY) || 5000,
+      }),
+      dataSourceFactory: async (options) =>
+        createTransactionalDataSource(
+          process.env.DB_POSTGRES_EVENT_SCHEMA || 'event_schema',
+          options as DataSourceOptions,
+        ),
+    }),
+    UploadModule,
+    EventRabbitMQModule,
+    EventCronModule.CronModule,
   ],
   controllers: [AppController],
   providers: [AppService, UserRepository, JwtHelperService],

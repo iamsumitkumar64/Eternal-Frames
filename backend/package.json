@@ -27,7 +27,11 @@
     "seed:billing:subscription": "ts-node -r tsconfig-paths/register src/module/billing-module/infrastructure/database/seed/subscription.seed.ts",
     "migration:billing:generate": "npm run typeorm -- -d dist/module/billing-module/infrastructure/database/data-source.js migration:generate src/module/billing-module/infrastructure/database/migrations/InitMigration",
     "migration:billing:run": "npm run typeorm -- -d dist/module/billing-module/infrastructure/database/data-source.js migration:run",
-    "migration:billing:revert": "npm run typeorm -- -d dist/module/billing-module/infrastructure/database/data-source.js migration:revert"
+    "migration:billing:revert": "npm run typeorm -- -d dist/module/billing-module/infrastructure/database/data-source.js migration:revert",
+    "seed:event:user": "ts-node -r tsconfig-paths/register src/module/event-module/infrastructure/database/seed/user.seed.ts",
+    "migration:event:generate": "npm run typeorm -- -d dist/module/event-module/infrastructure/database/data-source.js migration:generate src/module/event-module/infrastructure/database/migrations/InitMigration",
+    "migration:event:run": "npm run typeorm -- -d dist/module/event-module/infrastructure/database/data-source.js migration:run",
+    "migration:event:revert": "npm run typeorm -- -d dist/module/event-module/infrastructure/database/data-source.js migration:revert"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
@@ -44,6 +48,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.15.1",
     "dotenv": "^17.4.2",
+    "multer": "^2.2.0",
     "pg": "^8.21.0",
     "razorpay": "^2.9.6",
     "reflect-metadata": "^0.2.2",
@@ -61,6 +66,7 @@
     "@types/bcrypt": "^6.0.0",
     "@types/express": "^5.0.0",
     "@types/jest": "^30.0.0",
+    "@types/multer": "^2.1.0",
     "@types/node": "^24.0.0",
     "@types/pg": "^8.20.0",
     "@types/supertest": "^7.0.0",
