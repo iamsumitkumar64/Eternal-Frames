@@ -1,7 +1,7 @@
-import { IsUUID, IsNumber, Min } from 'class-validator';
+import { IsNumber, IsUUID, Min } from 'class-validator';
 
 export class GetrazorPayLinkDto {
-    @IsNumber()
+    @IsNumber({ maxDecimalPlaces: 2 })
     @Min(1)
     total_price: number;
 

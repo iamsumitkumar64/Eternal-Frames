@@ -15,7 +15,7 @@ export class GetRazorPayLinkService {
             key_secret: process.env.RAZORPAY_KEY_SECRET,
         });
         const razorOrder = await razor.orders.create({
-            amount: body.total_price,
+            amount: Math.round(body.total_price),
             currency: "USD",
             receipt: `receipt_${shortUuid}`,
         });
