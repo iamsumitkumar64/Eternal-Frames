@@ -23,6 +23,7 @@ import { UserModule } from './module/user-module/feature/user/user.module';
 import { billingDataSource } from './module/billing-module/infrastructure/database/data-source';
 import { BillingRabbitMQModule } from './module/billing-module/infrastructure/rabbit-mq/rabbit-mq.module';
 import * as BillingCronModule from './module/billing-module/infrastructure/cron/cron.module';
+import { SubscriptionModule } from './module/billing-module/feature/subscription/subscription.module';
 
 @Module({
   imports: [
@@ -72,6 +73,7 @@ import * as BillingCronModule from './module/billing-module/infrastructure/cron/
     }),
     BillingRabbitMQModule,
     BillingCronModule.CronModule,
+    SubscriptionModule,
   ],
   controllers: [AppController],
   providers: [AppService, UserRepository, JwtHelperService],
