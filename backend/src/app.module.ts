@@ -19,6 +19,11 @@ import { JwtHelperService } from './module/user-module/infrastructure/services/j
 import * as UserCronModule from './module/user-module/infrastructure/cron/cron.module';
 import { UserModule } from './module/user-module/feature/user/user.module';
 
+// Billing Module
+import { billingDataSource } from './module/billing-module/infrastructure/database/data-source';
+import { BillingRabbitMQModule } from './module/billing-module/infrastructure/rabbit-mq/rabbit-mq.module';
+import * as BillingCronModule from './module/billing-module/infrastructure/cron/cron.module';
+
 @Module({
   imports: [
     // common
@@ -50,6 +55,23 @@ import { UserModule } from './module/user-module/feature/user/user.module';
     }),
     UserCronModule.CronModule,
     UserModule,
+
+    // Billing Module
+    TypeOrmModule.forRootAsync({
+      name: process.env.DB_POSTGRES_BILLING_SCHEMA || 'billing_schema',
+      useFactory: () => ({
+        ...billingDataSource.options,
+        retryAttempts: Number(process.env.DB_RETRY_ATTEMPTS) || 10,
+        retryDelay: Number(process.env.DB_RETRY_DELAY) || 5000,
+      }),
+      dataSourceFactory: async (options) =>
+        createTransactionalDataSource(
+          process.env.DB_POSTGRES_BILLING_SCHEMA || 'billing_schema',
+          options as DataSourceOptions,
+        ),
+    }),
+    BillingRabbitMQModule,
+    BillingCronModule.CronModule,
   ],
   controllers: [AppController],
   providers: [AppService, UserRepository, JwtHelperService],
