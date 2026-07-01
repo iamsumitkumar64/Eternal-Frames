@@ -11,9 +11,11 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { Feature, SubscriptionPlan } from "@/redux/feature/subscription/subscription-type";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import { useRouter } from "next/navigation";
 
 export default function SubscriptionPlanComp() {
     const dispatch = useAppDispatch();
+    const router = useRouter();
     const [offset, setOffset] = useState(Number(process.env.NEXT_PUBLIC_PAGE_OFFSET) || 0);
     const limit = Number(process.env.NEXT_PUBLIC_PAGE_LIMIT) || 10;
     const { user } = useAppSelector((state: RootState) => state.authReducer);
@@ -65,6 +67,7 @@ export default function SubscriptionPlanComp() {
     const verifyPayment = async (plan_uuid: string) => {
         try {
             await dispatch(studioBuySubscriptionWebhook({ plan_uuid })).unwrap();
+            router.replace('/gallery');
         } catch (err: any) {
             enqueueSnackbar(err, { variant: "warning" });
         }
