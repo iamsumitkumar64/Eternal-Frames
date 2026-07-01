@@ -102,6 +102,12 @@ export default function SubscriptionPlanComp() {
                                         </Typography>
                                     </Box>
 
+                                    {
+                                        plan.premium_level == 5
+                                        &&
+                                        <Typography className={styles.premium_tag}>Most Preferred One</Typography>
+                                    }
+
                                     <Box className={styles.pricing}>
                                         <Typography className={styles.currency}>
                                             {plan.currency}

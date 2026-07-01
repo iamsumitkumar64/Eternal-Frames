@@ -51,6 +51,18 @@
     border: 1px solid #d4d4d4;
     padding: 2%;
     gap: 30px;
+    position: relative;
+}
+
+.premium_tag {
+    background: #c68100;
+    color: #6b4600;
+    padding: 1%;
+    border-top-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 .header {
