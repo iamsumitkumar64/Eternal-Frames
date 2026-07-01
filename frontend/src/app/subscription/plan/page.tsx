@@ -34,7 +34,7 @@ export default function SubscriptionPlanPage() {
 
                     <NavButton
                         title="Continue to Dashboard"
-                        redirectTo="/gallery"
+                        redirectTo="/gallery/event"
                         sx={{
                             width: 'fit-content',
                             padding: '.5% 1%',

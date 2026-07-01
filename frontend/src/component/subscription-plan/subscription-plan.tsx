@@ -67,7 +67,7 @@ export default function SubscriptionPlanComp() {
     const verifyPayment = async (plan_uuid: string) => {
         try {
             await dispatch(studioBuySubscriptionWebhook({ plan_uuid })).unwrap();
-            router.replace('/gallery');
+            router.replace('/gallery/event');
         } catch (err: any) {
             enqueueSnackbar(err, { variant: "warning" });
         }
