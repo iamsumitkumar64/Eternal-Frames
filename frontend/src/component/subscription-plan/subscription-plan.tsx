@@ -2,10 +2,10 @@
 
 import { useAppDispatch, useAppSelector } from "@/redux/hooks.ts";
 import { RootState } from "@/redux/store";
-import { Box, Card, CircularProgress, Typography } from '@mui/material';
+import { Box, Button, Card, CircularProgress, Typography } from '@mui/material';
 import styles from './subscription-plan.module.css';
 import { useEffect, useState } from "react";
-import { getSubscriptionPlan } from "@/redux/feature/subscription/subscription-action";
+import { getRazorPayLinkForSubscription, getSubscriptionPlan } from "@/redux/feature/subscription/subscription-action";
 import { enqueueSnackbar } from "notistack";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Feature, SubscriptionPlan } from "@/redux/feature/subscription/subscription-type";
@@ -32,6 +32,37 @@ export default function SubscriptionPlanComp() {
         } catch (error: any) {
             enqueueSnackbar(error, { variant: "error" });
             console.log(error);
+        }
+    };
+
+    const handlePay = async (plan: SubscriptionPlan) => {
+        try {
+            const razorOrder = await dispatch(getRazorPayLinkForSubscription({ total_price: Number(plan.price), plan_uuid: plan.uuid })).unwrap();
+            const options = {
+                key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
+                amount: razorOrder.data.amount,
+                currency: razorOrder.data.currency,
+                order_id: razorOrder.data.id, // Order ID from backend
+                handler: async (response: any) => {
+                    console.log(response); // Payment details
+                    // Send payment details to backend for verification
+                    await verifyPayment(response.order.id);
+                },
+            };
+            console.log(razorOrder, options);
+
+            // const rzp = new window.Razorpay(options);
+            // rzp.open();
+        } catch (err: any) {
+            enqueueSnackbar(err, { variant: "warning" });
+        }
+    };
+
+    // local webhook triggered
+    const verifyPayment = async (order_id: string) => {
+        try {
+        } catch (err: any) {
+            enqueueSnackbar(err, { variant: "warning" });
         }
     };
 
@@ -88,6 +119,10 @@ export default function SubscriptionPlanComp() {
                                             </Box>
                                         ))}
                                     </Box>
+
+                                    <Button className={styles.selectPlan} onClick={() => { handlePay(plan) }}>
+                                        Select Plan
+                                    </Button>
                                 </Card>
                             )
                         })}
