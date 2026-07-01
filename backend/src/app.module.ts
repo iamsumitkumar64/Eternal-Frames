@@ -24,7 +24,7 @@ import { billingDataSource } from './module/billing-module/infrastructure/databa
 import { BillingRabbitMQModule } from './module/billing-module/infrastructure/rabbit-mq/rabbit-mq.module';
 import * as BillingCronModule from './module/billing-module/infrastructure/cron/cron.module';
 import { SubscriptionModule } from './module/billing-module/feature/subscription/subscription.module';
-import { RazorPayModule } from './module/billing-module/feature/razorpay/get.razor.pay.link.module';
+import { RazorModule } from './module/billing-module/feature/razorpay/razor.module';
 
 @Module({
   imports: [
@@ -75,7 +75,7 @@ import { RazorPayModule } from './module/billing-module/feature/razorpay/get.raz
     BillingRabbitMQModule,
     BillingCronModule.CronModule,
     SubscriptionModule,
-    RazorPayModule,
+    RazorModule,
   ],
   controllers: [AppController],
   providers: [AppService, UserRepository, JwtHelperService],

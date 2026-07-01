@@ -1,13 +1,13 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
 import Razorpay from 'razorpay';
-import { GetrazorPayLinkDto } from "./get.razor.pay.link.dto";
+import { createPlanRazorLinkDto } from "./create-plan-razor-link.dto";
 
 @Injectable()
-export class GetRazorPayLinkService {
+export class CreatePlanRazorLinkService {
     constructor(
     ) { }
 
-    async handle(body: GetrazorPayLinkDto) {
+    async handle(body: createPlanRazorLinkDto) {
         const shortUuid = body.plan_uuid.substring(0, 30);
 
         const razor = new Razorpay({

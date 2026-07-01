@@ -49,8 +49,8 @@
     flex-direction: column;
     transition: transform 0.2s;
     border: 1px solid #d4d4d4;
-    padding: 1% 2%;
-    gap: 20px;
+    padding: 2%;
+    gap: 30px;
 }
 
 .header {
@@ -84,6 +84,17 @@
     width: 100%;
     display: flex;
     flex-direction: row;
+    gap: 2%;
+}
+
+.CheckIcon,
+.UnCheckIcon {
+    fill: #9c6500;
+    padding: .5%;
+}
+
+.UnCheckIcon {
+    fill: #6b7280;
 }
 
 .selectPlan {

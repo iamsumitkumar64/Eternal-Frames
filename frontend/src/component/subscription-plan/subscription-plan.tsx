@@ -5,7 +5,7 @@ import { RootState } from "@/redux/store";
 import { Box, Button, Card, CircularProgress, Typography } from '@mui/material';
 import styles from './subscription-plan.module.css';
 import { useEffect, useState } from "react";
-import { getRazorPayLinkForSubscription, getSubscriptionPlan } from "@/redux/feature/subscription/subscription-action";
+import { getRazorPlanLinkForSubscription, getSubscriptionPlan } from "@/redux/feature/subscription/subscription-action";
 import { enqueueSnackbar } from "notistack";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Feature, SubscriptionPlan } from "@/redux/feature/subscription/subscription-type";
@@ -37,7 +37,7 @@ export default function SubscriptionPlanComp() {
 
     const handlePay = async (plan: SubscriptionPlan) => {
         try {
-            const razorOrder = await dispatch(getRazorPayLinkForSubscription({ total_price: Number(plan.price), plan_uuid: plan.uuid })).unwrap();
+            const razorOrder = await dispatch(getRazorPlanLinkForSubscription({ total_price: Number(plan.price), plan_uuid: plan.uuid })).unwrap();
             const options = {
                 key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
                 amount: razorOrder.data.amount,
@@ -112,7 +112,7 @@ export default function SubscriptionPlanComp() {
                                     <Box className={styles.features}>
                                         {plan.features.length && plan.features.map((feature: Feature, idx: number) => (
                                             <Box className={styles.featureBox} key={idx}>
-                                                {feature.is_included ? <CheckCircleIcon /> : <CancelOutlinedIcon />}
+                                                {feature.is_included ? <CheckCircleIcon className={styles.CheckIcon} /> : <CancelOutlinedIcon className={styles.UnCheckIcon} />}
                                                 <Typography className={styles.featureName}>
                                                     {feature.feature_name}
                                                 </Typography>

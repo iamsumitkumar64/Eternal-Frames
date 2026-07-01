@@ -46,7 +46,7 @@ export const getSubscriptionPlan = createAsyncThunk<
     }
 );
 
-export const getRazorPayLinkForSubscription = createAsyncThunk<
+export const getRazorPlanLinkForSubscription = createAsyncThunk<
     any,
     { total_price: number, plan_uuid: string },
     { state: RootState }
@@ -56,7 +56,7 @@ export const getRazorPayLinkForSubscription = createAsyncThunk<
         try {
             const token = getState().authReducer.token || "";
 
-            const res = await fetch(`${BACKEND_URL}/api/v1/razor/pay/link`, {
+            const res = await fetch(`${BACKEND_URL}/api/v1/razor/plan/link`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
