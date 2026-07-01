@@ -9,7 +9,7 @@
 }
 
 .header {
-    width: 40%;
+    width: 60%;
     height: 15%;
     max-height: 25%;
     display: flex;
@@ -39,7 +39,7 @@
 }
 
 .field {
-    width: 40%;
+    width: 60%;
     display: flex;
     flex-direction: column;
 }
@@ -57,7 +57,7 @@
 
 .buttonTopBox,
 .buttonBottomBox {
-    width: 40%;
+    width: 60%;
     display: flex;
     align-items: center;
     justify-content: center;

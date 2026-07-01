@@ -1,16 +1,19 @@
 import { Box, Typography } from '@mui/material';
 import styles from './auth-layout.module.css';
+import { AuthLayoutProp } from './auth-layout.interface';
 
-export default function AuthLayoutComp() {
+export default function AuthLayoutComp({ bgImage, title, description }: AuthLayoutProp) {
     return (
-        <Box className={styles.container}>
+        <Box
+            className={styles.container}
+            style={{ backgroundImage: `url(${bgImage})` }}
+        >
             <Box className={styles.leftContainer}>
-                <Typography className={styles.title}>Eternal Frames</Typography>
+                <Typography className={styles.title}>{title}</Typography>
             </Box>
-
             <Box className={styles.rightContainer}>
-                <Typography className={styles.description}>"The architecture of a moment, preserved forever."</Typography>
+                <Typography className={styles.description}>"{description}"</Typography>
             </Box>
         </Box>
-    )
+    );
 }

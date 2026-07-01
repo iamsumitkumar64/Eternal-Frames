@@ -7,7 +7,7 @@ export default function CustomerAuthLayout({ children }: { children: React.React
     return (
         <Box className={styles.container}>
             <Box className={styles.leftContainer}>
-                <AuthLayoutComp bgImage="/auth-layout/screen1.png" description="The architecture of a moment, preserved forever." title="Eternal Frames" />
+                <AuthLayoutComp bgImage="/auth-layout/screen2.png" description="The architecture of a moment, preserved forever." title="Eternal Frames" />
             </Box>
 
             <Box className={styles.rightContainer}>

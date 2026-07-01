@@ -4,9 +4,9 @@
     display: flex;
     flex-direction: column;
     overflow: auto;
-    background: url('/auth-layout/screen.png');
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
 }
 
 .leftContainer {
@@ -22,8 +22,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: center; */
     padding: 5%;
+    box-sizing: border-box;
 }
 
 .title {
@@ -41,4 +41,5 @@
     color: white;
     font-size: 2rem;
     font-weight: 600;
+    text-align: center;
 }

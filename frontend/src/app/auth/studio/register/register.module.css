@@ -72,11 +72,15 @@
     width: 100%;
     margin-top: 4%;
     border-radius: 5px;
-    background: #151515;
-    color: white;
+    background: #b87100;
+    color: rgb(22, 22, 22);
     text-transform: uppercase;
     padding: 3.5%;
     border: 2px solid rgb(98, 98, 98);
+}
+
+.button:hover {
+    background: #925a00;
 }
 
 .alreadyAccountTitle {
