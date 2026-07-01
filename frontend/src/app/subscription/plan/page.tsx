@@ -5,35 +5,6 @@ import SubscriptionPlanComp from '@/component/subscription-plan/subscription-pla
 import NavButton from '@/component/common/nav-button/nav-button';
 
 export default function SubscriptionPlanPage() {
-    // const handlePay = async (plan_uuid: string) => {
-    //     try {
-    //         const razorOrder = await dispatch(getRazorPayLink({ total_price: Number(plan?.total_price), plan_uuid: plan_uuid })).unwrap();
-    //         const options = {
-    //             key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
-    //             amount: razorOrder.data.amount,
-    //             currency: razorOrder.data.currency,
-    //             order_id: razorOrder.data.id, // Order ID from backend
-    //             handler: (response: any) => {
-    //                 console.log(response); // Payment details
-    //                 // Send payment details to backend for verification
-    //                 verifyPayment(order_uuid);
-    //             },
-    //         };
-
-    //         const rzp = new window.Razorpay(options);
-    //         rzp.open();
-    //     } catch (err: any) {
-    //         enqueueSnackbar(err, { variant: "warning" });
-    //     }
-    // };
-
-    // // local webhook triggered
-    // const verifyPayment = async (order_uuid: string) => {
-    //     try {
-    //     } catch (err: any) {
-    //         enqueueSnackbar(err, { variant: "warning" });
-    //     }
-    // };
 
     return (
         <Box className={styles.container}>
