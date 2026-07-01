@@ -20,7 +20,8 @@
     background-position: center;
 }
 
-.header {
+.header,
+.footer {
     width: 100%;
     height: 25%;
     display: flex;
@@ -41,4 +42,19 @@
     font-weight: 500;
     color: #555555;
     text-align: center;
+}
+
+.planBox {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.footerTitle {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #444444;
 }

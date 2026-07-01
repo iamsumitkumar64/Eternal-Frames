@@ -38,12 +38,12 @@ export default function HomeHeaderComp() {
             <Box className={styles.rightContainer}>
                 {user ? (
                     <Box className={styles.rightBox}>
-                        <Button
+                        {/* <Button
                             className={styles.button}
                             onClick={async () => { await handleSwitchPages('/gallery') }}
                         >
                             Gallery
-                        </Button>
+                        </Button> */}
 
                         <Button
                             className={styles.logoutbtn}
