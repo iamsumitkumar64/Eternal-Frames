@@ -2,7 +2,6 @@
 
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { RegisterSchemaType } from "@/schemas/register"
-import { persistor } from "@/redux/store"
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8090";
 
@@ -63,6 +62,7 @@ export const logoutUser = createAsyncThunk(
     "auth/logout",
     async (_, { rejectWithValue }) => {
         try {
+            const { persistor } = await import("@/redux/store");
             await persistor.purge();
             return null
         } catch (error: any) {
