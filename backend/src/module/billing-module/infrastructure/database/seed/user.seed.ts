@@ -16,7 +16,7 @@ const users = [
         email: 'user2@gmail.com',
         name: 'user 2',
         created_at: new Date('2025-01-02T00:00:00.000Z'),
-        role: UserRoleEnum.CUSTOMER,
+        role: UserRoleEnum.USER,
     },
 ];
 

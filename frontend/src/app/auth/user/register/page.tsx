@@ -24,7 +24,7 @@ export default function UserRegisterPage() {
         formState: { errors }
     } = useForm<RegisterSchemaType>({
         resolver: zodResolver(registerSchema),
-        defaultValues: { role: UserRoleEnum.CUSTOMER }
+        defaultValues: { role: UserRoleEnum.USER }
     })
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -50,7 +50,7 @@ export default function UserRegisterPage() {
         <Box className={styles.container}>
             <Box className={styles.header}>
                 <Typography className={styles.title}>
-                    Create Customer Account
+                    Create User Account
                 </Typography>
 
                 <Typography className={styles.description}>
@@ -136,7 +136,7 @@ export default function UserRegisterPage() {
                         type="submit"
                         className={styles.button}
                     >
-                        Create Customer Account
+                        Create User Account
                     </Button>
                 </Box>
 

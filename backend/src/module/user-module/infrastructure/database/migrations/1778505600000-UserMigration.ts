@@ -4,7 +4,7 @@ export class userMigration1778505600000 implements MigrationInterface {
     name = "userMigration1778505600000";
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`CREATE TYPE "user_schema"."user_role_enum" AS ENUM('customer','studio')`);
+        await queryRunner.query(`CREATE TYPE "user_schema"."user_role_enum" AS ENUM('user','studio')`);
 
         await queryRunner.createTable(
             new Table({
@@ -14,7 +14,7 @@ export class userMigration1778505600000 implements MigrationInterface {
                     { name: "name", type: "varchar", isNullable: false, },
                     { name: "email", type: "varchar", isUnique: true, isNullable: false, },
                     { name: "password", type: "varchar", isNullable: false, },
-                    { name: "role", type: `"user_schema"."user_role_enum"`, default: `'customer'`, isNullable: false, },
+                    { name: "role", type: `"user_schema"."user_role_enum"`, default: `'user'`, isNullable: false, },
                     { name: "created_at", type: "timestamp", default: "now()", },
                     { name: "updated_at", type: "timestamp", default: "now()", },
                     { name: "deleted_at", type: "timestamp", isNullable: true, },

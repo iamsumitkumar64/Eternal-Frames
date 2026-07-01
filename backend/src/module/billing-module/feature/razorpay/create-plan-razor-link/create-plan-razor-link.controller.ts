@@ -10,7 +10,7 @@ export class CreatePlanRazorLinkController {
 
     @Post("/razor/plan/link")
     async CreatePlanRazorLink(@Req() req: Request, @Body() body: createPlanRazorLinkDto) {
-        const { data } = await this.createPlanRazorLinkService.handle(body);
+        const { data } = await this.createPlanRazorLinkService.handle(req,body);
 
         return {
             data: data,

@@ -102,7 +102,7 @@ export default function HomePage() {
                         </Box>
 
                         <NavButton
-                            title="Register As Customer"
+                            title="Register As User"
                             redirectTo="/auth/user/register"
                             sx={{
                                 width: '100%',

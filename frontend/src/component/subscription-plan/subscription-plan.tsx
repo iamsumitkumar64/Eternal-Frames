@@ -5,7 +5,7 @@ import { RootState } from "@/redux/store";
 import { Box, Button, Card, CircularProgress, Typography } from '@mui/material';
 import styles from './subscription-plan.module.css';
 import { useEffect, useState } from "react";
-import { getRazorPlanLinkForSubscription, getSubscriptionPlan } from "@/redux/feature/subscription/subscription-action";
+import { getRazorPlanLinkForSubscription, getSubscriptionPlan, studioBuySubscriptionWebhook } from "@/redux/feature/subscription/subscription-action";
 import { enqueueSnackbar } from "notistack";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Feature, SubscriptionPlan } from "@/redux/feature/subscription/subscription-type";
@@ -16,6 +16,7 @@ export default function SubscriptionPlanComp() {
     const dispatch = useAppDispatch();
     const [offset, setOffset] = useState(Number(process.env.NEXT_PUBLIC_PAGE_OFFSET) || 0);
     const limit = Number(process.env.NEXT_PUBLIC_PAGE_LIMIT) || 10;
+    const { user } = useAppSelector((state: RootState) => state.authReducer);
     const { subscriptionPlanTotalDocuments, subscriptionPlans } = useAppSelector((state: RootState) => state.subscriptionReducer);
 
     useEffect(() => {
@@ -37,6 +38,10 @@ export default function SubscriptionPlanComp() {
 
     const handlePay = async (plan: SubscriptionPlan) => {
         try {
+            if (!user) {
+                enqueueSnackbar("Join Us First or Login Account");
+                return;
+            }
             const razorOrder = await dispatch(getRazorPlanLinkForSubscription({ total_price: Number(plan.price), plan_uuid: plan.uuid })).unwrap();
             const options = {
                 key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
@@ -46,21 +51,23 @@ export default function SubscriptionPlanComp() {
                 handler: async (response: any) => {
                     console.log(response); // Payment details
                     // Send payment details to backend for verification
-                    await verifyPayment(response.order.id);
+                    await verifyPayment(plan.uuid);
                 },
             };
             console.log(razorOrder, options);
 
-            // const rzp = new window.Razorpay(options);
-            // rzp.open();
+            const rzp = new window.Razorpay(options);
+            rzp.open();
+            await dispatch(studioBuySubscriptionWebhook({ plan_uuid: plan.uuid })).unwrap();
         } catch (err: any) {
             enqueueSnackbar(err, { variant: "warning" });
         }
     };
 
     // local webhook triggered
-    const verifyPayment = async (order_id: string) => {
+    const verifyPayment = async (plan_uuid: string) => {
         try {
+            await dispatch(studioBuySubscriptionWebhook({ plan_uuid })).unwrap();
         } catch (err: any) {
             enqueueSnackbar(err, { variant: "warning" });
         }

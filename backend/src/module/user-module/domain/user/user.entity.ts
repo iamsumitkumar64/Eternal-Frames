@@ -15,7 +15,7 @@ export class UserEntity {
     @Column({ type: "varchar", nullable: false, select: false, })
     password: string;
 
-    @Column({ type: "enum", enum: UserRoleEnum, default: UserRoleEnum.CUSTOMER })
+    @Column({ type: "enum", enum: UserRoleEnum, default: UserRoleEnum.USER })
     role: UserRoleEnum;
 
     @CreateDateColumn()

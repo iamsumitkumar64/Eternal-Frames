@@ -1,13 +1,21 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
 import Razorpay from 'razorpay';
 import { createPlanRazorLinkDto } from "./create-plan-razor-link.dto";
+import { SubscriptionUserRepository } from "src/module/billing-module/infrastructure/repository/subscription-user.repository";
+import type { Request } from "express";
 
 @Injectable()
 export class CreatePlanRazorLinkService {
     constructor(
+        private readonly repository: SubscriptionUserRepository,
     ) { }
 
-    async handle(body: createPlanRazorLinkDto) {
+    async handle(req: Request, body: createPlanRazorLinkDto) {
+        const isActivePlanExists = await this.repository.findByUserUuid(req.user.uuid);
+        if (isActivePlanExists) {
+            throw new BadRequestException("You have Active Plan right now");
+        }
+
         const shortUuid = body.plan_uuid.substring(0, 30);
 
         const razor = new Razorpay({

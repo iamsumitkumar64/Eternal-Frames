@@ -1,5 +1,6 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { SubscriptionFeatureEntity } from '../subscription_feature/subscription_feature.entity';
+import { SubscriptionUserEntity } from '../subscription_user/subscription_user.entity';
 
 @Entity('subscription_plan')
 export class SubscriptionPlanEntity {
@@ -26,6 +27,9 @@ export class SubscriptionPlanEntity {
 
     @OneToMany(() => SubscriptionFeatureEntity, (feature) => feature.plan, { cascade: true })
     features: SubscriptionFeatureEntity[];
+
+    @OneToMany(() => SubscriptionUserEntity, (subscriptions_user) => subscriptions_user.plan, { cascade: true })
+    subscriptions_user: SubscriptionUserEntity[];
 
     @CreateDateColumn()
     created_at: Date;
