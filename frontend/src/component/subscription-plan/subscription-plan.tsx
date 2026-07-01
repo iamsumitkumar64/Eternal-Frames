@@ -10,7 +10,7 @@ import { enqueueSnackbar } from "notistack";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Feature, SubscriptionPlan } from "@/redux/feature/subscription/subscription-type";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 
 export default function SubscriptionPlanComp() {
     const dispatch = useAppDispatch();
@@ -78,14 +78,16 @@ export default function SubscriptionPlanComp() {
                                         </Typography>
                                     </Box>
 
-                                    {plan.features.length && plan.features.map((feature: Feature, idx: number) => (
-                                        <Box className={styles.featureBox} key={idx}>
-                                            {feature.is_included ? <CheckCircleIcon /> : <CheckCircleOutlinedIcon />}
-                                            <Typography className={styles.currency}>
-                                                {feature.feature_name}
-                                            </Typography>
-                                        </Box>
-                                    ))}
+                                    <Box className={styles.features}>
+                                        {plan.features.length && plan.features.map((feature: Feature, idx: number) => (
+                                            <Box className={styles.featureBox} key={idx}>
+                                                {feature.is_included ? <CheckCircleIcon /> : <CancelOutlinedIcon />}
+                                                <Typography className={styles.featureName}>
+                                                    {feature.feature_name}
+                                                </Typography>
+                                            </Box>
+                                        ))}
+                                    </Box>
                                 </Card>
                             )
                         })}
