@@ -15,7 +15,7 @@ export class SubscriptionPlanEntity {
     @Column({ type: 'decimal', precision: 10, scale: 2, nullable: false, default: 0.00 })
     price: number;
 
-    @Column({ type: 'varchar', nullable: false, default: 'USD' })
+    @Column({ type: 'varchar', nullable: false, default: '$' })
     currency: string;
 
     @Column({ type: 'boolean', default: true })
