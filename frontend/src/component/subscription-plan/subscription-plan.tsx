@@ -49,16 +49,13 @@ export default function SubscriptionPlanComp() {
                 currency: razorOrder.data.currency,
                 order_id: razorOrder.data.id, // Order ID from backend
                 handler: async (response: any) => {
-                    console.log(response); // Payment details
                     // Send payment details to backend for verification
                     await verifyPayment(plan.uuid);
                 },
             };
-            console.log(razorOrder, options);
 
             const rzp = new window.Razorpay(options);
             rzp.open();
-            await dispatch(studioBuySubscriptionWebhook({ plan_uuid: plan.uuid })).unwrap();
         } catch (err: any) {
             enqueueSnackbar(err, { variant: "warning" });
         }

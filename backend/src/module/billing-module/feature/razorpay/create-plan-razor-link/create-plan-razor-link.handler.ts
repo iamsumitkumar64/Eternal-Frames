@@ -23,8 +23,8 @@ export class CreatePlanRazorLinkService {
             key_secret: process.env.RAZORPAY_KEY_SECRET,
         });
         const razorOrder = await razor.orders.create({
-            amount: Math.round(body.total_price),
-            currency: "USD",
+            amount: Math.round(body.total_price) * 100, // Amount in paise
+            currency: "INR",
             receipt: `receipt_${shortUuid}`,
         });
 

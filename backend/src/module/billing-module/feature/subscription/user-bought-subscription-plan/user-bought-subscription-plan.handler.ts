@@ -12,7 +12,6 @@ export class UserBoughtSubscriptionPlanService {
 
     async handle(req: Request, body: UserBoughtSubscriptionPlanDto) {
         const isActivePlanExists = await this.repository.findByUserUuid(req.user.uuid);
-        console.log(isActivePlanExists);
         if (isActivePlanExists) {
             throw new BadRequestException("You have Active Plan right now");
         }

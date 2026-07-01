@@ -12,7 +12,7 @@ export class SubscriptionPlanMigration1778505600001 implements MigrationInterfac
                     { name: "title", type: "varchar", isNullable: false, isUnique: true, },
                     { name: "description", type: "text", isNullable: true, },
                     { name: "price", type: "decimal", precision: 10, scale: 2, isNullable: false, default: 0.00, },
-                    { name: "currency", type: "varchar", isNullable: false, default: "'$'", },
+                    { name: "currency", type: "varchar", isNullable: false, default: "'₹'", },
                     { name: "is_active", type: "boolean", isNullable: false, default: true, },
                     { name: "premium_level", type: "int", isNullable: false, default: 1, },
                     { name: "created_at", type: "timestamp", default: "now()", },
