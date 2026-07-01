@@ -24,6 +24,7 @@
     "migration:user:run": "npm run typeorm -- -d dist/module/user-module/infrastructure/database/data-source.js migration:run",
     "migration:user:revert": "npm run typeorm -- -d dist/module/user-module/infrastructure/database/data-source.js migration:revert",
     "seed:billing:user": "ts-node -r tsconfig-paths/register src/module/billing-module/infrastructure/database/seed/user.seed.ts",
+    "seed:billing:subscription": "ts-node -r tsconfig-paths/register src/module/billing-module/infrastructure/database/seed/subscription.seed.ts",
     "migration:billing:generate": "npm run typeorm -- -d dist/module/billing-module/infrastructure/database/data-source.js migration:generate src/module/billing-module/infrastructure/database/migrations/InitMigration",
     "migration:billing:run": "npm run typeorm -- -d dist/module/billing-module/infrastructure/database/data-source.js migration:run",
     "migration:billing:revert": "npm run typeorm -- -d dist/module/billing-module/infrastructure/database/data-source.js migration:revert"

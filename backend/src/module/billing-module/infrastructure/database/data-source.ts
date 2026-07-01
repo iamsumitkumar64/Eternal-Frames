@@ -6,6 +6,8 @@ import 'dotenv/config';
 import { InboxEntity } from "../../domain/inbox/inbox.entity";
 import { UserEntity } from "../../domain/user/user.entity";
 import { OutboxEntity } from "../../domain/outbox/outbox.entity";
+import { SubscriptionPlanEntity } from "../../domain/subscription_plan/subscription_plan.entity";
+import { SubscriptionFeatureEntity } from "../../domain/subscription_feature/subscription_feature.entity";
 
 const options: DataSourceOptions = {
     type: process.env.DB_POSTGRES_TYPE as any,
@@ -16,6 +18,7 @@ const options: DataSourceOptions = {
     database: process.env.DB_POSTGRES_DATABASE,
     entities: [
         UserEntity, InboxEntity, OutboxEntity,
+        SubscriptionPlanEntity, SubscriptionFeatureEntity,
     ],
     schema: process.env.DB_POSTGRES_BILLING_SCHEMA || 'billing_schema',
     synchronize: false,
