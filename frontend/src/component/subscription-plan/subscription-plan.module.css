@@ -75,8 +75,19 @@
     position: relative;
 }
 
+.price,
+.duration,
+.currency {
+    font-weight: 900;
+}
+
+.price {
+    font-size: 2rem;
+}
+
 .currency {
     position: static;
+    font-weight: 900;
     font-size: 0.8em;
 }
 

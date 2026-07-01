@@ -107,13 +107,13 @@ export default function SubscriptionPlanComp() {
                                             {plan.currency}
                                         </Typography>
 
-                                        <Typography className={styles.price}>
+                                        <Typography className={styles.price} component="p">
                                             {plan.price}
+                                            <Typography className={styles.duration} component="span">
+                                                /month
+                                            </Typography>
                                         </Typography>
 
-                                        <Typography className={styles.duration}>
-                                            /month
-                                        </Typography>
                                     </Box>
 
                                     <Box className={styles.features}>

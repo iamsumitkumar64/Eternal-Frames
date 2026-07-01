@@ -33,7 +33,7 @@ export default function SubscriptionPlanPage() {
                     </Typography>
 
                     <NavButton
-                        title="Create Studio Account"
+                        title="Continue to Dashboard"
                         redirectTo="/gallery"
                         sx={{
                             width: 'fit-content',
@@ -41,6 +41,7 @@ export default function SubscriptionPlanPage() {
                             color: '#1c1200',
                             bgcolor: 'transparent',
                             borderBottom: '2px solid #c97f00',
+                            textTransform: 'uppercase',
                             '&:hover': {
                                 borderColor: '#915c01',
                             },
