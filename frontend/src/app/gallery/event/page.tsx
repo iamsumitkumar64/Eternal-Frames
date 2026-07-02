@@ -12,8 +12,13 @@ import { RootState } from '@/redux/store';
 import { enqueueSnackbar } from 'notistack';
 import { Event } from '@/redux/feature/event/event.type';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 
 export default function GalleryEventPage() {
+    const router = useRouter();
     const dispatch = useAppDispatch();
     const [openCreateEventModal, setOpenCreateEventModal] = useState(false);
     const [offset, setOffset] = useState(Number(process.env.NEXT_PUBLIC_PAGE_OFFSET) || 0);
@@ -44,6 +49,10 @@ export default function GalleryEventPage() {
     const handleAddEventOpen = () => {
         setOpenCreateEventModal(true);
     };
+
+    const handleSwitchPages = async (path: string) => {
+        router.push(path)
+    }
 
     return (
         <Box className={styles.container}>
@@ -77,7 +86,37 @@ export default function GalleryEventPage() {
                                     </Box>
 
                                     <Box className={styles.eventInfoBox}>
+                                        <Box className={styles.eventInfoHeader}>
+                                            <Box className={styles.eventInfo}>
+                                                <Typography className={styles.eventTitle}>{event.title}</Typography>
+                                                <Typography className={styles.eventLocation}>{event.location}</Typography>
+                                            </Box>
+                                            <Typography className={styles.eventTotalImages}>{event.images?.length || 'N/A'} Photos</Typography>
+                                        </Box>
 
+                                        <Typography className={styles.description}>{event.description}</Typography>
+
+                                        <Box className={styles.eventFooter}>
+                                            <Button
+                                                onClick={async () => { await handleSwitchPages(`/gallery/event/${event.uuid}`) }}
+                                                startIcon={<VisibilityOutlinedIcon />}
+                                                className={styles.footerButton}
+                                            >
+                                                View
+                                            </Button>
+                                            <Button
+                                                startIcon={<ShareOutlinedIcon />}
+                                                className={styles.footerButton}
+                                            >
+                                                Share
+                                            </Button>
+                                            <Button
+                                                startIcon={<DeleteOutlinedIcon />}
+                                                className={styles.footerButton}
+                                            >
+                                                Delete
+                                            </Button>
+                                        </Box>
                                     </Box>
                                 </Box>
                             )
