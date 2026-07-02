@@ -12,20 +12,29 @@ import { RootState } from '@/redux/store';
 import { enqueueSnackbar } from 'notistack';
 import { Event } from '@/redux/feature/event/event.type';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import { UserRoleEnum } from '@/redux/feature/auth/user.enum';
+import LinkShareComp from '@/component/common/link-share-comp/link-share-comp';
 
 export default function GalleryEventPage() {
     const router = useRouter();
     const dispatch = useAppDispatch();
+    const [isLinkOpen, setIsLinkOpen] = useState<boolean>(false);
     const [openCreateEventModal, setOpenCreateEventModal] = useState(false);
     const [offset, setOffset] = useState(Number(process.env.NEXT_PUBLIC_PAGE_OFFSET) || 0);
     const limit = Number(process.env.NEXT_PUBLIC_PAGE_LIMIT) || 10;
     const { eventTotalDocuments, events } = useAppSelector((state: RootState) => state.eventReducer);
     const { user } = useAppSelector((state: RootState) => state.authReducer);
+
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
+    const title = 'Awesome Page please visit once';
+    const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8090";
+    const shareUrl = `${BACKEND_URL}${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ''}`;
+
 
     useEffect(() => {
         dispatch(getEventsByStudio({ limit, offset: 0, })).unwrap();
@@ -122,6 +131,7 @@ export default function GalleryEventPage() {
                                             <Button
                                                 startIcon={<ShareOutlinedIcon />}
                                                 className={styles.footerButton}
+                                                onClick={() => setIsLinkOpen(!isLinkOpen)}
                                             >
                                                 Share
                                             </Button>
@@ -140,6 +150,8 @@ export default function GalleryEventPage() {
                     </Box>
                 </InfiniteScroll>
             </Box >
+
+            <LinkShareComp open={isLinkOpen} onClose={() => setIsLinkOpen(false)} data={{ shareUrl: shareUrl, title: title }} />
             <EventFormModalComp isOpen={openCreateEventModal} onClose={handleAddEventClose} />
         </Box>
     );
