@@ -59,10 +59,8 @@
 
 .button {
     width: fit-content;
-    border-radius: 5px;
     background: #815800;
     color: white;
     text-transform: uppercase;
-    padding: 1%;
-    border: 2px solid #966600;
+    border: 2px solid #7d5600;
 }
