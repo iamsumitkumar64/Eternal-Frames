@@ -9,7 +9,7 @@
 
 .header {
     width: 100%;
-    height: 25%;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     padding: 5% 10%;
@@ -25,4 +25,49 @@
     font-size: 1rem;
     font-weight: 700;
     color: #555555;
+}
+
+.tabBox,
+.footer {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    padding: 5%;
+}
+
+.tabBox {
+    justify-content: flex-start;
+}
+
+.footer {
+    justify-content: flex-end;
+    padding-bottom: 10%;
+}
+
+.button:hover,
+.logoutbtn:hover {
+    color: #AF8B47;
+    background: #ece6de;
+}
+
+.button,
+.logoutbtn {
+    font-weight: 700;
+    gap: 10px;
+    border-radius: 8px;
+    color: #585858;
+    padding: 5%;
+}
+
+.logoutbtn:hover {
+    color: rgb(255, 87, 87);
+}
+
+/* .logoutbtn:hover .iconButton{
+    color: rgb(255, 87, 87);
+} */
+
+.iconButton {
+    color: #585858;
 }
