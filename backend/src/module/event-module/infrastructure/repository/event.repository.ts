@@ -17,6 +17,15 @@ export class EventRepository extends Repository<EventEntity> {
         return await this.save(event);
     }
 
+    async findByUuid(uuid: string) {
+        const event = await this.findOne({
+            where: {
+                uuid: uuid
+            }
+        });
+        return event;
+    }
+
     async getEventsByStudio(studio_uuid: string, offset?: number, limit?: number) {
         const [data, total] = await this.findAndCount({
             where: {

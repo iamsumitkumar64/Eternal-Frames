@@ -3,12 +3,14 @@ import { RouterModule } from "@nestjs/core";
 import { CreateEventModule } from "./create-event/create-event.module";
 import { GetEventListingModule } from "./get-event-listing/get-event-listing.module";
 import { DeleteEventModule } from "./delete-event/delete-event.module";
+import { CreateEventImageModule } from "./create-event-image/create-event-image.module";
 
 @Module({
     imports: [
         CreateEventModule,
         GetEventListingModule,
         DeleteEventModule,
+        CreateEventImageModule,
         RouterModule.register([
             {
                 path: 'event',
@@ -16,6 +18,7 @@ import { DeleteEventModule } from "./delete-event/delete-event.module";
                     { path: '', module: CreateEventModule },
                     { path: '', module: GetEventListingModule },
                     { path: '', module: DeleteEventModule },
+                    { path: 'image', module: CreateEventImageModule },
                 ],
             },
         ]),

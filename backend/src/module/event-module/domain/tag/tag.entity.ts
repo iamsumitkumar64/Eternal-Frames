@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { EventImagesEntity } from '../event_images/event_images.entity';
+import { EventImageEntity } from '../event_image/event_image.entity';
 
 @Entity('tag')
 export class TagEntity {
@@ -9,8 +9,8 @@ export class TagEntity {
     @Column({ type: 'varchar', nullable: false, unique: true })
     tag_name: string;
 
-    @OneToMany(() => EventImagesEntity, (image) => image.tag, { cascade: true })
-    event_images: EventImagesEntity[];
+    @OneToMany(() => EventImageEntity, (image) => image.tag, { cascade: true })
+    event_images: EventImageEntity[];
 
     @CreateDateColumn()
     created_at: Date;

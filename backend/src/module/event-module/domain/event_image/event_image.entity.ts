@@ -3,7 +3,7 @@ import { TagEntity } from '../tag/tag.entity';
 import { EventEntity } from '../event/event.entity';
 
 @Entity('event_images')
-export class EventImagesEntity {
+export class EventImageEntity {
     @PrimaryGeneratedColumn('uuid')
     uuid: string;
 

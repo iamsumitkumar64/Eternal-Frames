@@ -13,9 +13,6 @@ export class CreateEventService {
         private readonly userRepository: UserRepository,
     ) { }
 
-    @Transactional({
-        connectionName: process.env.DB_POSTGRES_EVENT_SCHEMA || 'event_schema',
-    })
     async handle(req: Request, body: CreateEventDto) {
         const isStudioExists = await this.userRepository.findByUuid(req.user.uuid);
         if (!isStudioExists) {

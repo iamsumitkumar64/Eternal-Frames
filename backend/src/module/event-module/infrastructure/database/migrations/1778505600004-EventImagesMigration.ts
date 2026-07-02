@@ -6,7 +6,7 @@ export class eventImagesMigration1778505600004 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: "event_images",
+                name: "event_image",
                 columns: [
                     { name: "uuid", type: "uuid", isPrimary: true, generationStrategy: "uuid", default: "uuid_generate_v4()", },
                     { name: "event_uuid", type: "uuid", isNullable: true, },
@@ -21,7 +21,7 @@ export class eventImagesMigration1778505600004 implements MigrationInterface {
         );
 
         await queryRunner.createForeignKey(
-            "event_images",
+            "event_image",
             new TableForeignKey({
                 columnNames: ["event_uuid"],
                 referencedColumnNames: ["uuid"],
@@ -31,7 +31,7 @@ export class eventImagesMigration1778505600004 implements MigrationInterface {
         );
 
         await queryRunner.createForeignKey(
-            "event_images",
+            "event_image",
             new TableForeignKey({
                 columnNames: ["tag_uuid"],
                 referencedColumnNames: ["uuid"],
@@ -42,6 +42,6 @@ export class eventImagesMigration1778505600004 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("event_images", true);
+        await queryRunner.dropTable("event_image", true);
     }
 }
