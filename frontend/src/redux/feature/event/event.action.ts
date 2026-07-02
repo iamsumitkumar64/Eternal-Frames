@@ -40,13 +40,12 @@ export const createEvent = createAsyncThunk<
 
 export const getEventsByStudio = createAsyncThunk<
     { message: string, data: Event[], limit: number, offset: number, totalDocuments: number },
-    { studioUuid: string; limit?: number; offset?: number },
+    { limit?: number; offset?: number },
     { state: RootState }
 >(
     "event/listing/get",
     async (
         {
-            studioUuid,
             limit = LIMIT,
             offset = OFFSET,
         },
@@ -54,7 +53,7 @@ export const getEventsByStudio = createAsyncThunk<
     ) => {
         try {
             const token = getState().authReducer.token || "";
-            const res = await fetch(`${BACKEND_URL}/api/v1/event/listing/${studioUuid}?limit=${limit}&offset=${offset}`, {
+            const res = await fetch(`${BACKEND_URL}/api/v1/event/?limit=${limit}&offset=${offset}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
