@@ -128,7 +128,7 @@ export default function HomePage() {
 
                         <NavButton
                             title="Create Studio Account"
-                            redirectTo="/auth/studio/register"
+                            redirectTo="/auth/studio/welcome"
                             sx={{
                                 width: '100%',
                                 borderRadius: '4px',
