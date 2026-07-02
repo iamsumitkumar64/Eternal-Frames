@@ -1,25 +1,25 @@
 "use client";
 
-import styles from "./event-form.module.css";
+import styles from "./event-image-form.module.css";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, IconButton, InputLabel, Modal, TextField } from "@mui/material";
 import { useState } from "react";
 import { useAppDispatch } from "@/redux/hooks.ts";
 import { enqueueSnackbar } from "notistack";
-import { createEvent, uploadEventImage } from "@/redux/feature/event/event.action";
+import { createEventImage, uploadEventImage } from "@/redux/feature/event/event.action";
 import { MultiFileUpload } from "mui-file-upload";
-import { createEventSchema, CreateEventSchemaType } from "@/schemas/event-create";
-import { CreateEventPayload } from "@/redux/feature/event/event.type";
 import CloseIcon from "@mui/icons-material/Close";
+import { createEventImageSchema, CreateEventImageSchemaType } from "@/schemas/event-image-create";
 
 const MAX_FILES = 1;
 interface EventFormModalProps {
     isOpen: boolean;
     onClose: () => void;
+    event_uuid: string
 }
 
-export default function EventFormModalComp({ isOpen, onClose }: EventFormModalProps) {
+export default function EventImageFormModalComp({ isOpen, onClose, event_uuid }: EventFormModalProps) {
     const dispatch = useAppDispatch();
     const [files, setFiles] = useState<File[]>([]);
 
@@ -28,8 +28,8 @@ export default function EventFormModalComp({ isOpen, onClose }: EventFormModalPr
         handleSubmit,
         reset,
         formState: { errors }
-    } = useForm<CreateEventSchemaType>({
-        resolver: zodResolver(createEventSchema),
+    } = useForm<CreateEventImageSchemaType>({
+        resolver: zodResolver(createEventImageSchema),
     })
 
     const uploadService = async (
@@ -51,7 +51,7 @@ export default function EventFormModalComp({ isOpen, onClose }: EventFormModalPr
         });
     };
 
-    const onSubmit = async (data: CreateEventPayload) => {
+    const onSubmit = async (data: CreateEventImageSchemaType) => {
         try {
             let images: any[] = [];
 
@@ -68,7 +68,7 @@ export default function EventFormModalComp({ isOpen, onClose }: EventFormModalPr
                 }));
             }
 
-            await dispatch(createEvent({ ...data, image_url: images[0].image_url })).unwrap();
+            await dispatch(createEventImage({ ...data, event_uuid: event_uuid, image_url: images[0].image_url })).unwrap();
             reset();
             setFiles([]);
         } catch (error) {
@@ -86,55 +86,19 @@ export default function EventFormModalComp({ isOpen, onClose }: EventFormModalPr
             <Box className={styles.modalContainer}>
                 <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
                     <Box className={styles.field}>
-                        <InputLabel htmlFor={`${2}-input`} className={styles.label}>Title</InputLabel>
-
-                        <TextField
-                            id={`${2}-input`}
-                            type="title"
-                            placeholder="wedding event"
-                            fullWidth
-                            {...register("title")}
-                            variant="standard"
-                        />
-                        {errors.title && (
-                            <span className={styles.error}>
-                                {errors.title.message}
-                            </span>
-                        )}
-                    </Box>
-
-                    <Box className={styles.field}>
-                        <InputLabel htmlFor={`${2}-input`} className={styles.label}>Description</InputLabel>
+                        <InputLabel htmlFor={`${2}-input`} className={styles.label}>Tag Name</InputLabel>
 
                         <TextField
                             id={`${2}-input`}
                             type="description"
-                            placeholder="wedding event is wonderful at location organized by ...."
+                            placeholder="wedding"
                             fullWidth
-                            {...register("description")}
+                            {...register("tag_name")}
                             variant="standard"
                         />
-                        {errors.description && (
+                        {errors.tag_name && (
                             <span className={styles.error}>
-                                {errors.description.message}
-                            </span>
-                        )}
-                    </Box>
-
-                    <Box className={styles.field}>
-                        <InputLabel htmlFor={`${2}-input`} className={styles.label}>Location</InputLabel>
-
-                        <TextField
-                            id={`${2}-input`}
-                            type="location"
-                            placeholder="34 Street NewYork"
-                            fullWidth
-                            {...register("location")}
-                            variant="standard"
-                        />
-                        {errors.location && (
-                            <span className={styles.error}>
-                                {errors.location.message}
+                                {errors.tag_name.message}
                             </span>
                         )}
                     </Box>
@@ -187,7 +151,7 @@ export default function EventFormModalComp({ isOpen, onClose }: EventFormModalPr
                         type="submit"
                         className={styles.button}
                     >
-                        Create Event
+                        Upload Event Image
                     </Button>
                 </form>
 

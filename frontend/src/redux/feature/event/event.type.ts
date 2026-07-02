@@ -11,7 +11,7 @@ export interface EventImage {
     event_uuid: string;
     tag_uuid: string;
     image_url: string;
-    tags?: EventImageTag[];
+    tag?: EventImageTag[];
     created_at: string;
     updated_at: string;
     deleted_at: string | null;
@@ -29,11 +29,18 @@ export interface Event {
     updated_at: string;
     deleted_at: string | null;
 }
+
 export interface CreateEventPayload {
     title: string;
     description?: string;
     image_url?: string;
     location?: string;
+}
+
+export interface CreateEventImagePayload {
+    tag_name: string;
+    image_url: string;
+    event_uuid: string;
 }
 
 export interface EventState {

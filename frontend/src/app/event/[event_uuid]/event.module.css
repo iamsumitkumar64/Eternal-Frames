@@ -10,3 +10,75 @@
     width: 100%;
     height: 7%;
 }
+
+.eventInfoBox {
+    width: 100%;
+    height: 40%;
+    display: flex;
+    flex-direction: row;
+    padding: 2%;
+    border-bottom: 1px solid rgb(243, 243, 243);
+}
+
+.eventInfo {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5%;
+}
+
+.eventTitle,
+.eventDescription {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: flex-start;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: black;
+}
+
+.eventDescription {
+    font-size: 1rem;
+    color: rgb(73, 73, 73);
+}
+
+.uploadImageButton,
+.tagImage {
+    width: fit-content;
+    border-radius: 4px;
+    padding: 1% 3%;
+    color: rgb(0, 0, 0);
+    border: 2px solid #232323;
+}
+
+.eventTagBox {
+    width: 60%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 30%;
+}
+
+.eventTagTopBox {
+    width: 100%;
+    height: fit-content;
+}
+
+.eventTagBottomBox {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tagImage {
+    width: fit-content;
+    height: fit-content;
+    padding: 1% 5%;
+    font-weight: 800;
+}
