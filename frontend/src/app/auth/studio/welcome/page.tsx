@@ -1,34 +1,49 @@
+import React from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import styles from './welcome.module.css';
+import NavButton from '@/component/common/nav-button/nav-button';
+import Link from 'next/link';
+
+export const metadata = {
+    title: 'Elevate Your Artistry | Celebration Studio',
+    description: 'Elevating your professional artistry through seamless digital preservation and immersive gallery experiences.',
+};
 
 export default function WelcomePage() {
     return (
         <Box component="main" className={styles.container}>
-            <Box className={styles.hero}>
-                <Box>
-                    <Typography variant="h2" component="h1" className={styles.title}>
-                        Welcome!
-                    </Typography>
-                    <Typography variant="body1" color="text.secondary">
-                        This is a fully static server page using Material UI and CSS Modules.
-                    </Typography>
-                </Box>
+            <Box component="header" className={styles.header}>
+                <Link className={styles.logo} href={'/'}>
+                    Eternal Frames
+                </Link>
+            </Box>
 
-                <Box>
-                    <Button
-                        variant="contained"
-                        className={styles.btn}
-                        sx={{ width: '150px' }}
-                    >
-                        Get Started
-                    </Button>
-                    <Button
-                        variant="outlined"
-                        className={styles.btn}
-                        sx={{ width: '150px' }}
-                    >
-                        Learn More
-                    </Button>
+            <Box className={styles.mainContent}>
+                <Typography variant="h2" className={styles.tagline}>
+                    Elevating your professional artistry through seamless digital preservation.
+                </Typography>
+
+                <Typography variant="body1" className={styles.subText}>
+                    Transform your celebration event creations into immersive gallery experiences and let your work speak for itself.
+                </Typography>
+
+                <Box className={styles.buttonGroup}>
+                    <NavButton
+                        title="Create Studio Account"
+                        redirectTo="/auth/studio/register"
+                        sx={{
+                            width: '100%',
+                            borderRadius: '50px',
+                            padding: '12px 32px',
+                            color: ' #ffffff',
+                            backgroundColor: '#b47b00',
+                            transition: "transform 0.2s ease",
+                            '&:hover': {
+                                backgroundColor: '#ff5e78',
+                                transform: "scale(1.05)"
+                            },
+                        }}
+                    />
                 </Box>
             </Box>
         </Box>
