@@ -73,3 +73,34 @@ export const getEventsByStudio = createAsyncThunk<
         }
     }
 );
+
+export const uploadEventImage = createAsyncThunk<
+    string,
+    File,
+    { state: RootState }
+>(
+    "event/uploadImage",
+    async (file, { getState, rejectWithValue }) => {
+        try {
+            const token = getState().authReducer.token || "";
+
+            const formData = new FormData();
+            formData.append("imageUrl", file);
+
+            const res = await fetch(`${BACKEND_URL}/api/v1/upload/image`, {
+                method: "POST",
+                headers: {
+                    Authorization: token,
+                },
+                body: formData,
+            });
+
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.message);
+
+            return data;
+        } catch (err: any) {
+            return rejectWithValue(err.message);
+        }
+    }
+);
