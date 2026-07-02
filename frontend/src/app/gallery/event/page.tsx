@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useAppDispatch, useAppSelector } from '@/redux/hooks.ts';
-import { getEventsByStudio } from '@/redux/feature/event/event.action';
+import { deleteEvent, getEventsByStudio } from '@/redux/feature/event/event.action';
 import { RootState } from '@/redux/store';
 import { enqueueSnackbar } from 'notistack';
 import { Event } from '@/redux/feature/event/event.type';
@@ -16,6 +16,7 @@ import { useRouter } from 'next/navigation';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import { UserRoleEnum } from '@/redux/feature/auth/user.enum';
 
 export default function GalleryEventPage() {
     const router = useRouter();
@@ -24,6 +25,7 @@ export default function GalleryEventPage() {
     const [offset, setOffset] = useState(Number(process.env.NEXT_PUBLIC_PAGE_OFFSET) || 0);
     const limit = Number(process.env.NEXT_PUBLIC_PAGE_LIMIT) || 10;
     const { eventTotalDocuments, events } = useAppSelector((state: RootState) => state.eventReducer);
+    const { user } = useAppSelector((state: RootState) => state.authReducer);
 
     useEffect(() => {
         dispatch(getEventsByStudio({ limit, offset: 0, })).unwrap();
@@ -50,8 +52,21 @@ export default function GalleryEventPage() {
         setOpenCreateEventModal(true);
     };
 
-    const handleSwitchPages = async (path: string) => {
+    const handleSwitchPages = (path: string) => {
         router.push(path)
+    }
+
+    const handleEventDelete = async (event_uuid: string) => {
+        try {
+            if (user?.role != UserRoleEnum.STUDIO) {
+                enqueueSnackbar("Only Studio can delete event", { variant: "error" });
+            }
+
+            await dispatch(deleteEvent({ event_uuid })).unwrap();
+        } catch (error: any) {
+            enqueueSnackbar(error, { variant: "error" });
+            console.log(error);
+        }
     }
 
     return (
@@ -98,7 +113,7 @@ export default function GalleryEventPage() {
 
                                         <Box className={styles.eventFooter}>
                                             <Button
-                                                onClick={async () => { await handleSwitchPages(`/gallery/event/${event.uuid}`) }}
+                                                onClick={async () => { handleSwitchPages(`/gallery/event/${event.uuid}`) }}
                                                 startIcon={<VisibilityOutlinedIcon />}
                                                 className={styles.footerButton}
                                             >
@@ -113,6 +128,7 @@ export default function GalleryEventPage() {
                                             <Button
                                                 startIcon={<DeleteOutlinedIcon />}
                                                 className={styles.footerButton}
+                                                onClick={async () => await handleEventDelete(event.uuid)}
                                             >
                                                 Delete
                                             </Button>

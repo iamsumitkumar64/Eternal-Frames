@@ -106,3 +106,35 @@ export const uploadEventImage = createAsyncThunk<
         }
     }
 );
+
+export const deleteEvent = createAsyncThunk<
+    { message: string, event_uuid: string },
+    { event_uuid: string },
+    { state: RootState }
+>(
+    "event/delete",
+    async (
+        { event_uuid },
+        { getState, rejectWithValue }
+    ) => {
+        try {
+            const token = getState().authReducer.token || "";
+            const res = await fetch(`${BACKEND_URL}/api/v1/event/${event_uuid}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: token,
+                },
+            });
+
+            const result = await res.json();
+            if (!res.ok) {
+                throw new Error(result.message);
+            }
+
+            return { ...result, event_uuid };
+        } catch (error: any) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
