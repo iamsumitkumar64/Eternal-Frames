@@ -36,4 +36,9 @@ export class EventRepository extends Repository<EventEntity> {
 
         return { data, total };
     }
+
+    async deleteEvent(uuid: string) {
+        await this.softDelete(uuid);
+        return;
+    }
 }
