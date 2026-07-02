@@ -10,6 +10,7 @@ import { useState } from 'react';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import EventImageFormModalComp from '@/component/event-image-form/event-form-image-comp';
 import { EventImageTag } from '@/redux/feature/event/event.type';
+import Image from 'next/image';
 
 export default function HomePage() {
     const { events } = useAppSelector((state: RootState) => state.eventReducer);
@@ -24,7 +25,7 @@ export default function HomePage() {
     const uniqueTags = Array.from(
         new Map(eventTags.map((tag) => [tag.uuid, tag])).values()
     );
-    console.log(uniqueTags);
+
     const handleAddEventImageClose = () => {
         setOpenCreateEventImageModal(false);
     };
@@ -71,6 +72,24 @@ export default function HomePage() {
                         })}
                     </Box>
                 </Box>
+            </Box>
+
+            <Box className={styles.imagesBox}>
+                {event?.images?.length ? (
+                    event.images.map((image, index) => (
+                        <Image
+                            key={index}
+                            src={image.image_url || ''}
+                            alt='rightBusinessInfo.jpg'
+                            width={100}
+                            height={100}
+                            className={styles.eventImage}
+                        />
+                    ))
+                ) : (
+                    <Typography>Upload Images as no images found</Typography>
+                )}
+
             </Box>
 
             <EventImageFormModalComp isOpen={openCreateEventImageModal} onClose={handleAddEventImageClose} event_uuid={cleanUuid ?? ''} />
