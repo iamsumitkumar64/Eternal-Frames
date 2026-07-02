@@ -6,6 +6,8 @@ import { ValidationPipe } from '@nestjs/common';
 import { CommonExceptionsFilter } from './common/infrastruture/filters/common-exceptions.filter';
 import { createSchemas } from './common/infrastruture/db/bootstrap/db_schema.create';
 import { initializeTransactionalContext } from 'typeorm-transactional';
+import * as express from 'express';
+import { join } from 'path';
 
 async function bootstrap() {
   initializeTransactionalContext();
@@ -28,6 +30,7 @@ async function bootstrap() {
 
   app.setGlobalPrefix('/api/v1');
   app.useGlobalFilters(new CommonExceptionsFilter());
+  app.use('/uploads', express.static(join(__dirname, '..', 'uploads')));
 
   await app.listen(process.env.PORT ?? 8090);
 }

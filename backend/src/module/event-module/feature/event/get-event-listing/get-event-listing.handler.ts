@@ -11,8 +11,13 @@ export class GetEventListingService {
     @Transactional({
         connectionName: process.env.DB_POSTGRES_EVENT_SCHEMA || 'event_schema',
     })
-    async handle(studioUuid: string, offset?: number, limit?: number) {
-        const { data, total } = await this.repository.getEventsByStudio(studioUuid, offset, limit);
-        return { data, totalDocuments: total };
+    async handle(studio_uuid: string, offset?: number, limit?: number) {
+        const { data, total } = await this.repository.getEventsByStudio(studio_uuid, offset, limit);
+
+        return {
+            data,
+            totalDocuments: total,
+            message: "Event Listing Success"
+        };
     }
 }

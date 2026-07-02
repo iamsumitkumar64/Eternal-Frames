@@ -11,6 +11,7 @@ import { getEventsByStudio } from '@/redux/feature/event/event.action';
 import { RootState } from '@/redux/store';
 import { enqueueSnackbar } from 'notistack';
 import { Event } from '@/redux/feature/event/event.type';
+import Image from 'next/image';
 
 export default function GalleryEventPage() {
     const dispatch = useAppDispatch();
@@ -73,6 +74,7 @@ export default function GalleryEventPage() {
                                     elevation={2}
                                 >
                                     {event.title}
+                                    <Image src={event.image_url || ''} alt='rightBusinessInfo.jpg' width={100} height={100} className={styles.buisnessInfoImage} />
                                 </Card>
                             )
                         })}

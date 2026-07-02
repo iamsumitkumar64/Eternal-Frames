@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { DataSource, Not, Repository } from "typeorm";
 import { UserEntity } from "../../domain/user/user.entity";
 import { InjectDataSource } from "@nestjs/typeorm";
+import { UserRoleEnum } from "../../domain/user/user.enum";
 
 @Injectable()
 export class UserRepository extends Repository<UserEntity> {

@@ -17,10 +17,10 @@ export class EventRepository extends Repository<EventEntity> {
         return await this.save(event);
     }
 
-    async getEventsByStudio(studioUuid: string, offset?: number, limit?: number) {
+    async getEventsByStudio(studio_uuid: string, offset?: number, limit?: number) {
         const [data, total] = await this.findAndCount({
             where: {
-                user_uuid: studioUuid,
+                user_uuid: studio_uuid,
             },
             relations: {
                 images: {
