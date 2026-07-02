@@ -11,7 +11,7 @@ import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 export default function HomePage() {
     const { events } = useAppSelector((state: RootState) => state.eventReducer);
     const { event_uuid } = useParams();
-    const event = events.find((eve) => eve.uuid === event_uuid);
+    const event = events.find((event) => event.uuid === event_uuid);
 
     return (
         <Box className={styles.container}>
@@ -19,7 +19,7 @@ export default function HomePage() {
                 <HomeHeaderComp />
             </Box>
 
-            <Box className={styles.eventBody}>
+            <Box className={styles.eventInfoBox}>
                 <Box className={styles.eventInfo}>
                     <Box className={styles.eventTitle}>
                         {event?.title || 'N/A Title'}
@@ -31,6 +31,14 @@ export default function HomePage() {
                         startIcon={<FileUploadOutlinedIcon />}
                     >
                         Upload New Image
+                    </Button>
+                </Box>
+
+                <Box className={styles.eventTagBox}>
+                    <Button
+                        startIcon={<FileUploadOutlinedIcon />}
+                    >
+
                     </Button>
                 </Box>
             </Box>
