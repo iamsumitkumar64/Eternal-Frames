@@ -63,18 +63,20 @@ export default function EventFormModalComp({ isOpen, onClose }: EventFormModalPr
             if (files.length > 0) {
                 const image_urls = await dispatch(uploadEventImage(files)).unwrap();
 
-                images = image_urls.map((img: any) => ({
+                images = image_urls.image_urls.map((img: any) => ({
                     image_url: img.path,
                 }));
             }
-            await dispatch(createEvent({ ...data, image_url: images[0] })).unwrap();
+
+            await dispatch(createEvent({ ...data, image_url: images[0].image_url })).unwrap();
             reset();
+            setFiles([]);
         } catch (error) {
             enqueueSnackbar(String(error || "Something wrong"), { variant: "error" });
             console.log(error)
         }
     }
-    
+
     const removeFile = (index: number) => {
         setFiles((prev) => prev.filter((_, i) => i !== index));
     };
