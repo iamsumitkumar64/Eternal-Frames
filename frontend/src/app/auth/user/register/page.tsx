@@ -39,7 +39,7 @@ export default function UserRegisterPage() {
         try {
             await dispatch(registerUser(data)).unwrap()
             enqueueSnackbar("User Registered Success", { variant: "success" });
-            router.replace("/")
+            router.replace("/gallery/event")
         } catch (error) {
             enqueueSnackbar(String(error || "Something wrong"), { variant: "error" });
             console.log(error)

@@ -37,7 +37,7 @@ export default function UserLoginPage() {
         try {
             await dispatch(loginUser(data)).unwrap()
             enqueueSnackbar("User Logged In Success", { variant: "success" });
-            router.replace("/")
+            router.replace("/gallery/event")
         } catch (error) {
             enqueueSnackbar(String(error || "Something wrong"), { variant: "error" });
             console.log(error)
