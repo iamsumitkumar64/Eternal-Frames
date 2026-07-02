@@ -20,6 +20,12 @@ export interface Event {
     updated_at: string;
     deleted_at: string | null;
 }
+export interface CreateEventPayload {
+    title: string;
+    description?: string;
+    image_url?: string;
+    location?: string;
+}
 
 export interface EventState {
     events: Event[];

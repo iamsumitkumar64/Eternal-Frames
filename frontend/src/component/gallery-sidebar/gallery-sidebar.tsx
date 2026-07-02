@@ -31,7 +31,7 @@ export default function GallerySideBarComp() {
     return (
         <Box className={styles.container}>
             <Box className={styles.header}>
-                <Typography className={styles.title}>
+                <Typography className={styles.title} onClick={async () => { await handleSwitchPages('/') }}>
                     Eternal Frames
                 </Typography>
 

@@ -2,7 +2,7 @@
 
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "@/redux/store";
-import { Event } from "./event.type";
+import { CreateEventPayload, Event } from "./event.type";
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8090";
 const LIMIT = Number(process.env.NEXT_PUBLIC_PAGE_LIMIT) || 10;
@@ -10,7 +10,7 @@ const OFFSET = Number(process.env.NEXT_PUBLIC_PAGE_OFFSET) || 0;
 
 export const createEvent = createAsyncThunk<
     { message: string, event: Event },
-    { title: string, description?: string, image_url?: string, location?: string },
+    CreateEventPayload,
     { state: RootState }
 >(
     "event/create",
@@ -75,19 +75,22 @@ export const getEventsByStudio = createAsyncThunk<
 );
 
 export const uploadEventImage = createAsyncThunk<
-    string,
-    File,
+    any,
+    any,
     { state: RootState }
 >(
-    "event/uploadImage",
-    async (file, { getState, rejectWithValue }) => {
+    "post/uploadImages",
+    async (files: File[], { getState, rejectWithValue }) => {
         try {
             const token = getState().authReducer.token || "";
 
             const formData = new FormData();
-            formData.append("imageUrl", file);
 
-            const res = await fetch(`${BACKEND_URL}/api/v1/upload/image`, {
+            files.forEach((file) => {
+                formData.append("imageUrl", file);
+            });
+
+            const res = await fetch(`${BACKEND_URL}/api/v1/upload/images`, {
                 method: "POST",
                 headers: {
                     Authorization: token,

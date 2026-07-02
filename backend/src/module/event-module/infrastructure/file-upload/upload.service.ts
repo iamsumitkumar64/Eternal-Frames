@@ -42,7 +42,7 @@ export class FileUploadService {
             }
         });
 
-        const selfUrl = process.env.SELF_URL;
+        const selfUrl = process.env.BACKEND_URL || 'http://localhost:8090';
         //sent success
         return {
             message: `${type} uploaded successfully`,
