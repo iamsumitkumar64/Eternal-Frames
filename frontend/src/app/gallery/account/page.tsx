@@ -40,52 +40,50 @@ export default function GalleryAccountPage() {
                     <Typography className={styles.title}>Profile Management</Typography>
                 </Box>
 
-                <Box>
-                    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-                        <Box className={styles.field}>
-                            <InputLabel htmlFor={`${2}-input`} className={styles.label}>Studio Name</InputLabel>
+                <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+                    <Box className={styles.field}>
+                        <InputLabel htmlFor={`${2}-input`} className={styles.label}>Studio Name</InputLabel>
 
-                            <TextField
-                                id={`${2}-input`}
-                                type="text"
-                                placeholder="Eternal Frames Photography"
-                                fullWidth
-                                {...register("name")}
-                                variant="standard"
-                            />
-                            {errors.name && (
-                                <span className={styles.error}>
-                                    {errors.name.message}
-                                </span>
-                            )}
-                        </Box>
+                        <TextField
+                            id={`${2}-input`}
+                            type="text"
+                            placeholder="Eternal Frames Photography"
+                            fullWidth
+                            {...register("name")}
+                            variant="standard"
+                        />
+                        {errors.name && (
+                            <span className={styles.error}>
+                                {errors.name.message}
+                            </span>
+                        )}
+                    </Box>
 
-                        <Box className={styles.field}>
-                            <InputLabel htmlFor={`${2}-input`} className={styles.label}>Email Address</InputLabel>
+                    <Box className={styles.field}>
+                        <InputLabel htmlFor={`${2}-input`} className={styles.label}>Email Address</InputLabel>
 
-                            <TextField
-                                id={`${2}-input`}
-                                type="email"
-                                placeholder="julian@eternalframes.studio"
-                                fullWidth
-                                {...register("email")}
-                                variant="standard"
-                            />
-                            {errors.email && (
-                                <span className={styles.error}>
-                                    {errors.email.message}
-                                </span>
-                            )}
-                        </Box>
+                        <TextField
+                            id={`${2}-input`}
+                            type="email"
+                            placeholder="julian@eternalframes.studio"
+                            fullWidth
+                            {...register("email")}
+                            variant="standard"
+                        />
+                        {errors.email && (
+                            <span className={styles.error}>
+                                {errors.email.message}
+                            </span>
+                        )}
+                    </Box>
 
-                        <Button
-                            type="submit"
-                            className={styles.button}
-                        >
-                            Save Changes
-                        </Button>
-                    </form>
-                </Box>
+                    <Button
+                        type="submit"
+                        className={styles.button}
+                    >
+                        Save Changes
+                    </Button>
+                </form>
             </Box>
 
             <Box className={styles.bottomContainer}>
