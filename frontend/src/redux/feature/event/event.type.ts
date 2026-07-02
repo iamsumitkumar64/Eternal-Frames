@@ -1,8 +1,17 @@
+export interface EventImageTag {
+    uuid: string;
+    tag_name: string;
+    created_at: string;
+    updated_at: string;
+    deleted_at: string | null;
+}
+
 export interface EventImage {
     uuid: string;
     event_uuid: string;
     tag_uuid: string;
     image_url: string;
+    tags?: EventImageTag[];
     created_at: string;
     updated_at: string;
     deleted_at: string | null;
