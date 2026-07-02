@@ -51,8 +51,8 @@ export default function GalleryEventPage() {
                 <Typography className={styles.title}>
                     My Events
                 </Typography>
-                <Box className={styles.buttonBox}>
-                    <Button className={styles.button} startIcon={<AddOutlinedIcon />} onClick={handleAddEventOpen}>Create New Event</Button>
+                <Box className={styles.headerButtonBox}>
+                    <Button className={styles.headerButton} startIcon={<AddOutlinedIcon />} onClick={handleAddEventOpen}>Create New Event</Button>
                 </Box>
             </Box>
 
@@ -65,17 +65,21 @@ export default function GalleryEventPage() {
                     // endMessage={<Typography className={styles.endMessage}>Yay! You have seen it all</Typography>}
                     scrollableTarget="scrollableDiv"
                 >
-                    <Box className={styles.planWrapper}>
+                    <Box className={styles.eventWrapper}>
                         {events.length && events.map((event: Event, idx: number) => {
                             return (
-                                <Card
+                                <Box
                                     key={idx}
                                     className={styles.card}
-                                    elevation={2}
                                 >
-                                    {event.title}
-                                    <Image src={event.image_url || ''} alt='rightBusinessInfo.jpg' width={100} height={100} className={styles.buisnessInfoImage} />
-                                </Card>
+                                    <Box className={styles.ImageBox}>
+                                        <Image src={event.image_url || ''} alt='rightBusinessInfo.jpg' width={100} height={100} className={styles.eventImage} />
+                                    </Box>
+
+                                    <Box className={styles.eventInfoBox}>
+
+                                    </Box>
+                                </Box>
                             )
                         })}
                     </Box>
