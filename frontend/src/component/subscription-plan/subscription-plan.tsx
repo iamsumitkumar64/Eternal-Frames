@@ -116,7 +116,7 @@ export default function SubscriptionPlanComp() {
                                         <Typography className={styles.price} component="p">
                                             {plan.price}
                                             <Typography className={styles.duration} component="span">
-                                                /month
+                                                /{process.env.NEXT_PUBLIC_SUBSCRIPTION_PLAN_EXPIRY_MONTHS}-month
                                             </Typography>
                                         </Typography>
 
