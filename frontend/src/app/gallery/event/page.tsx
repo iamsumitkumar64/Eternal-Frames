@@ -122,7 +122,7 @@ export default function GalleryEventPage() {
 
                                         <Box className={styles.eventFooter}>
                                             <Button
-                                                onClick={async () => { handleSwitchPages(`/gallery/event/${event.uuid}`) }}
+                                                onClick={async () => { handleSwitchPages(`/event/${event.uuid}`) }}
                                                 startIcon={<VisibilityOutlinedIcon />}
                                                 className={styles.footerButton}
                                             >

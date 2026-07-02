@@ -6,7 +6,7 @@
     align-items: center;
     padding: 1% 3.5%;
     border-bottom: 1px solid #f4f4f4;
-    background-color: #fafafa;
+    background-color: #ffffff;
 }
 
 .leftContainer {
@@ -45,7 +45,7 @@
     font-weight: 700;
     gap: 10px;
     color: rgb(195, 0, 0);
-    border: 1px solid rgb(207, 207, 207);
+    border: 1px solid rgb(248, 248, 248);
     padding: 1%;
     border-radius: 8px;
 }
