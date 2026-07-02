@@ -28,6 +28,7 @@ import { RazorModule } from './module/billing-module/feature/razorpay/razor.modu
 
 // Event Module
 import UploadModule from './module/event-module/feature/upload/upload.module';
+import { EventModule } from './module/event-module/feature/event/event.module';
 import { eventDataSource } from './module/event-module/infrastructure/database/data-source';
 import { EventRabbitMQModule } from './module/event-module/infrastructure/rabbit-mq/rabbit-mq.module';
 import * as EventCronModule from './module/event-module/infrastructure/cron/cron.module';
@@ -98,6 +99,7 @@ import * as EventCronModule from './module/event-module/infrastructure/cron/cron
         ),
     }),
     UploadModule,
+    EventModule,
     EventRabbitMQModule,
     EventCronModule.CronModule,
   ],

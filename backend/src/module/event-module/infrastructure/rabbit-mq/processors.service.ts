@@ -1,20 +1,23 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { EventEventHandlerMap, EventEventPayloadMap, UserRegisteredMQEventPayload } from './rabbit-mq.type';
+import { EventEventHandlerMap, EventEventPayloadMap, UserRegisteredMQEventPayload, SubscriptionUserCreatedMQEventPayload } from './rabbit-mq.type';
 import { InboxRepository } from '../repository/inbox.repository';
 import { Transactional } from 'typeorm-transactional';
 import { RegisterUserService } from '../../feature/user/register-user/register-user.handler';
+import { RegisterSubscriptionUserService } from '../../feature/subscription-user/register-subscription-user/register-subscription-user.handler';
 
 @Injectable()
 export class ProcessorsService {
     constructor(
         private readonly registerUserService: RegisterUserService,
+        private readonly registerSubscriptionUserService: RegisterSubscriptionUserService,
         private readonly inboxRepository: InboxRepository,
     ) { }
     private readonly logger = new Logger(ProcessorsService.name);
 
     // Map event names to handlers
     public eventHandlerMap: EventEventHandlerMap = {
-        'user.registered': [this.handleUserRegister]
+        'user.registered': [this.handleUserRegister],
+        'subscription_user.created': [this.handleSubscriptionUserCreated]
     };
 
     @Transactional({
@@ -49,5 +52,9 @@ export class ProcessorsService {
 
     async handleUserRegister(payload: UserRegisteredMQEventPayload) {
         await this.registerUserService.handle(payload);
+    }
+
+    async handleSubscriptionUserCreated(payload: SubscriptionUserCreatedMQEventPayload) {
+        await this.registerSubscriptionUserService.handle(payload);
     }
 }

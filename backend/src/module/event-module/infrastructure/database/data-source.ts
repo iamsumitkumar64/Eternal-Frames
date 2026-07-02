@@ -6,6 +6,10 @@ import 'dotenv/config';
 import { InboxEntity } from "../../domain/inbox/inbox.entity";
 import { UserEntity } from "../../domain/user/user.entity";
 import { OutboxEntity } from "../../domain/outbox/outbox.entity";
+import { SubscriptionUserEntity } from "../../domain/subscription_user/subscription_user.entity";
+import { EventEntity } from "../../domain/event/event.entity";
+import { EventImagesEntity } from "../../domain/event_images/event_images.entity";
+import { TagEntity } from "../../domain/tag/tag.entity";
 
 const options: DataSourceOptions = {
     type: process.env.DB_POSTGRES_TYPE as any,
@@ -16,6 +20,7 @@ const options: DataSourceOptions = {
     database: process.env.DB_POSTGRES_DATABASE,
     entities: [
         UserEntity, InboxEntity, OutboxEntity,
+        SubscriptionUserEntity, EventEntity, EventImagesEntity, TagEntity,
     ],
     schema: process.env.DB_POSTGRES_EVENT_SCHEMA || 'event_schema',
     synchronize: false,

@@ -1,5 +1,7 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, Generated, OneToMany, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { UserRoleEnum } from "./user.enum";
+import { SubscriptionUserEntity } from "../subscription_user/subscription_user.entity";
+import { EventEntity } from "../event/event.entity";
 
 @Entity('user')
 export class UserEntity {
@@ -14,6 +16,12 @@ export class UserEntity {
 
     @Column({ type: "enum", enum: UserRoleEnum, default: UserRoleEnum.USER })
     role: UserRoleEnum;
+
+    @OneToMany(() => SubscriptionUserEntity, (subscriptions_user) => subscriptions_user.user, { cascade: true })
+    subscription: SubscriptionUserEntity[];
+
+    @OneToMany(() => EventEntity, (event) => event.user, { cascade: true })
+    events: EventEntity[];
 
     @CreateDateColumn()
     created_at: Date;

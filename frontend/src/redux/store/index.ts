@@ -7,6 +7,7 @@ import storage from "redux-persist/lib/storage";
 //common reducer
 import authReducer from "../feature/auth/auth-slice";
 import subscriptionReducer from "../feature/subscription/subscription-slice";
+import eventReducer from "../feature/event/event.slice";
 
 const persistConfig = {
     key: "root",
@@ -16,6 +17,7 @@ const persistConfig = {
 const appReducer = combineReducers({
     authReducer: authReducer,
     subscriptionReducer: subscriptionReducer,
+    eventReducer: eventReducer,
 });
 
 const rootReducer = (state: any, action: any) => {
