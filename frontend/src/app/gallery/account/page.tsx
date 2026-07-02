@@ -1,12 +1,12 @@
 'use client'
 
 import { Box, Typography } from '@mui/material';
-import styles from './event.module.css';
+import styles from './account.module.css';
 
-export default function GalleryEventPage() {
+export default function GalleryAccountPage() {
     return (
         <Box className={styles.container}>
-            event page
+            account page
         </Box>
     );
 }
