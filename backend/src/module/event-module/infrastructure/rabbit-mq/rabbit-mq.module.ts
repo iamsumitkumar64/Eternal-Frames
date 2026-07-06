@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { RabbitMQService } from './rabbit-mq.service';
 import { ProcessorsService } from './processors.service';
-import { RegisterUserService } from '../../feature/user/register-user/register-user.handler';
+import { RegisterUserService } from '../../feature/auth/register-user/register-user.handler';
 import { RegisterSubscriptionUserService } from '../../feature/subscription-user/register-subscription-user/register-subscription-user.handler';
 import { InboxRepository } from '../repository/inbox.repository';
 import { UserRepository } from '../repository/user.repository';

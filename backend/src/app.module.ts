@@ -17,7 +17,7 @@ import { userDataSource } from './module/user-module/infrastructure/database/dat
 import { UserRepository } from './module/user-module/infrastructure/repository/user.repository';
 import { JwtHelperService } from './module/user-module/infrastructure/services/jwt.service';
 import * as UserCronModule from './module/user-module/infrastructure/cron/cron.module';
-import { UserModule } from './module/user-module/feature/user/user.module';
+import { AuthModule } from './module/user-module/feature/auth/auth.module';
 
 // Billing Module
 import { billingDataSource } from './module/billing-module/infrastructure/database/data-source';
@@ -63,7 +63,7 @@ import * as EventCronModule from './module/event-module/infrastructure/cron/cron
         ),
     }),
     UserCronModule.CronModule,
-    UserModule,
+    AuthModule,
 
     // Billing Module
     TypeOrmModule.forRootAsync({

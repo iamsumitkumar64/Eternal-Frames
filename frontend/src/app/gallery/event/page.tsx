@@ -99,7 +99,7 @@ export default function GalleryEventPage() {
                     scrollableTarget="scrollableDiv"
                 >
                     <Box className={styles.eventWrapper}>
-                        {events.length && events.map((event: Event, idx: number) => {
+                        {events.length ? events.map((event: Event, idx: number) => {
                             return (
                                 <Box
                                     key={idx}
@@ -146,7 +146,7 @@ export default function GalleryEventPage() {
                                     </Box>
                                 </Box>
                             )
-                        })}
+                        }) : <></>}
                     </Box>
                 </InfiniteScroll>
             </Box >

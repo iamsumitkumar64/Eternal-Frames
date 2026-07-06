@@ -107,3 +107,38 @@ export const studioBuySubscriptionWebhook = createAsyncThunk<
         }
     }
 );
+
+export const getCurrentSubscriptionPlan = createAsyncThunk<
+    { data: any, totalDocuments: number, message: string, limit: number, offset: number },
+    void,
+    { state: RootState }
+>(
+    "subscription/current/plan/get",
+    async (
+        undefined,
+        { getState, rejectWithValue }
+    ) => {
+        try {
+            const token = getState().authReducer.token || "";
+            const res = await fetch(
+                `${BACKEND_URL}/api/v1/subscription/current/plan`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: token,
+                    },
+                }
+            );
+
+            const result = await res.json();
+            if (!res.ok) {
+                throw new Error(result.message);
+            }
+
+            return result;
+        } catch (error: any) {
+            return rejectWithValue(error.message);
+        }
+    }
+);

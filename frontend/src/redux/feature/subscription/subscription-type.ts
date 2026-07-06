@@ -22,6 +22,16 @@ export interface SubscriptionPlan {
     deleted_at: string | null;
 }
 
+export interface SubscriptionUserPlan {
+    uuid: string;
+    plan_uuid: string;
+    user_uuid: string;
+    plan: SubscriptionPlan,
+    created_at: string;
+    updated_at: string;
+    deleted_at: string | null;
+}
+
 export interface ApiResponse<T> {
     data: T;
     limit: number;
@@ -32,9 +42,10 @@ export interface ApiResponse<T> {
 
 export type SubscriptionPlanResponse = ApiResponse<SubscriptionPlan[]>;
 
-export interface SubscriptionPlanChatState {
+export interface SubscriptionPlanState {
     subscriptionPlans: SubscriptionPlan[];
     subscriptionPlanTotalDocuments: number;
+    subscriptionUserPlan: SubscriptionUserPlan;
     loading: boolean;
     error: string | null;
 }

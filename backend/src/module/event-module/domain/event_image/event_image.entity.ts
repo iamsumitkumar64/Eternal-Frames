@@ -2,7 +2,7 @@ import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToO
 import { TagEntity } from '../tag/tag.entity';
 import { EventEntity } from '../event/event.entity';
 
-@Entity('event_images')
+@Entity('event_image')
 export class EventImageEntity {
     @PrimaryGeneratedColumn('uuid')
     uuid: string;

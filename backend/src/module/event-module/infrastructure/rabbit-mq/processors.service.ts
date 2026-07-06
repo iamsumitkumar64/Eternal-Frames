@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { EventEventHandlerMap, EventEventPayloadMap, UserRegisteredMQEventPayload, SubscriptionUserCreatedMQEventPayload } from './rabbit-mq.type';
 import { InboxRepository } from '../repository/inbox.repository';
 import { Transactional } from 'typeorm-transactional';
-import { RegisterUserService } from '../../feature/user/register-user/register-user.handler';
+import { RegisterUserService } from '../../feature/auth/register-user/register-user.handler';
 import { RegisterSubscriptionUserService } from '../../feature/subscription-user/register-subscription-user/register-subscription-user.handler';
 
 @Injectable()

@@ -1,18 +1,19 @@
 "use client";
 
 import { createSlice } from "@reduxjs/toolkit";
-import { SubscriptionPlanChatState } from "./subscription-type";
-import { getSubscriptionPlan } from "./subscription-action";
+import { SubscriptionPlanState, SubscriptionUserPlan } from "./subscription-type";
+import { getSubscriptionPlan, getCurrentSubscriptionPlan } from "./subscription-action";
 
-const initialState: SubscriptionPlanChatState = {
+const initialState: SubscriptionPlanState = {
     subscriptionPlans: [],
     subscriptionPlanTotalDocuments: 0,
+    subscriptionUserPlan: {} as SubscriptionUserPlan,
     loading: false,
     error: null,
 };
 
 const subscriptionPlanSlice = createSlice({
-    name: "chat",
+    name: "subscription",
     initialState,
     reducers: {
         resetSubscriptionPlanError: (state) => {
@@ -33,8 +34,22 @@ const subscriptionPlanSlice = createSlice({
                 } else {
                     state.subscriptionPlans = [...state.subscriptionPlans, ...data];
                 }
+                state.subscriptionPlanTotalDocuments = totalDocuments
             })
             .addCase(getSubscriptionPlan.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            })
+            .addCase(getCurrentSubscriptionPlan.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(getCurrentSubscriptionPlan.fulfilled, (state, action) => {
+                const { data } = action.payload;
+                state.loading = false;
+                state.error = null;
+                state.subscriptionUserPlan = data;
+            })
+            .addCase(getCurrentSubscriptionPlan.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
             })

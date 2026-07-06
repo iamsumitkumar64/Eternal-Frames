@@ -30,4 +30,17 @@ export class SubscriptionUserRepository extends Repository<SubscriptionUserEntit
 
         return subscriptions;
     }
+
+    async getCurrentSubscriptionPlan(user_uuid: string) {
+        const data = await this.findOne({
+            where: {
+                user_uuid
+            },
+            relations: {
+                plan: { features: true }
+            }
+        });
+
+        return data;
+    }
 }

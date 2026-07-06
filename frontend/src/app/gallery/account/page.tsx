@@ -6,11 +6,22 @@ import { useForm } from 'react-hook-form';
 import { profileSchema, profileSchemaType } from '@/schemas/profile';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { enqueueSnackbar } from 'notistack';
-import { useAppSelector } from '@/redux/hooks.ts';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks.ts';
 import { RootState } from '@/redux/store';
+import { getCurrentSubscriptionPlan } from '@/redux/feature/subscription/subscription-action';
+import { useEffect } from 'react';
+import { Feature } from '@/redux/feature/subscription/subscription-type';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 
 export default function GalleryAccountPage() {
     const { user } = useAppSelector((state: RootState) => state.authReducer);
+    const { subscriptionUserPlan } = useAppSelector((state: RootState) => state.subscriptionReducer);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(getCurrentSubscriptionPlan()).unwrap();
+    }, [])
 
     const {
         register,
@@ -91,8 +102,56 @@ export default function GalleryAccountPage() {
                     <Typography className={styles.title}>Subscription Management</Typography>
                 </Box>
 
-                <Box>
+                <Box className={styles.subscriptionBody}>
+                    <Box className={styles.leftContainer}>
+                        <Typography className={styles.bottomTitles}>Current Plan</Typography>
+                        {
+                            subscriptionUserPlan ?
+                                <Box className={styles.planContainer}>
+                                    <Box>
+                                        <Typography>{subscriptionUserPlan.plan.title}</Typography>
 
+                                        <Box>
+                                            <Box>
+                                                <Typography>Status</Typography>
+                                                <Typography>Active</Typography>
+                                            </Box>
+                                            <Box>
+                                                <Typography>Renewal</Typography>
+                                                <Typography>Oct 24 2026</Typography>
+                                            </Box>
+                                            <Box>
+                                                <Typography>Time Remaining</Typography>
+                                                <Typography>5 Months</Typography>
+                                            </Box>
+                                        </Box>
+                                    </Box>
+
+                                    <Box>
+                                        <Button>
+                                            Renew Now
+                                        </Button>
+                                    </Box>
+                                </Box>
+                                :
+                                <>No Active Plan exists right now</>
+                        }
+                    </Box>
+                    <Box className={styles.rightContainer}>
+                        <Typography className={styles.bottomTitles}>Plan Features</Typography>
+                        <Box>
+                            {subscriptionUserPlan && subscriptionUserPlan.plan.features.map((feature: Feature) => {
+                                return (
+                                    <Box className={styles.featureBox} key={feature.uuid}>
+                                        {feature.is_included ? <CheckCircleIcon className={styles.CheckIcon} /> : <CancelOutlinedIcon className={styles.UnCheckIcon} />}
+                                        <Typography className={styles.featureName}>
+                                            {feature.feature_name}
+                                        </Typography>
+                                    </Box>
+                                )
+                            })}
+                        </Box>
+                    </Box>
                 </Box>
             </Box>
         </Box>

@@ -14,7 +14,7 @@ export class OutboxEntryPublisherCronService {
 
     private readonly logger = new Logger(OutboxEntryPublisherCronService.name,);
 
-    @Cron(process.env.USER_OUTBOX_CRON_TIMER || CronExpression.EVERY_5_SECONDS)
+    @Cron(process.env.OUTBOX_CRON_TIMER || CronExpression.EVERY_5_SECONDS)
     @Transactional({
         connectionName: process.env.DB_POSTGRES_BILLING_SCHEMA || 'billing_schema',
     })

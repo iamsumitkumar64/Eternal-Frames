@@ -40,7 +40,6 @@ export default function HomePage() {
         return false;
     }) || [];
 
-    console.log(displayedImages);
     const handleAddEventImageClose = () => {
         setOpenCreateEventImageModal(false);
     };

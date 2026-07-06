@@ -4,11 +4,13 @@
     display: flex;
     flex-direction: column;
     overflow: auto;
+    gap: 5%;
 }
 
 .topContainer,
 .bottomContainer {
     width: 100%;
+    height: 30%;
     padding: 2%;
 }
 
@@ -54,4 +56,59 @@
     color: white;
     text-transform: uppercase;
     border: 2px solid #7d5600;
+}
+
+.subscriptionBody {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 1%;
+}
+
+.bottomTitles {
+    color: #212121;
+}
+
+.leftContainer {
+    width: 40%;
+    height: 100%;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10%;
+}
+
+.planContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.rightContainer {
+    width: 22%;
+    height: 100%;
+    background: #f0f0f0;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10%;
+}
+
+.featureBox {
+    width: 100%;
+    height: 40%;
+    display: flex;
+    flex-direction: row;
+    gap: 2%;
+}
+
+.CheckIcon,
+.UnCheckIcon {
+    fill: #9c6500;
+    padding: .5%;
+}
+
+.UnCheckIcon {
+    fill: #6b7280;
 }

@@ -1,25 +1,22 @@
 import { Module } from "@nestjs/common";
-import { RegisterUserModule } from "./register-user/register-user.module";
 import { RouterModule } from "@nestjs/core";
-import { LoginUserModule } from "./login-user/login-user.module";
+import { UpdateUserModule } from "./update-user/update-user.module";
 
 @Module({
     imports: [
-        RegisterUserModule,
-        LoginUserModule,
+        UpdateUserModule,
         RouterModule.register([
             {
-                path: 'user',
+                path: 'fuck',
                 children: [
-                    { path: '/', module: RegisterUserModule },
-                    { path: '/', module: LoginUserModule },
+                    { path: '', module: UpdateUserModule },
                 ],
             },
         ]),
     ],
     controllers: [],
     providers: [],
-    exports: [UserModule],
+    exports: [],
 })
 
 export class UserModule { }
