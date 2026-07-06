@@ -12,9 +12,10 @@ export class UpdateUserController {
 
     @Patch()
     async updateUser(@Req() req: Request, @Body() body: UpdateUserDto) {
-        await this.updateUserService.handle(req, body);
+        const data = await this.updateUserService.handle(req, body);
 
         return {
+            data,
             message: "User Updated Success"
         };
     }

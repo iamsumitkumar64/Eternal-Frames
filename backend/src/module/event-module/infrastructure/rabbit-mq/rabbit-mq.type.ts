@@ -18,8 +18,19 @@ export interface SubscriptionUserCreatedMQEventPayload {
     deleted_at?: Date;
 }
 
+export interface UserUpdatedMQEventPayload {
+    uuid: string;
+    email: string;
+    name?: string;
+    profile_image?: string;
+    created_at?: Date;
+    updated_at?: Date;
+    deleted_at?: Date;
+}
+
 export type EventEventPayloadMap = {
     'user.registered': UserRegisteredMQEventPayload,
+    'user.updated': UserUpdatedMQEventPayload,
     'subscription_user.created': SubscriptionUserCreatedMQEventPayload,
 };
 

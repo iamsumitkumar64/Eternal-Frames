@@ -6,6 +6,7 @@ import {
     registerUser,
     loginUser,
     logoutUser,
+    updateUser,
 } from "./auth-action"
 import Cookies from 'js-cookie';
 
@@ -91,6 +92,21 @@ const authSlice = createSlice({
                 Cookies.remove("token");
                 Cookies.remove("role")
                 state.error = action.payload as string
+            })
+            .addCase(updateUser.pending, (state) => {
+                state.loading = true;
+                state.status = "pending";
+            })
+            .addCase(updateUser.fulfilled, (state, action) => {
+                state.loading = false;
+                state.status = "succeed";
+                state.user = action.payload.data as User;
+                state.error = null;
+            })
+            .addCase(updateUser.rejected, (state, action) => {
+                state.loading = false;
+                state.status = "rejected";
+                state.error = action.payload as string;
             })
     }
 })

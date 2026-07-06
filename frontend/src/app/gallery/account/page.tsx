@@ -9,10 +9,12 @@ import { enqueueSnackbar } from 'notistack';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks.ts';
 import { RootState } from '@/redux/store';
 import { getCurrentSubscriptionPlan } from '@/redux/feature/subscription/subscription-action';
+import { updateUser } from '@/redux/feature/auth/auth-action';
 import { useEffect } from 'react';
 import { Feature } from '@/redux/feature/subscription/subscription-type';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import { calculateSubscriptionExpiry } from '@/utils/subscription';
 
 export default function GalleryAccountPage() {
     const { user } = useAppSelector((state: RootState) => state.authReducer);
@@ -26,7 +28,8 @@ export default function GalleryAccountPage() {
     const {
         register,
         handleSubmit,
-        formState: { errors }
+        formState: { errors },
+        reset
     } = useForm<profileSchemaType>({
         resolver: zodResolver(profileSchema),
         defaultValues: {
@@ -35,14 +38,29 @@ export default function GalleryAccountPage() {
         }
     })
 
+    useEffect(() => {
+        if (user) {
+            reset({
+                email: user.email ?? "",
+                name: user.name ?? "",
+            });
+        }
+    }, [user, reset]);
+
     const onSubmit = async (data: profileSchemaType) => {
         try {
-            enqueueSnackbar("User Logged In Success", { variant: "success" });
+            await dispatch(updateUser(data)).unwrap();
+            enqueueSnackbar("Profile updated successfully", { variant: "success" });
         } catch (error) {
-            enqueueSnackbar(String(error || "Something wrong"), { variant: "error" });
+            enqueueSnackbar(String(error || "Something went wrong"), { variant: "error" });
             console.log(error)
         }
     }
+
+    // Dynamic calculations for subscription plan expiry (Task 2) using utils
+    const { subscriptionStatus, nextRenewal, timeRemaining } = calculateSubscriptionExpiry(
+        subscriptionUserPlan?.created_at
+    );
 
     return (
         <Box className={styles.container}>
@@ -53,10 +71,10 @@ export default function GalleryAccountPage() {
 
                 <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
                     <Box className={styles.field}>
-                        <InputLabel htmlFor={`${2}-input`} className={styles.label}>Studio Name</InputLabel>
+                        <InputLabel htmlFor="studio-name-input" className={styles.label}>Studio Name</InputLabel>
 
                         <TextField
-                            id={`${2}-input`}
+                            id="studio-name-input"
                             type="text"
                             placeholder="Eternal Frames Photography"
                             fullWidth
@@ -71,10 +89,10 @@ export default function GalleryAccountPage() {
                     </Box>
 
                     <Box className={styles.field}>
-                        <InputLabel htmlFor={`${2}-input`} className={styles.label}>Email Address</InputLabel>
+                        <InputLabel htmlFor="email-input" className={styles.label}>Email Address</InputLabel>
 
                         <TextField
-                            id={`${2}-input`}
+                            id="email-input"
                             type="email"
                             placeholder="julian@eternalframes.studio"
                             fullWidth
@@ -114,15 +132,15 @@ export default function GalleryAccountPage() {
                                         <Box>
                                             <Box>
                                                 <Typography>Status</Typography>
-                                                <Typography>Active</Typography>
+                                                <Typography>{subscriptionStatus}</Typography>
                                             </Box>
                                             <Box>
                                                 <Typography>Renewal</Typography>
-                                                <Typography>Oct 24 2026</Typography>
+                                                <Typography>{nextRenewal}</Typography>
                                             </Box>
                                             <Box>
                                                 <Typography>Time Remaining</Typography>
-                                                <Typography>5 Months</Typography>
+                                                <Typography>{timeRemaining}</Typography>
                                             </Box>
                                         </Box>
                                     </Box>

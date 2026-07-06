@@ -71,6 +71,7 @@ export default function EventImageFormModalComp({ isOpen, onClose, event_uuid }:
             await dispatch(createEventImage({ ...data, event_uuid: event_uuid, image_url: images[0].image_url })).unwrap();
             reset();
             setFiles([]);
+            onClose();
         } catch (error) {
             enqueueSnackbar(String(error || "Something wrong"), { variant: "error" });
             console.log(error)

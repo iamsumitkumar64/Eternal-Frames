@@ -9,8 +9,19 @@ export interface UserRegisteredMQEventPayload {
     deleted_at?: Date;
 }
 
+export interface UserUpdatedMQEventPayload {
+    uuid: string;
+    email: string;
+    name?: string;
+    profile_image?: string;
+    created_at?: Date;
+    updated_at?: Date;
+    deleted_at?: Date;
+}
+
 export type BillingEventPayloadMap = {
     'user.registered': UserRegisteredMQEventPayload,
+    'user.updated': UserUpdatedMQEventPayload,
 };
 
 // Generic union type

@@ -7,7 +7,7 @@ import { UpdateUserModule } from "./update-user/update-user.module";
         UpdateUserModule,
         RouterModule.register([
             {
-                path: 'fuck',
+                path: 'user',
                 children: [
                     { path: '', module: UpdateUserModule },
                 ],

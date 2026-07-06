@@ -43,7 +43,7 @@ export const createEventImage = createAsyncThunk<
     CreateEventImagePayload,
     { state: RootState }
 >(
-    "event/create",
+    "event/image/create",
     async (payload, { getState, rejectWithValue }) => {
         try {
             const token = getState().authReducer.token || "";

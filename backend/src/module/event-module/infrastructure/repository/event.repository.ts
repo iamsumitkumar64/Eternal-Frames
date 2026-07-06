@@ -21,7 +21,12 @@ export class EventRepository extends Repository<EventEntity> {
         const event = await this.findOne({
             where: {
                 uuid: uuid
-            }
+            },
+            relations: {
+                images: {
+                    tag: true,
+                },
+            },
         });
         return event;
     }

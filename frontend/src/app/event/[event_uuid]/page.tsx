@@ -3,24 +3,32 @@
 import { Box, Button, Typography, } from '@mui/material';
 import styles from './event.module.css';
 import HomeHeaderComp from '@/component/common/header/header';
-import { useAppSelector } from '@/redux/hooks.ts';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks.ts';
 import { RootState } from '@/redux/store';
 import { useParams } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import EventImageFormModalComp from '@/component/event-image-form/event-form-image-comp';
 import { EventImageTag } from '@/redux/feature/event/event.type';
 import Image from 'next/image';
+import { getEventsByStudio } from '@/redux/feature/event/event.action';
 
 export default function HomePage() {
     const { events } = useAppSelector((state: RootState) => state.eventReducer);
     const [openCreateEventImageModal, setOpenCreateEventImageModal] = useState(false);
     const [selectedTagUuid, setSelectedTagUuid] = useState<string | null>(null);
 
+    const dispatch = useAppDispatch();
     const { event_uuid } = useParams();
     const cleanUuid = Array.isArray(event_uuid) ? event_uuid[0] : event_uuid;
 
-    const event = events.find((event) => event.uuid === cleanUuid);
+    useEffect(() => {
+        if (!events || events.length === 0) {
+            dispatch(getEventsByStudio({ limit: 100, offset: 0 }));
+        }
+    }, [events, dispatch]);
+
+    const event = (events || []).find((event) => event && event.uuid === cleanUuid);
     const eventTags = event?.images
         ?.flatMap((img) => img.tag || [])
         .filter((tag) => tag !== undefined) || [];

@@ -34,6 +34,6 @@ export class CreateEventImageService {
             event_uuid: body.event_uuid,
         });
 
-        return;
+        return await this.eventRepository.findByUuid(body.event_uuid);
     }
 }
