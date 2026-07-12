@@ -56,10 +56,9 @@
 
 .premium_tag {
     background: #c68100;
-    color: #6b4600;
+    color: #ffffff;
     padding: 1%;
-    border-top-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 16px;
     position: absolute;
     top: 0;
     right: 0;

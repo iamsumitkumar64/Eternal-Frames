@@ -49,6 +49,7 @@
     "class-validator": "^0.15.1",
     "dotenv": "^17.4.2",
     "multer": "^2.2.0",
+    "nest-commander": "^3.20.1",
     "pg": "^8.21.0",
     "razorpay": "^2.9.6",
     "reflect-metadata": "^0.2.2",

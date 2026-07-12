@@ -2,6 +2,7 @@
 
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { RegisterSchemaType } from "@/schemas/register"
+import { RootState } from "@/redux/store";
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8090";
 

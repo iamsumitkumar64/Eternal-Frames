@@ -32,6 +32,10 @@ export class UserRepository extends Repository<UserEntity> {
         return user;
     }
 
+    async updateUser(user_uuid: string, body: Partial<UserEntity>) {
+        return await this.update({ uuid: user_uuid }, body);
+    }
+
     async findByEmail(email: string) {
         const user = await this.findOne({
             where: {

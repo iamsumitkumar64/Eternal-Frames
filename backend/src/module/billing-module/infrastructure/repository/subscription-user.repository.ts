@@ -12,7 +12,7 @@ export class SubscriptionUserRepository extends Repository<SubscriptionUserEntit
         super(SubscriptionUserEntity, dataSource.createEntityManager());
     }
 
-    async createPlan(body: Partial<SubscriptionUserEntity>) {
+    async createSubscriptionUser(body: Partial<SubscriptionUserEntity>) {
         const subscription = this.create(body);
         return await this.save(subscription);
     }
@@ -42,5 +42,9 @@ export class SubscriptionUserRepository extends Repository<SubscriptionUserEntit
         });
 
         return data;
+    }
+
+    async deleteSubscriptionUser(uuid: string) {
+        return await this.softDelete(uuid);
     }
 }

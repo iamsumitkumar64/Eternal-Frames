@@ -3,7 +3,7 @@ import { BillingEventHandlerMap, BillingEventPayloadMap, UserRegisteredMQEventPa
 import { InboxRepository } from '../repository/inbox.repository';
 import { Transactional } from 'typeorm-transactional';
 import { RegisterUserService } from '../../feature/auth/register-user/register-user.handler';
-import { UpdateUserService } from '../../feature/auth/update-user/update-user.handler';
+import { UpdateUserService } from '../../feature/user/update-user/update-user.handler';
 
 @Injectable()
 export class ProcessorsService {

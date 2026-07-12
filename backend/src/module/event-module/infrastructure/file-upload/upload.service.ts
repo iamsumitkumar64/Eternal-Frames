@@ -42,7 +42,7 @@ export class FileUploadService {
             }
         });
 
-        const selfUrl = process.env.BACKEND_URL || 'http://localhost:8090';
+        const selfUrl = process.env.DOCKER_BACKEND_URL || 'http://backend:8090';
         //sent success
         return {
             message: `${type} uploaded successfully`,

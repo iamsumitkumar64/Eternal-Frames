@@ -7,12 +7,13 @@ import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 import { useAppDispatch } from '@/redux/hooks.ts';
 import { logoutUser } from '@/redux/feature/auth/auth-action';
 import { enqueueSnackbar } from 'notistack';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 export default function GallerySideBarComp() {
     const router = useRouter()
     const dispatch = useAppDispatch();
+    const path = usePathname();
 
     const handleLogOut = async () => {
         try {
@@ -42,14 +43,14 @@ export default function GallerySideBarComp() {
 
             <Box className={styles.tabBox}>
                 <Button
-                    className={styles.button}
+                    className={path == '/gallery/event' ? styles.activeButton : styles.button}
                     onClick={async () => { await handleSwitchPages('/gallery/event') }}
                 >
                     <EventIcon />Events
                 </Button>
 
                 <Button
-                    className={styles.button}
+                    className={path == '/gallery/account' ? styles.activeButton : styles.button}
                     onClick={async () => { await handleSwitchPages('/gallery/account') }}
                 >
                     <AccountBoxOutlinedIcon />Account

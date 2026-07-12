@@ -27,7 +27,6 @@ export class EventImageRepository extends Repository<EventImageEntity> {
     }
 
     async deleteEventImage(uuid: string) {
-        await this.softDelete(uuid);
-        return;
+        return await this.softDelete(uuid);
     }
 }

@@ -60,10 +60,10 @@ export default function UserRegisterPage() {
 
             <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
                 <Box className={styles.field}>
-                    <InputLabel htmlFor={`${1}-input`} className={styles.label}>Studio Name</InputLabel>
+                    <InputLabel htmlFor={`studio-name-input`} className={styles.label}>Studio Name</InputLabel>
 
                     <TextField
-                        id={`${1}-input`}
+                        id={`studio-name-input`}
                         placeholder="e.g. Celestial Moments Photography"
                         type="text"
                         fullWidth
@@ -78,10 +78,10 @@ export default function UserRegisterPage() {
                 </Box>
 
                 <Box className={styles.field}>
-                    <InputLabel htmlFor={`${2}-input`} className={styles.label}>Business Email</InputLabel>
+                    <InputLabel htmlFor={`email-input`} className={styles.label}>Business Email</InputLabel>
 
                     <TextField
-                        id={`${2}-input`}
+                        id={`email-input`}
                         placeholder="hello@yourstudio.com"
                         type="email"
                         fullWidth
@@ -96,10 +96,10 @@ export default function UserRegisterPage() {
                 </Box>
 
                 <Box className={styles.field}>
-                    <InputLabel htmlFor={`${3}-input`} className={styles.label}>Password</InputLabel>
+                    <InputLabel htmlFor={`password-input`} className={styles.label}>Password</InputLabel>
 
                     <TextField
-                        id={`${3}-input`}
+                        id={`password-input`}
                         placeholder="XXX-XXX-XXX"
                         type={showPassword ? 'text' : 'password'}
                         fullWidth

@@ -13,10 +13,7 @@ export class UpdateUserService {
         connectionName: process.env.DB_POSTGRES_EVENT_SCHEMA || 'event_schema',
     })
     async handle(payload: UserUpdatedMQEventPayload) {
-        await this.repository.update({ uuid: payload.uuid }, {
-            name: payload.name,
-            email: payload.email,
-        });
+        await this.repository.updateUser(payload.uuid, payload);
         return;
     }
 }

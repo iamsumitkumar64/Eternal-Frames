@@ -12,7 +12,7 @@ export class SubscriptionUserRepository extends Repository<SubscriptionUserEntit
         super(SubscriptionUserEntity, dataSource.createEntityManager());
     }
 
-    async register(body: Partial<SubscriptionUserEntity>) {
+    async createSubscriptionUser(body: Partial<SubscriptionUserEntity>) {
         const sub = this.create(body);
         return await this.save(sub);
     }
@@ -25,4 +25,28 @@ export class SubscriptionUserRepository extends Repository<SubscriptionUserEntit
         });
         return sub;
     }
+
+    async findByUserUuid(user_uuid: string) {
+        const subscriptions = await this.findOne({
+            where: {
+                user_uuid: user_uuid,
+            }
+        });
+
+        return subscriptions;
+    }
+
+    async findByStudioUuid(user_uuid: string) {
+        const sub = await this.findOne({
+            where: {
+                user_uuid: user_uuid
+            }
+        });
+        return sub;
+    }
+
+    async deleteSubscriptionUser(uuid: string) {
+        return await this.softDelete(uuid);
+    }
+
 }

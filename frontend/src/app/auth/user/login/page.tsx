@@ -58,10 +58,10 @@ export default function UserLoginPage() {
 
             <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
                 <Box className={styles.field}>
-                    <InputLabel htmlFor={`${2}-input`} className={styles.label}>Email Address</InputLabel>
+                    <InputLabel htmlFor={`email-input`} className={styles.label}>Email Address</InputLabel>
 
                     <TextField
-                        id={`${2}-input`}
+                        id={`email-input`}
                         type="email"
                         placeholder="juilanne@example.com"
                         fullWidth
@@ -76,10 +76,10 @@ export default function UserLoginPage() {
                 </Box>
 
                 <Box className={styles.field}>
-                    <InputLabel htmlFor={`${3}-input`} className={styles.label}>Password</InputLabel>
+                    <InputLabel htmlFor={`password-input`} className={styles.label}>Password</InputLabel>
 
                     <TextField
-                        id={`${3}-input`}
+                        id={`password-input`}
                         placeholder="XXX-XXX-XXX"
                         type={showPassword ? 'text' : 'password'}
                         fullWidth

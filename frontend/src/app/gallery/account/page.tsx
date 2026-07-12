@@ -8,15 +8,19 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { enqueueSnackbar } from 'notistack';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks.ts';
 import { RootState } from '@/redux/store';
-import { getCurrentSubscriptionPlan } from '@/redux/feature/subscription/subscription-action';
+import { cancelCurrentSubscriptionPlan, getCurrentSubscriptionPlan } from '@/redux/feature/subscription/subscription-action';
 import { updateUser } from '@/redux/feature/auth/auth-action';
 import { useEffect } from 'react';
 import { Feature } from '@/redux/feature/subscription/subscription-type';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
+import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import { calculateSubscriptionExpiry } from '@/utils/subscription';
+import { useRouter } from 'next/navigation';
+import { renewCurrentSubscription } from '@/redux/feature/event/event.action';
 
 export default function GalleryAccountPage() {
+    const router = useRouter();
     const { user } = useAppSelector((state: RootState) => state.authReducer);
     const { subscriptionUserPlan } = useAppSelector((state: RootState) => state.subscriptionReducer);
     const dispatch = useAppDispatch();
@@ -28,8 +32,7 @@ export default function GalleryAccountPage() {
     const {
         register,
         handleSubmit,
-        formState: { errors },
-        reset
+        formState: { errors }
     } = useForm<profileSchemaType>({
         resolver: zodResolver(profileSchema),
         defaultValues: {
@@ -37,15 +40,6 @@ export default function GalleryAccountPage() {
             name: user?.name ?? "",
         }
     })
-
-    useEffect(() => {
-        if (user) {
-            reset({
-                email: user.email ?? "",
-                name: user.name ?? "",
-            });
-        }
-    }, [user, reset]);
 
     const onSubmit = async (data: profileSchemaType) => {
         try {
@@ -57,7 +51,27 @@ export default function GalleryAccountPage() {
         }
     }
 
-    // Dynamic calculations for subscription plan expiry (Task 2) using utils
+    const handleCancelSubscription = async () => {
+        try {
+            await dispatch(cancelCurrentSubscriptionPlan()).unwrap();
+            enqueueSnackbar("Subscription Plan cancelled Success", { variant: "success" });
+        } catch (error) {
+            enqueueSnackbar(String(error || "Something went wrong"), { variant: "error" });
+            console.log(error)
+        }
+    }
+
+    const handleRenewSubscription = async () => {
+        try {
+            await dispatch(renewCurrentSubscription()).unwrap();
+            await dispatch(getCurrentSubscriptionPlan()).unwrap();
+            enqueueSnackbar("Subscription Plan renwed Success", { variant: "success" });
+        } catch (error) {
+            enqueueSnackbar(String(error || "Something went wrong"), { variant: "error" });
+            console.log(error)
+        }
+    }
+
     const { subscriptionStatus, nextRenewal, timeRemaining } = calculateSubscriptionExpiry(
         subscriptionUserPlan?.created_at
     );
@@ -124,44 +138,61 @@ export default function GalleryAccountPage() {
                     <Box className={styles.leftContainer}>
                         <Typography className={styles.bottomTitles}>Current Plan</Typography>
                         {
-                            subscriptionUserPlan ?
+                            subscriptionUserPlan?.plan ?
                                 <Box className={styles.planContainer}>
-                                    <Box>
-                                        <Typography>{subscriptionUserPlan.plan.title}</Typography>
+                                    <Box className={styles.planBoxSection}>
+                                        <Typography className={styles.planTitle}>{subscriptionUserPlan.plan.title}</Typography>
 
-                                        <Box>
-                                            <Box>
-                                                <Typography>Status</Typography>
-                                                <Typography>{subscriptionStatus}</Typography>
+                                        <Box className={styles.planSection}>
+                                            <Box className={styles.planStatus}>
+                                                <Typography className={styles.planStatusTitle}>Status</Typography>
+                                                <Typography>{subscriptionStatus == 'Active' ? <FiberManualRecordIcon className={styles.activePlan} /> : <FiberManualRecordIcon className={styles.passivePlan} />} {subscriptionStatus}</Typography>
                                             </Box>
-                                            <Box>
-                                                <Typography>Renewal</Typography>
+                                            <Box className={styles.planStatus}>
+                                                <Typography className={styles.planStatusTitle}>Renewal</Typography>
                                                 <Typography>{nextRenewal}</Typography>
                                             </Box>
-                                            <Box>
-                                                <Typography>Time Remaining</Typography>
+                                            <Box className={styles.planStatus}>
+                                                <Typography className={styles.planStatusTitle}>Time Remaining</Typography>
                                                 <Typography>{timeRemaining}</Typography>
                                             </Box>
                                         </Box>
                                     </Box>
 
-                                    <Box>
-                                        <Button>
-                                            Renew Now
-                                        </Button>
+                                    <Box className={styles.planOptions}>
+                                        <Box className={styles.planButtonSection}>
+                                            <Button className={styles.renewPlanButton} onClick={async () => await handleRenewSubscription()}>
+                                                Renew Now
+                                            </Button>
+                                            <Button className={styles.viewPlanButton} onClick={() => { router.push('/subscription/plan') }}>
+                                                View Plans
+                                            </Button>
+                                        </Box>
+
+                                        <Box className={styles.cancelSubscriptionBox}>
+                                            <Button className={styles.cancelSubscriptionButton} onClick={async () => await handleCancelSubscription()}>Cancel Subscription</Button>
+                                        </Box>
                                     </Box>
+
                                 </Box>
                                 :
-                                <>No Active Plan exists right now</>
+                                <Box className={styles.planButtonSection}>
+                                    <Typography>No Active Plan exists right now</Typography>
+                                    <Button className={styles.buyPlanButton} onClick={() => { router.push('/subscription/plan') }}>
+                                        Buy Subscription
+                                    </Button>
+                                </Box>
                         }
                     </Box>
+
+
                     <Box className={styles.rightContainer}>
                         <Typography className={styles.bottomTitles}>Plan Features</Typography>
                         <Box>
-                            {subscriptionUserPlan && subscriptionUserPlan.plan.features.map((feature: Feature) => {
+                            {subscriptionUserPlan?.plan?.features && subscriptionUserPlan.plan.features.map((feature: Feature) => {
                                 return (
                                     <Box className={styles.featureBox} key={feature.uuid}>
-                                        {feature.is_included ? <CheckCircleIcon className={styles.CheckIcon} /> : <CancelOutlinedIcon className={styles.UnCheckIcon} />}
+                                        {feature.is_included ? <CheckCircleOutlinedIcon className={styles.CheckIcon} /> : <CircleOutlinedIcon className={styles.UnCheckIcon} />}
                                         <Typography className={styles.featureName}>
                                             {feature.feature_name}
                                         </Typography>

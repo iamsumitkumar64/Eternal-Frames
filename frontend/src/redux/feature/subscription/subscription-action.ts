@@ -142,3 +142,38 @@ export const getCurrentSubscriptionPlan = createAsyncThunk<
         }
     }
 );
+
+export const cancelCurrentSubscriptionPlan = createAsyncThunk<
+    { message: string },
+    void,
+    { state: RootState }
+>(
+    "subscription/current/plan/cancel",
+    async (
+        undefined,
+        { getState, rejectWithValue }
+    ) => {
+        try {
+            const token = getState().authReducer.token || "";
+            const res = await fetch(
+                `${BACKEND_URL}/api/v1/subscription`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: token,
+                    },
+                }
+            );
+
+            const result = await res.json();
+            if (!res.ok) {
+                throw new Error(result.message);
+            }
+
+            return result;
+        } catch (error: any) {
+            return rejectWithValue(error.message);
+        }
+    }
+);

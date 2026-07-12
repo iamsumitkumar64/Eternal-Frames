@@ -2,7 +2,7 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 import { SubscriptionPlanState, SubscriptionUserPlan } from "./subscription-type";
-import { getSubscriptionPlan, getCurrentSubscriptionPlan } from "./subscription-action";
+import { getSubscriptionPlan, getCurrentSubscriptionPlan, cancelCurrentSubscriptionPlan } from "./subscription-action";
 
 const initialState: SubscriptionPlanState = {
     subscriptionPlans: [],
@@ -50,6 +50,18 @@ const subscriptionPlanSlice = createSlice({
                 state.subscriptionUserPlan = data;
             })
             .addCase(getCurrentSubscriptionPlan.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            })
+            .addCase(cancelCurrentSubscriptionPlan.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(cancelCurrentSubscriptionPlan.fulfilled, (state, action) => {
+                state.loading = false;
+                state.error = null;
+                state.subscriptionUserPlan = null;
+            })
+            .addCase(cancelCurrentSubscriptionPlan.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
             })

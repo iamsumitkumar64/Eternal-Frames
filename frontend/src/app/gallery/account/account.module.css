@@ -5,13 +5,14 @@
     flex-direction: column;
     overflow: auto;
     gap: 5%;
+    padding: 2%;
 }
 
 .topContainer,
 .bottomContainer {
     width: 100%;
-    height: 30%;
-    padding: 2%;
+    height: fit-content;
+    min-height: 30%;
 }
 
 .title {
@@ -63,36 +64,65 @@
     height: 100%;
     display: flex;
     gap: 1%;
+    margin-top: 2%;
 }
 
 .bottomTitles {
+    width: 100%;
+    height: 10%;
     color: #212121;
 }
 
 .leftContainer {
     width: 40%;
-    height: 100%;
+    height: 90%;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
     gap: 10%;
+    padding: 1% 2%;
+    background: #ffffff;
 }
 
 .planContainer {
     width: 100%;
-    height: 100%;
+    height: 90%;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .rightContainer {
     width: 22%;
     height: 100%;
-    background: #f0f0f0;
+    background: #e9e9e9;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
     gap: 10%;
+    padding: 1%;
+}
+
+.cancelSubscriptionBox {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.cancelSubscriptionButton {
+    color: rgb(145, 145, 145);
+}
+
+.activePlan,
+.passivePlan {
+    font-size: .8rem;
+    fill: rgb(0, 159, 0);
+}
+
+.passivePlan {
+    fill: #6b7280;
 }
 
 .featureBox {
@@ -111,4 +141,79 @@
 
 .UnCheckIcon {
     fill: #6b7280;
+}
+
+.planBoxSection {
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10%;
+}
+
+.planTitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.planOptions {
+    width: 30%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.planSection {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.planStatus {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 10%;
+}
+
+.planStatusTitle {
+    color: #5a5a5a;
+}
+
+.planButtonSection {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5%;
+}
+
+.viewPlanButton,
+.renewPlanButton {
+    width: fit-content;
+    border: 1px solid #794f00;
+    padding: 7% 10%;
+    font-weight: 700;
+}
+
+.buyPlanButton {
+    width: fit-content;
+    height: fit-content;
+    border: 1px solid #794f00;
+    font-weight: 700;
+    color: #9c6500;
+}
+
+.renewPlanButton {
+    color: #ffffff;
+    background: #7a4f00;
+}
+
+.viewPlanButton {
+    color: #7a4f00;
 }

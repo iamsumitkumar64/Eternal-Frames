@@ -9,6 +9,7 @@ import { enqueueSnackbar } from "notistack"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks.ts"
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { UserRoleEnum } from "@/redux/feature/auth/user.enum"
 
 export default function HomeHeaderComp() {
     const router = useRouter()
@@ -38,12 +39,12 @@ export default function HomeHeaderComp() {
             <Box className={styles.rightContainer}>
                 {user ? (
                     <Box className={styles.rightBox}>
-                        <Button
+                        {user.role == UserRoleEnum.STUDIO && <Button
                             className={styles.button}
                             onClick={async () => { await handleSwitchPages('/gallery/event') }}
                         >
                             Gallery
-                        </Button>
+                        </Button>}
 
                         <Button
                             className={styles.logoutbtn}

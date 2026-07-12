@@ -3,17 +3,17 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hooks.ts";
 import { RootState } from "@/redux/store";
 import { Box, Button, Card, CircularProgress, Typography } from '@mui/material';
-import styles from './subscription-plan.module.css';
+import styles from './subscription-plan-listing.module.css';
 import { useEffect, useState } from "react";
 import { getRazorPlanLinkForSubscription, getSubscriptionPlan, studioBuySubscriptionWebhook } from "@/redux/feature/subscription/subscription-action";
 import { enqueueSnackbar } from "notistack";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Feature, SubscriptionPlan } from "@/redux/feature/subscription/subscription-type";
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
+import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 import { useRouter } from "next/navigation";
 
-export default function SubscriptionPlanComp() {
+export default function SubscriptionPlanListingComp() {
     const dispatch = useAppDispatch();
     const router = useRouter();
     const [offset, setOffset] = useState(Number(process.env.NEXT_PUBLIC_PAGE_OFFSET) || 0);
@@ -125,7 +125,7 @@ export default function SubscriptionPlanComp() {
                                     <Box className={styles.features}>
                                         {plan.features.length && plan.features.map((feature: Feature, idx: number) => (
                                             <Box className={styles.featureBox} key={idx}>
-                                                {feature.is_included ? <CheckCircleIcon className={styles.CheckIcon} /> : <CancelOutlinedIcon className={styles.UnCheckIcon} />}
+                                                {feature.is_included ? <CheckCircleOutlinedIcon className={styles.CheckIcon} /> : <CircleOutlinedIcon className={styles.UnCheckIcon} />}
                                                 <Typography className={styles.featureName}>
                                                     {feature.feature_name}
                                                 </Typography>

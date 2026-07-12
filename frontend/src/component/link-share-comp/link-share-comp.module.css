@@ -1,0 +1,124 @@
+.container {
+    width: 100%;
+    height: 100%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    width: 50vmin;
+    height: 10vmin;
+    padding-bottom: .5%;
+    padding: 5%;
+    /* border-bottom: 1px solid #d9d9d9; */
+    margin-bottom: .5%;
+}
+
+.heading {
+    font-weight: 400;
+}
+
+.subHeading {
+    color: #b3b3b3;
+}
+
+.socialWrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10%;
+    align-items: stretch;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+    /* margin-top: 2%; */
+    padding: 2%;
+}
+
+.socialButton {
+    border-left: 1px solid #c4c4c4;
+    border-right: 1px solid #c4c4c4;
+    border-bottom: 1px solid #c4c4c4;
+}
+
+.socialButton:hover {
+    box-shadow: 0 0 0 5px rgb(226, 226, 226);
+}
+
+.divider {
+    margin: 10px 0;
+}
+
+.QrCodeWrapper {
+    max-width: 50vmin;
+    max-height: 50vmin;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2%;
+}
+
+.QrCodeBox {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('/qr-code/screen.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 2%;
+    border-radius: 16px;
+    box-shadow: 0 0 5px 1px rgb(180, 180, 180);
+    position: relative;
+}
+
+.boxTitle {
+    width: 100%;
+    position: absolute;
+    top: 10%;
+    text-align: center;
+    color: #fff;
+    text-shadow: 0 0 10px 0 rgb(78, 78, 78);
+    font-weight: 900;
+    font-size: 1.2rem;
+}
+
+.QrCode {
+    width: 28%;
+    height: 30%;
+    margin-top: 40%;
+    padding: 2%;
+}
+
+.QrCodeBox:hover {
+    box-shadow: 0 0 5px 1px rgb(155, 155, 155);
+}
+
+.QrCodeButtonBox {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5%;
+}
+
+.qrButton {
+    margin-top: 4%;
+    border-radius: 8px;
+    font-weight: 700;
+    background: #d28100;
+    color: rgb(255, 255, 255);
+    text-transform: uppercase;
+    border: 2px solid transparent;
+}
+
+.qrButton:hover {
+    border: 2px solid rgb(194, 194, 194);
+}

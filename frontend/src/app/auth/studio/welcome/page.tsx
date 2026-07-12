@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import styles from './welcome.module.css';
-import NavButton from '@/component/common/nav-button/nav-button';
+import NavButton from '@/component/nav-button/nav-button';
 import Link from 'next/link';
 
 export const metadata = {

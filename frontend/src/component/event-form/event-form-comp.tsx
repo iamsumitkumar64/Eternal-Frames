@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useAppDispatch } from "@/redux/hooks.ts";
 import { enqueueSnackbar } from "notistack";
 import { createEvent, uploadEventImage } from "@/redux/feature/event/event.action";
-import { MultiFileUpload } from "mui-file-upload";
+import { FileUpload, MultiFileUpload } from "mui-file-upload";
 import { createEventSchema, CreateEventSchemaType } from "@/schemas/event-create";
 import { CreateEventPayload } from "@/redux/feature/event/event.type";
 import CloseIcon from "@mui/icons-material/Close";
@@ -40,7 +40,7 @@ export default function EventFormModalComp({ isOpen, onClose }: EventFormModalPr
             let progress = 0;
 
             const interval = setInterval(() => {
-                progress += 10;
+                progress += 30;
                 onProgress(progress);
 
                 if (progress >= 100) {
@@ -71,6 +71,7 @@ export default function EventFormModalComp({ isOpen, onClose }: EventFormModalPr
             await dispatch(createEvent({ ...data, image_url: images[0].image_url })).unwrap();
             reset();
             setFiles([]);
+            onClose();
         } catch (error) {
             enqueueSnackbar(String(error || "Something wrong"), { variant: "error" });
             console.log(error)
@@ -86,10 +87,10 @@ export default function EventFormModalComp({ isOpen, onClose }: EventFormModalPr
             <Box className={styles.modalContainer}>
                 <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
                     <Box className={styles.field}>
-                        <InputLabel htmlFor={`${2}-input`} className={styles.label}>Title</InputLabel>
+                        <InputLabel htmlFor={`title-input`} className={styles.label}>Title</InputLabel>
 
                         <TextField
-                            id={`${2}-input`}
+                            id={`title-input`}
                             type="title"
                             placeholder="wedding event"
                             fullWidth
@@ -104,12 +105,13 @@ export default function EventFormModalComp({ isOpen, onClose }: EventFormModalPr
                     </Box>
 
                     <Box className={styles.field}>
-                        <InputLabel htmlFor={`${2}-input`} className={styles.label}>Description</InputLabel>
+                        <InputLabel htmlFor={`description-input`} className={styles.label}>Description</InputLabel>
 
                         <TextField
-                            id={`${2}-input`}
+                            id={`description-input`}
                             type="description"
-                            placeholder="wedding event is wonderful at location organized by ...."
+                            multiline
+                            placeholder="wedding event is wonderful at location organized by somewhere and by whom and some related description...."
                             fullWidth
                             {...register("description")}
                             variant="standard"
@@ -122,10 +124,10 @@ export default function EventFormModalComp({ isOpen, onClose }: EventFormModalPr
                     </Box>
 
                     <Box className={styles.field}>
-                        <InputLabel htmlFor={`${2}-input`} className={styles.label}>Location</InputLabel>
+                        <InputLabel htmlFor={`location-input`} className={styles.label}>Location</InputLabel>
 
                         <TextField
-                            id={`${2}-input`}
+                            id={`location-input`}
                             type="location"
                             placeholder="34 Street NewYork"
                             fullWidth
@@ -140,21 +142,11 @@ export default function EventFormModalComp({ isOpen, onClose }: EventFormModalPr
                     </Box>
 
                     <MultiFileUpload
-                        // sx={{
-                        //     sx: {
-                        //         width: "90%",
-                        //         height: "100%",
-                        //         display: "flex",
-                        //         justifyContent: "center",
-                        //         alignItems: "center"
-                        //     }
-                        // }}
                         uploadService={uploadService}
                         acceptsOnly="image/*"
-                        onSuccessfulUpload={(fileUpload: any) => {
+                        onSuccessfulUpload={(fileUpload: FileUpload<string>) => {
                             setFiles((prev) => {
-                                if (prev.length > MAX_FILES) {
-                                    console.log(prev, prev.length, MAX_FILES);
+                                if (prev.length >= MAX_FILES) {
                                     enqueueSnackbar(`You can't upload more than ${MAX_FILES} images`, { variant: "warning" });
                                     return prev;
                                 }

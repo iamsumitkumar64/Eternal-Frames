@@ -45,7 +45,7 @@ export type SubscriptionPlanResponse = ApiResponse<SubscriptionPlan[]>;
 export interface SubscriptionPlanState {
     subscriptionPlans: SubscriptionPlan[];
     subscriptionPlanTotalDocuments: number;
-    subscriptionUserPlan: SubscriptionUserPlan;
+    subscriptionUserPlan: SubscriptionUserPlan | null;
     loading: boolean;
     error: string | null;
 }

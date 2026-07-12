@@ -1,7 +1,7 @@
 import { Injectable, BadRequestException } from "@nestjs/common";
 import { UserRepository } from "src/module/user-module/infrastructure/repository/user.repository";
 import { UpdateUserDto } from "./update-user.dto";
-import type{ Request } from "express";
+import type { Request } from "express";
 import { OutboxRepository } from "src/module/user-module/infrastructure/repository/outbox.repository";
 import { UserPublishEventEnum } from "src/module/user-module/domain/user/user.event";
 import { Transactional } from "typeorm-transactional";
@@ -20,18 +20,19 @@ export class UpdateUserService {
     })
     async handle(req: Request, body: UpdateUserDto) {
         const userUuid = req.user.uuid;
-
-        if (body.email) {
-            const existingUser = await this.userRepository.findByEmail(body.email);
-            if (existingUser && existingUser.uuid !== userUuid) {
-                throw new BadRequestException("Email is already in use by another account");
-            }
+        const isUserExists = await this.userRepository.findByUuid(userUuid);
+        if (!isUserExists) {
+            throw new BadRequestException("User Not Found");
+        }
+        const isEmailAvailable = await this.userRepository.findByEmail(body.email);
+        if (isEmailAvailable && isEmailAvailable.uuid === userUuid) {
+            throw new BadRequestException("You already have this email");
+        }
+        if (isEmailAvailable) {
+            throw new BadRequestException("Email is in use right now");
         }
 
-        await this.userRepository.update({ uuid: userUuid }, {
-            name: body.name,
-            email: body.email
-        });
+        await this.userRepository.updateUser(userUuid, body);
 
         const updatedUser = await this.userRepository.findByUuid(userUuid);
 
@@ -39,7 +40,7 @@ export class UpdateUserService {
             exchange_name: this.USER_EXCHANGE,
             routing_key: '',
             event_name: UserPublishEventEnum.USER_UPDATED,
-            message_payload: updatedUser,
+            message_payload: updatedUser || undefined,
         });
 
         return updatedUser;

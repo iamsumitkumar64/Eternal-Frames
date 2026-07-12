@@ -9,6 +9,6 @@ import { OutboxRepository } from '../repository/outbox.repository';
         OutboxRepository,
         UserRepository,
     ],
-    exports: [RabbitMQService],
+    exports: [],
 })
 export class UserRabbitMQModule { }

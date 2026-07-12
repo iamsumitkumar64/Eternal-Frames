@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useAppDispatch } from "@/redux/hooks.ts";
 import { enqueueSnackbar } from "notistack";
 import { createEventImage, uploadEventImage } from "@/redux/feature/event/event.action";
-import { MultiFileUpload } from "mui-file-upload";
+import { FileUpload, MultiFileUpload } from "mui-file-upload";
 import CloseIcon from "@mui/icons-material/Close";
 import { createEventImageSchema, CreateEventImageSchemaType } from "@/schemas/event-image-create";
 
@@ -40,7 +40,7 @@ export default function EventImageFormModalComp({ isOpen, onClose, event_uuid }:
             let progress = 0;
 
             const interval = setInterval(() => {
-                progress += 10;
+                progress += 30;
                 onProgress(progress);
 
                 if (progress >= 100) {
@@ -87,10 +87,10 @@ export default function EventImageFormModalComp({ isOpen, onClose, event_uuid }:
             <Box className={styles.modalContainer}>
                 <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
                     <Box className={styles.field}>
-                        <InputLabel htmlFor={`${2}-input`} className={styles.label}>Tag Name</InputLabel>
+                        <InputLabel htmlFor={`tag-input`} className={styles.label}>Tag Name</InputLabel>
 
                         <TextField
-                            id={`${2}-input`}
+                            id={`tag-input`}
                             type="description"
                             placeholder="wedding"
                             fullWidth
@@ -105,21 +105,11 @@ export default function EventImageFormModalComp({ isOpen, onClose, event_uuid }:
                     </Box>
 
                     <MultiFileUpload
-                        // sx={{
-                        //     sx: {
-                        //         width: "90%",
-                        //         height: "100%",
-                        //         display: "flex",
-                        //         justifyContent: "center",
-                        //         alignItems: "center"
-                        //     }
-                        // }}
                         uploadService={uploadService}
                         acceptsOnly="image/*"
-                        onSuccessfulUpload={(fileUpload: any) => {
+                        onSuccessfulUpload={(fileUpload: FileUpload<string>) => {
                             setFiles((prev) => {
-                                if (prev.length > MAX_FILES) {
-                                    console.log(prev, prev.length, MAX_FILES);
+                                if (prev.length >= MAX_FILES) {
                                     enqueueSnackbar(`You can't upload more than ${MAX_FILES} images`, { variant: "warning" });
                                     return prev;
                                 }

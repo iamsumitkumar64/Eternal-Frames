@@ -19,7 +19,7 @@ export class RegisterSubscriptionUserService {
             return;
         }
 
-        await this.repository.register(payload);
+        await this.repository.createSubscriptionUser(payload);
         return;
     }
 }

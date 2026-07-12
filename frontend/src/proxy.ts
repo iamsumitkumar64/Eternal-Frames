@@ -1,16 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
 import { UserRoleEnum } from "./redux/feature/auth/user.enum";
 
-const publicRoutes = ['/public', '/auth/user/login', '/auth/user/register', '/auth/studio/register', '/auth/studio/welcome', '/'];
+const publicRoutes = ['/public', '/auth/user/login', '/auth/user/register', '/auth/studio/register', '/auth/studio/welcome', '/', '/event'];
 const authBlockRoutes = ['/auth/user/login', '/auth/user/register', '/auth/studio/register', '/auth/studio/welcome'];
-const studioRoutes = ['/subscription/plan'];
+const studioRoutes = ['/subscription/plan', '/gallery/event', '/gallery/account'];
 
 export default function proxy(req: NextRequest) {
     const credentials = req.cookies.get("token")?.value;
     const role = req.cookies.get("role")?.value;
     const pathname = req.nextUrl.pathname;
 
-    const isPublic = publicRoutes.some((route) => pathname === route || pathname.startsWith(`${route}/`) || pathname.endsWith('.svg'));
+    const isPublic =
+        publicRoutes.some(
+            (route) =>
+                pathname === route ||
+                pathname.startsWith(`${route}/`) ||
+                pathname.endsWith('.svg')
+        ) ||
+        /^\/event\/[^/]+$/.test(pathname);
     const isAuthBlock = authBlockRoutes.some((route) => pathname === route || pathname.startsWith(`${route}/`));
     const isStudioRoutes = studioRoutes.some((route) => pathname === route || pathname.startsWith(`${route}/`));
     const isAuthenticated = Boolean(credentials);

@@ -2,7 +2,7 @@
 
 import { Box, Button, Typography, } from '@mui/material';
 import styles from './event.module.css';
-import HomeHeaderComp from '@/component/common/header/header';
+import HomeHeaderComp from '@/component/header/header';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks.ts';
 import { RootState } from '@/redux/store';
 import { useParams } from 'next/navigation';
@@ -11,22 +11,24 @@ import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import EventImageFormModalComp from '@/component/event-image-form/event-form-image-comp';
 import { EventImageTag } from '@/redux/feature/event/event.type';
 import Image from 'next/image';
-import { getEventsByStudio } from '@/redux/feature/event/event.action';
+import { deleteEventImage, getEventByUuid } from '@/redux/feature/event/event.action';
+import { UserRoleEnum } from '@/redux/feature/auth/user.enum';
+import { enqueueSnackbar } from 'notistack';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
 export default function HomePage() {
+    const dispatch = useAppDispatch();
     const { events } = useAppSelector((state: RootState) => state.eventReducer);
+    const { user } = useAppSelector((state: RootState) => state.authReducer);
     const [openCreateEventImageModal, setOpenCreateEventImageModal] = useState(false);
     const [selectedTagUuid, setSelectedTagUuid] = useState<string | null>(null);
 
-    const dispatch = useAppDispatch();
     const { event_uuid } = useParams();
     const cleanUuid = Array.isArray(event_uuid) ? event_uuid[0] : event_uuid;
 
     useEffect(() => {
-        if (!events || events.length === 0) {
-            dispatch(getEventsByStudio({ limit: 100, offset: 0 }));
-        }
-    }, [events, dispatch]);
+        dispatch(getEventByUuid({ event_uuid: cleanUuid || '' }));
+    }, [dispatch]);
 
     const event = (events || []).find((event) => event && event.uuid === cleanUuid);
     const eventTags = event?.images
@@ -60,6 +62,19 @@ export default function HomePage() {
         setSelectedTagUuid((prev) => (prev === tagUuid ? null : tagUuid));
     };
 
+    const handleDeleteImage = async (event_image_uuid: string) => {
+        try {
+            if (user?.role != UserRoleEnum.STUDIO) {
+                enqueueSnackbar("Only Studio can delete event image", { variant: "error" });
+            }
+
+            await dispatch(deleteEventImage({ event_uuid: cleanUuid || '', event_image_uuid })).unwrap();
+        } catch (error: any) {
+            enqueueSnackbar(error, { variant: "error" });
+            console.log(error);
+        }
+    }
+
     return (
         <Box className={styles.container}>
             <Box className={styles.headerBox}>
@@ -68,12 +83,14 @@ export default function HomePage() {
 
             <Box className={styles.eventInfoBox}>
                 <Box className={styles.eventInfo}>
-                    <Box className={styles.eventTitle}>
+                    <Typography className={styles.eventTitle}>
                         {event?.title || 'N/A Title'}
-                    </Box>
-                    <Box className={styles.eventDescription}>
+                    </Typography>
+
+                    <Typography className={styles.eventDescription}>
                         {event?.description}
-                    </Box>
+                    </Typography>
+
                     <Button
                         startIcon={<FileUploadOutlinedIcon />}
                         className={styles.uploadImageButton}
@@ -107,7 +124,6 @@ export default function HomePage() {
                                     style={{
                                         cursor: 'pointer',
                                         fontWeight: isSelected ? 'bold' : 'normal',
-                                        opacity: selectedTagUuid && !isSelected ? 0.6 : 1
                                     }}
                                 >
                                     #{tag.tag_name}
@@ -121,14 +137,19 @@ export default function HomePage() {
             <Box className={styles.imagesBox}>
                 {displayedImages.length ? (
                     displayedImages.map((image, index) => (
-                        <Image
-                            key={index}
-                            src={image.image_url || ''}
-                            alt='rightBusinessInfo.jpg'
-                            width={100}
-                            height={100}
-                            className={styles.eventImage}
-                        />
+                        <Box className={styles.eventImageBox} key={index}   >
+                            <Image
+                                src={image.image_url || ''}
+                                alt={image.image_url || ''}
+                                width={100}
+                                height={100}
+                                className={styles.eventImage}
+                            />
+                            {user && user.role === UserRoleEnum.STUDIO && <RemoveCircleIcon
+                                onClick={() => handleDeleteImage(image.uuid)}
+                                className={styles.eventImageDeleteIcon}
+                            />}
+                        </Box>
                     ))
                 ) : (
                     <Typography>

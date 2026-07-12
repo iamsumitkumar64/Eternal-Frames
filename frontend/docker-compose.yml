@@ -1,0 +1,19 @@
+name: "eternal-frame-frontend"
+
+services:
+  frontend:
+    build:
+      context: ./
+      dockerfile: dockerfile
+    ports:
+      - "3000:3000"
+    env_file: ./.env
+    volumes:
+      - ./:/app
+      - /app/node_modules 
+    networks:
+      - eternal_frame_network
+
+networks:
+  eternal_frame_network:
+    driver: bridge

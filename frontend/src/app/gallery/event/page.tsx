@@ -12,29 +12,26 @@ import { RootState } from '@/redux/store';
 import { enqueueSnackbar } from 'notistack';
 import { Event } from '@/redux/feature/event/event.type';
 import Image from 'next/image';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import { UserRoleEnum } from '@/redux/feature/auth/user.enum';
-import LinkShareComp from '@/component/common/link-share-comp/link-share-comp';
+import LinkShareComp from '@/component/link-share-comp/link-share-comp';
 
 export default function GalleryEventPage() {
     const router = useRouter();
     const dispatch = useAppDispatch();
-    const [isLinkOpen, setIsLinkOpen] = useState<boolean>(false);
+    const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
     const [openCreateEventModal, setOpenCreateEventModal] = useState(false);
     const [offset, setOffset] = useState(Number(process.env.NEXT_PUBLIC_PAGE_OFFSET) || 0);
     const limit = Number(process.env.NEXT_PUBLIC_PAGE_LIMIT) || 10;
     const { eventTotalDocuments, events } = useAppSelector((state: RootState) => state.eventReducer);
     const { user } = useAppSelector((state: RootState) => state.authReducer);
 
-    const pathname = usePathname();
-    const searchParams = useSearchParams();
-    const title = 'Awesome Page please visit once';
-    const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8090";
-    const shareUrl = `${BACKEND_URL}${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ''}`;
-
+    const title = 'Checkout shared event in @event.frames';
+    const FRONTEND_URL = process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000";
+    const shareUrl = `${FRONTEND_URL}/event/${selectedEvent}`;
 
     useEffect(() => {
         dispatch(getEventsByStudio({ limit, offset: 0, })).unwrap();
@@ -100,13 +97,15 @@ export default function GalleryEventPage() {
                 >
                     <Box className={styles.eventWrapper}>
                         {events.length ? events.map((event: Event, idx: number) => {
+                            if (!event) return;
+
                             return (
                                 <Box
                                     key={idx}
                                     className={styles.card}
                                 >
                                     <Box className={styles.ImageBox}>
-                                        <Image src={event.image_url || ''} alt='rightBusinessInfo.jpg' width={100} height={100} className={styles.eventImage} />
+                                        <Image src={event?.image_url || ''} alt={event?.image_url || ''} width={100} height={100} className={styles.eventImage} />
                                     </Box>
 
                                     <Box className={styles.eventInfoBox}>
@@ -131,7 +130,7 @@ export default function GalleryEventPage() {
                                             <Button
                                                 startIcon={<ShareOutlinedIcon />}
                                                 className={styles.footerButton}
-                                                onClick={() => setIsLinkOpen(!isLinkOpen)}
+                                                onClick={() => setSelectedEvent(event.uuid)}
                                             >
                                                 Share
                                             </Button>
@@ -151,7 +150,7 @@ export default function GalleryEventPage() {
                 </InfiniteScroll>
             </Box >
 
-            <LinkShareComp open={isLinkOpen} onClose={() => setIsLinkOpen(false)} data={{ shareUrl: shareUrl, title: title }} />
+            <LinkShareComp open={Boolean(selectedEvent)} onClose={() => setSelectedEvent(null)} data={{ shareUrl: shareUrl, title: title }} />
             <EventFormModalComp isOpen={openCreateEventModal} onClose={handleAddEventClose} />
         </Box>
     );
