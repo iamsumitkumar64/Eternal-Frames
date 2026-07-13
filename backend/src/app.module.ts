@@ -33,6 +33,7 @@ import { EventModule } from './module/event-module/feature/event/event.module';
 import { eventDataSource } from './module/event-module/infrastructure/database/data-source';
 import { EventRabbitMQModule } from './module/event-module/infrastructure/rabbit-mq/rabbit-mq.module';
 import * as EventCronModule from './module/event-module/infrastructure/cron/cron.module';
+import { CronCommand } from './command/cron.command';
 
 @Module({
   imports: [
@@ -106,7 +107,7 @@ import * as EventCronModule from './module/event-module/infrastructure/cron/cron
     EventCronModule.CronModule,
   ],
   controllers: [AppController],
-  providers: [AppService, UserRepository, JwtHelperService],
+  providers: [AppService, UserRepository, JwtHelperService, CronCommand],
 })
 
 export class AppModule implements NestModule {

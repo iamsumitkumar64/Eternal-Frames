@@ -8,11 +8,14 @@ import { createSchemas } from './common/infrastruture/db/bootstrap/db_schema.cre
 import { initializeTransactionalContext } from 'typeorm-transactional';
 import * as express from 'express';
 import { join } from 'path';
+import { CommandFactory } from 'nest-commander';
 
 async function bootstrap() {
   initializeTransactionalContext();
   await createSchemas();
+
   const app = await NestFactory.create(AppModule);
+  await CommandFactory.run(AppModule);
 
   app.enableCors({
     origin: [process.env.FRONTEND_URL ?? 'http://localhost:3000'],

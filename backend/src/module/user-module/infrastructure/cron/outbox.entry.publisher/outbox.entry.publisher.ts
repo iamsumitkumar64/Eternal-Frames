@@ -6,13 +6,13 @@ import { RabbitMQService } from '../../rabbit-mq/rabbit-mq.service';
 import { runOnTransactionCommit, Transactional } from 'typeorm-transactional';
 
 @Injectable()
-export class OutboxEntryPublisherCronService {
+export class UserOutboxEntryPublisherCronService {
     constructor(
         private readonly outboxRepository: OutboxRepository,
         private readonly rabbitMQService: RabbitMQService,
     ) { }
 
-    private readonly logger = new Logger(OutboxEntryPublisherCronService.name,);
+    private readonly logger = new Logger(UserOutboxEntryPublisherCronService.name,);
 
     @Cron(process.env.OUTBOX_CRON_TIMER || CronExpression.EVERY_5_SECONDS)
     @Transactional({

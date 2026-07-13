@@ -6,13 +6,13 @@ import { runOnTransactionCommit, Transactional } from 'typeorm-transactional';
 import { OutboxStatusEnum } from 'src/module/event-module/domain/outbox/outbox.enum';
 
 @Injectable()
-export class OutboxEntryPublisherCronService {
+export class EventOutboxEntryPublisherCronService {
     constructor(
         private readonly outboxRepository: OutboxRepository,
         private readonly rabbitMQService: RabbitMQService,
     ) { }
 
-    private readonly logger = new Logger(OutboxEntryPublisherCronService.name,);
+    private readonly logger = new Logger(EventOutboxEntryPublisherCronService.name,);
 
     @Cron(process.env.OUTBOX_CRON_TIMER || CronExpression.EVERY_5_SECONDS)
     @Transactional({

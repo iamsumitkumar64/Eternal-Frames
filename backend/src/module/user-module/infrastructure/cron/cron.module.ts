@@ -1,15 +1,15 @@
 import { Global, Module } from '@nestjs/common';
-import { OutboxEntryPublisherCronService } from './outbox.entry.publisher/outbox.entry.publisher';
+import { UserOutboxEntryPublisherCronService } from './outbox.entry.publisher/outbox.entry.publisher';
 import { OutboxRepository } from '../repository/outbox.repository';
 import { RabbitMQService } from '../rabbit-mq/rabbit-mq.service';
 
 @Global()
 @Module({
     providers: [
-        OutboxEntryPublisherCronService,
+        UserOutboxEntryPublisherCronService,
         OutboxRepository,
         RabbitMQService,
     ],
-    exports: [OutboxEntryPublisherCronService],
+    exports: [UserOutboxEntryPublisherCronService],
 })
 export class CronModule { }
