@@ -1,7 +1,7 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { RabbitMQService } from './rabbit-mq.service';
 import { ProcessorsService } from './processors.service';
-import { RabbitMQConsumerMessage } from '../../../../common/infrastruture/rabbit-mq/rabbit-mq.type';
+import { RabbitMQConsumerMessage } from '../../../../common/infrastructure/rabbit-mq/rabbit-mq.type';
 
 @Injectable()
 export class EventRabbitMQConsumerInitializer implements OnModuleInit {

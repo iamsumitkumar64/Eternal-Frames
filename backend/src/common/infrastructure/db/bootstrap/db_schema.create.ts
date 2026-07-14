@@ -16,10 +16,10 @@ export async function createSchemas() {
         await client.query(`CREATE SCHEMA IF NOT EXISTS ${process.env.DB_POSTGRES_BILLING_SCHEMA || 'billing_schema'};`);
         await client.query(`CREATE SCHEMA IF NOT EXISTS ${process.env.DB_POSTGRES_EVENT_SCHEMA || 'event_schema'};`);
 
-        console.log('DB Schema Created SuccessFully');
+        console.log('DB CREATE SCHEMA IF NOT EXISTS SUCCESS');
         await client.end();
     }
     catch (err: any) {
-        console.log(`Creating Schema Err : ${err}`);
+        console.log(`DB CREATE SCHEMA ERROR : ${err}`);
     }
 }

@@ -1,4 +1,4 @@
-import { ExchangeTypeEnum } from "../../../../common/infrastruture/rabbit-mq/rabbit-mq.type";
+import { ExchangeTypeEnum } from "../../../../common/infrastructure/rabbit-mq/rabbit-mq.type";
 
 export const userRabbitMQConfig = {
     queueName: 'user.queue',

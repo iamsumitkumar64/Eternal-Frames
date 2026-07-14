@@ -1,6 +1,6 @@
 import { Injectable, OnModuleInit, OnModuleDestroy, Logger } from "@nestjs/common";
-import { RabbitMQService as CommonRabbitMQService } from "../../../../common/infrastruture/rabbit-mq/rabbit-mq.service";
-import { RabbitMQConsumerMessage } from "../../../../common/infrastruture/rabbit-mq/rabbit-mq.type";
+import { RabbitMQService as CommonRabbitMQService } from "../../../../common/infrastructure/rabbit-mq/rabbit-mq.service";
+import { RabbitMQConsumerMessage } from "../../../../common/infrastructure/rabbit-mq/rabbit-mq.type";
 import { Channel } from "amqplib";
 import { eventRabbitMQConfig } from "./rabbit-mq.config";
 

@@ -6,7 +6,7 @@ import { JwtHelperService } from "src/module/user-module/infrastructure/services
 import { OutboxRepository } from "src/module/user-module/infrastructure/repository/outbox.repository";
 import { Transactional } from "typeorm-transactional";
 import { UserPublishEventEnum } from "src/module/user-module/domain/user/user.event";
-import { BcryptService } from "src/common/infrastruture/services/bcrypt.service";
+import { BcryptService } from "src/common/infrastructure/services/bcrypt.service";
 
 @Injectable()
 export class RegisterUserService {

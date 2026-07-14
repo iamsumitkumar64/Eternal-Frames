@@ -8,9 +8,9 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { DataSourceOptions } from 'typeorm';
 
 // Common Module
-import { AuthenticateMiddleware } from './common/infrastruture/middleware/authenticate.middleware';
-import { createTransactionalDataSource } from './common/infrastruture/services/typeorm.transactional';
-import { RabbitMQCommonModule } from './common/infrastruture/rabbit-mq/rabbit-mq.module';
+import { AuthenticateMiddleware } from './common/infrastructure/middleware/authenticate.middleware';
+import { createTransactionalDataSource } from './common/infrastructure/services/typeorm.transactional';
+import { RabbitMQCommonModule } from './common/infrastructure/rabbit-mq/rabbit-mq.module';
 
 // User Module
 import { userDataSource } from './module/user-module/infrastructure/database/data-source';
@@ -33,7 +33,6 @@ import { EventModule } from './module/event-module/feature/event/event.module';
 import { eventDataSource } from './module/event-module/infrastructure/database/data-source';
 import { EventRabbitMQModule } from './module/event-module/infrastructure/rabbit-mq/rabbit-mq.module';
 import * as EventCronModule from './module/event-module/infrastructure/cron/cron.module';
-import { CronCommand } from './command/cron.command';
 
 @Module({
   imports: [
@@ -107,7 +106,7 @@ import { CronCommand } from './command/cron.command';
     EventCronModule.CronModule,
   ],
   controllers: [AppController],
-  providers: [AppService, UserRepository, JwtHelperService, CronCommand],
+  providers: [AppService, UserRepository, JwtHelperService],
 })
 
 export class AppModule implements NestModule {
