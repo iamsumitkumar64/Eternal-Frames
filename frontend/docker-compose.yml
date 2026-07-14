@@ -17,4 +17,5 @@ services:
 
 networks:
   eternal_frame_network:
-    driver: bridge
+    name: eternal-frame-backend_eternal_frame_network
+    external: true

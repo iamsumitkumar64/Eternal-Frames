@@ -1,16 +1,27 @@
 ARG NODE_IMAGE=node:24.15.0-alpine
 ARG PORT=3000
 
-# Stage 1: build runtime
-FROM ${NODE_IMAGE} AS builder
+# Stage 1: Base runtime containing shared node_modules
+FROM ${NODE_IMAGE} AS base
 WORKDIR /app
 
 # Copy package files
 COPY package.json package-lock.json ./
-COPY next.config.ts /app/next.config.ts
 
 # Install locked dependencies for the build
 RUN npm ci
+
+# Expose the application port
+EXPOSE ${PORT}
+
+
+
+
+
+
+# Stage 2: build runtime (only for production builds)
+FROM base AS builder
+COPY next.config.ts /app/next.config.ts
 
 # Copy source files
 COPY . .
@@ -26,24 +37,24 @@ RUN npm run build
 
 
 
-# Stage 2: dev runtime
-FROM builder AS dev
+# Stage 3: dev runtime (inherits from base, skips production build!)
+FROM base AS dev
 
-# Start the application
-CMD ["npm","run" ,"dev"]
+# Copy source files
+COPY . .
 
-# Expose the application port
-EXPOSE ${PORT}
-
-
+# Start the application in dev mode
+CMD ["npm", "run", "dev"]
 
 
 
 
 
-# Stage 3: Production runtime
+
+
+# Stage 4: Production runtime (uses separate WORKDIR to prevent volume conflict)
 FROM ${NODE_IMAGE} AS production
-WORKDIR /app
+WORKDIR /standalone
 
 # Set production environment
 ENV NODE_ENV=production
@@ -66,7 +77,7 @@ COPY --from=builder --chown=myUser:myGroup /app/.next/static ./.next/static
 # Copy public directory for static assets
 COPY --from=builder --chown=myUser:myGroup /app/public ./public
 
-# Copy public directory for static assets
+# Copy config
 COPY --from=builder --chown=myUser:myGroup /app/next.config.ts ./next.config.js
 
 USER myUser
