@@ -1,0 +1,6 @@
+name: "eternal-frame-frontend"
+
+services:
+  frontend:
+    build:
+      target: production

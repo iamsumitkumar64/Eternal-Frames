@@ -6,9 +6,14 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { billingDataSource } from "../database/data-source";
 import { createTransactionalDataSource } from "src/common/infrastructure/services/typeorm.transactional";
 import { DataSourceOptions } from "typeorm";
+import { ConfigModule } from "@nestjs/config";
 
 @Module({
     imports: [
+        ConfigModule.forRoot({
+            isGlobal: true,
+            cache: true
+        }),
         CronModule,
         RabbitMQCommonModule,
         TypeOrmModule.forRootAsync({

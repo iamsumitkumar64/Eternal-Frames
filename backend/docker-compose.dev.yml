@@ -1,0 +1,9 @@
+name: "eternal-frame-backend"
+
+services:
+  backend:
+    build:
+      target: dev
+    volumes:
+      - ./:/app
+      - /app/node_modules

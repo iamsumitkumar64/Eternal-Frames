@@ -16,8 +16,6 @@ const nextConfig: NextConfig = {
       }
     ]
   },
-  output: 'standalone',
-  poweredByHeader: false,
   images: {
     dangerouslyAllowLocalIP: true,
     remotePatterns: [

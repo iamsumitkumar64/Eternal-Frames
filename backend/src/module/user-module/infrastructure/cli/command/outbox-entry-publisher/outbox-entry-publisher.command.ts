@@ -15,5 +15,6 @@ export class UserOutboxEntryPublisherCommand extends CommandRunner {
   async run(): Promise<void> {
     await this.userOutboxEntryPublisherCronService.handleCron();
     await new Promise((resolve) => setTimeout(resolve, 2000));
+    process.exit(0);
   }
 }

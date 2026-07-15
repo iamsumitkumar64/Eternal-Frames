@@ -1,0 +1,6 @@
+name: "eternal-frame-backend"
+
+services:
+  backend:
+    build:
+      target: production

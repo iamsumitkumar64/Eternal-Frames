@@ -6,9 +6,14 @@ import { userDataSource } from "../database/data-source";
 import { createTransactionalDataSource } from "src/common/infrastructure/services/typeorm.transactional";
 import { DataSourceOptions } from "typeorm";
 import { RabbitMQCommonModule } from "src/common/infrastructure/rabbit-mq/rabbit-mq.module";
+import { ConfigModule } from "@nestjs/config";
 
 @Module({
     imports: [
+        ConfigModule.forRoot({
+            isGlobal: true,
+            cache: true
+        }),
         CronModule,
         RabbitMQCommonModule,
         TypeOrmModule.forRootAsync({

@@ -48,16 +48,12 @@ services:
     build:
       context: ./
       dockerfile: dockerfile
-      target: production
     ports:
       - "8090:8090"
     depends_on:
       rabbitmq:
         condition: service_healthy 
     env_file: ./.env
-    volumes:
-      - ./.:/app
-      - /app/node_modules
     networks:
       - eternal_frame_network
 

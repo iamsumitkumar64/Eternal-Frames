@@ -5,17 +5,13 @@ services:
     build:
       context: ./
       dockerfile: dockerfile
-      target: production
     ports:
       - "3000:3000"
     env_file: ./.env
-    volumes:
-      - ./:/app
-      - /app/node_modules 
     networks:
       - eternal_frame_network
 
 networks:
-  eternal_frame_network:
+  eternal_frame_network: # backend should start first to create this network
     name: eternal-frame-backend_eternal_frame_network
     external: true

@@ -1,9 +1,17 @@
 ARG NODE_IMAGE=node:24.15.0-alpine
 ARG PORT=8080
 
-# Stage 1: Base runtime containing shared node_modules
+
+
+
+
+
+# Stage 1: Base runtime
 FROM ${NODE_IMAGE} AS base
+
 WORKDIR /app
+
+# FOR SIGIL Error
 ENV NODE_OPTIONS="--max-old-space-size=512"
 
 # Copy package files first for dependency caching
@@ -12,16 +20,21 @@ COPY package.json package-lock.json ./
 # Install all dependencies including devDependencies (needed for TypeScript compilation)
 RUN npm ci
 
+# Copy source code and configuration
+COPY tsconfig.json tsconfig.build.json nest-cli.json ./
+COPY src/ ./src/
+
 # Expose the application port
 EXPOSE ${PORT}
 
 
+
+
+
+
+
 # Stage 2: build runtime (only for production builds)
 FROM base AS builder
-
-# Copy source code and configuration
-COPY tsconfig.json tsconfig.build.json nest-cli.json ./
-COPY src/ ./src/
 
 # Build the NestJS application
 RUN npm run build
@@ -32,12 +45,8 @@ RUN npm run build
 
 
 
-# Stage 3: dev runtime (inherits from base, skips production build!)
+# Stage 3: dev runtime
 FROM base AS dev
-
-# Copy configuration and source files
-COPY tsconfig.json tsconfig.build.json nest-cli.json ./
-COPY src/ ./src/
 
 # Start the application
 CMD ["npm", "run", "start:dev"]
@@ -49,7 +58,7 @@ CMD ["npm", "run", "start:dev"]
 
 
 
-# Stage 4: Production runtime (uses separate WORKDIR to prevent volume conflict)
+# Stage 4: Production runtime
 FROM ${NODE_IMAGE} AS production
 
 # # Remove devDependencies after build

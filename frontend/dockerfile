@@ -1,8 +1,14 @@
 ARG NODE_IMAGE=node:24.15.0-alpine
 ARG PORT=3000
 
-# Stage 1: Base runtime containing shared node_modules
+
+
+
+
+
+# Stage 1: Base runtime
 FROM ${NODE_IMAGE} AS base
+
 WORKDIR /app
 
 # Copy package files
@@ -10,6 +16,9 @@ COPY package.json package-lock.json ./
 
 # Install locked dependencies for the build
 RUN npm ci
+
+# Copy source files
+COPY . .
 
 # Expose the application port
 EXPOSE ${PORT}
@@ -21,10 +30,9 @@ EXPOSE ${PORT}
 
 # Stage 2: build runtime (only for production builds)
 FROM base AS builder
-COPY next.config.ts /app/next.config.ts
 
-# Copy source files
-COPY . .
+# Copy Config
+COPY next.config.ts /app/next.config.ts
 
 # Disable Next.js telemetry during build
 ENV NEXT_TELEMETRY_DISABLED=1
@@ -37,11 +45,8 @@ RUN npm run build
 
 
 
-# Stage 3: dev runtime (inherits from base, skips production build!)
+# Stage 3: dev runtime
 FROM base AS dev
-
-# Copy source files
-COPY . .
 
 # Start the application in dev mode
 CMD ["npm", "run", "dev"]
@@ -52,9 +57,10 @@ CMD ["npm", "run", "dev"]
 
 
 
-# Stage 4: Production runtime (uses separate WORKDIR to prevent volume conflict)
+# Stage 4: Production runtime
 FROM ${NODE_IMAGE} AS production
-WORKDIR /standalone
+
+WORKDIR /app
 
 # Set production environment
 ENV NODE_ENV=production
@@ -68,22 +74,18 @@ ENV HOSTNAME="0.0.0.0"
 RUN addgroup -S myGroup
 RUN adduser -S myUser -G myGroup
 
-# Copy the standalone output
-COPY --from=builder --chown=myUser:myGroup /app/.next/standalone ./
-
-# Copy static files - these are not included in standalone
-COPY --from=builder --chown=myUser:myGroup /app/.next/static ./.next/static
-
-# Copy public directory for static assets
+# Copy application files
+COPY --from=builder --chown=myUser:myGroup /app/package.json ./
+COPY --from=builder --chown=myUser:myGroup /app/package-lock.json ./
+COPY --from=builder --chown=myUser:myGroup /app/node_modules ./node_modules
+COPY --from=builder --chown=myUser:myGroup /app/.next ./.next
 COPY --from=builder --chown=myUser:myGroup /app/public ./public
-
-# Copy config
-COPY --from=builder --chown=myUser:myGroup /app/next.config.ts ./next.config.js
+COPY --from=builder --chown=myUser:myGroup /app/next.config.ts ./next.config.ts
 
 USER myUser
 
 # Expose the application port
 EXPOSE ${PORT}
 
-# The standalone output includes a minimal server.js
-CMD ["node", "server.js"]
+# Start Next.js production server
+CMD ["npm", "run", "start"]
